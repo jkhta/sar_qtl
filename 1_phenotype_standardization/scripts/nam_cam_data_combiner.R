@@ -93,46 +93,10 @@ for (i in 1:ncol(nam_cam_good_phenotypes)) {
   nam_cam_good_phenotypes[, i] <- phenotype_transformed_standardized_data
 }
 
+#combining the data information with the transformed and standardized phenotypes
 nam_cam_clean_tformed_std <- cbind(nam_cam_info_data, nam_cam_good_phenotypes)
 
-write.csv(nam_cam_clean_tformed_std, "nam_cam_data_combined_tformed_std_FINAL.csv", row.names = FALSE)
-
-
-#------------THIS SECTION WILL USE BRMS TO TRANSFORM THE PHENOTYPES-------------
-
-#the brm model takes too long; later on i might want to try to use this model to powertransform
-#instead of the lmer model
-#generating a data frame with the experimental information and the renamed phenotypes
-#need to generate another data frame with the renamed phenotypes and other information
-#to fit the brms models
-nam_cam_info <- subset(nam_cam_clean, select = c(shelf, treatment, geno))
-nam_cam_clean_comp <- cbind(nam_cam_info, nam_cam_good_phenotypes)
-
-phenotype_data <- nam_cam_good_phenotypes[, i]
-phenotype_name <- colnames(nam_cam_good_phenotypes)[i]
-phenotype_formula <- as.formula(paste(phenotype_name, "~ shelf + treatment + (1 + treatment|geno)", sep = " "))
-#the brms model takes about ~ 10 minutes to run
-
-#brms output
-phenotype_model_1 <- brm(phenotype_formula, 
-                       data = nam_cam_clean_comp, 
-                       family = student(), 
-                       chains = 4,
-                       cores = 4, 
-                       seed = 13)
-phenotype_transform_1 <- powerTransform(phenotype_model_1, family = "bcPower")
-phenotype_transformed_data_1 <- bcPower(phenotype_data, phenotype_transform_1$lambda)
-phenotype_transformed_standardized_data_1 <- std(phenotype_transformed_data_1)
-
-#comparing to lmer output
-phenotype_data <- nam_cam_good_phenotypes[, i]
-phenotype_model_2 <- lmer(phenotype_data ~ shelf + treatment + (1 + treatment|geno), 
-                        data = nam_cam_clean, 
-                        REML = TRUE)
-phenotype_transform_2 <- powerTransform(phenotype_model_2, family = "bcPower")
-phenotype_transformed_data_2 <- bcPower(phenotype_data, phenotype_transform_2$lambda)
-phenotype_transformed_standardized_data_2 <- std(phenotype_transformed_data)
-
-plot(phenotype_transformed_standardized_data_1, phenotype_transformed_standardized_data_2)
+#writing out the transformed and standardized data set
+write.csv(nam_cam_clean_tformed_std, "nam_cam_data_combined_tformed_std.csv", row.names = FALSE)
 
 
