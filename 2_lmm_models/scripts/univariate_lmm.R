@@ -23,7 +23,7 @@ nam_cam_data_subset_phenotypes <- c("bd", "h3_h1", "i_dry", "r_dry")
 contrasts(nam_cam_data_subset$treatment) <- contr.treatment
 
 #setting a different working directory for each population
-setwd("/Users/jkhta/Documents/GitHub/sar_qtl/2_lmm_blups/output/")
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/2_lmm_models/output/")
 try(dir.create(nam_pop))
 setwd(nam_pop)
 
