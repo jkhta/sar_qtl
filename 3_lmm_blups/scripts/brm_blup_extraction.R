@@ -8,10 +8,10 @@ rm(list = ls())
 setwd("/Users/jkhta/Desktop/nam_cam_fixing/10.75 - multivariate_brm_blup_extraction/input/contr_trt_4_traits_only/brms_2.5/univariate_models")
 
 traits <- c("bd", "h3_h1", "i_dry", "r_dry")
-pop_names <- c("blh", "bur", "cvi", "ita", "jea", "oy", "sha")
+pop_names <- c("blh_col", "bur_col", "cvi_col", "ita_col", "jea_col", "oy_col", "sha_col")
 pheno_names <- paste(rep(traits, each = 2), rep(c("geno", "gxe"), times = length(traits)), sep = "_")
 
-
+#function to get the random effect estimates (BLUPs) for each trait and population
 pop_ranefs <- function(trait_brm_list) {
   #getting the list of random effects
   pop_ranef_list <- lapply(pop_trait_brm_list, function(x) ranef(x))
