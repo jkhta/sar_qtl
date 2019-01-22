@@ -5,7 +5,8 @@ library(plyr)
 
 rm(list = ls())
 
-setwd("/Users/jkhta/Desktop/nam_cam_fixing/10.75 - multivariate_brm_blup_extraction/input/contr_trt_4_traits_only/brms_2.5/univariate_models")
+#setting the working directory
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/2_lmm_models/output/brms_models/")
 
 traits <- c("bd", "h3_h1", "i_dry", "r_dry")
 pop_names <- c("blh_col", "bur_col", "cvi_col", "ita_col", "jea_col", "oy_col", "sha_col")
@@ -42,6 +43,7 @@ pop_ranefs <- function(trait_brm_list) {
 #population blups are appended sequentially
 all_pop_ranef_dfs <- c()
 
+#for each population
 for (i in pop_names) {
   #grabbing only the files for a population
   pop_files <- list.files(pattern = i)
@@ -49,7 +51,7 @@ for (i in pop_names) {
   #grabbing only the traits we are analyzing in the path model
   pop_trait_files <- pop_files[grepl(paste(traits, collapse = "|"), pop_files)]
   
-  #reading in the files
+  #reading in the brms files
   pop_trait_brm_list <- lapply(pop_trait_files, function(x) readRDS(x))
   
   #extracting out the blups for the population and formatting it into a data table
@@ -59,11 +61,8 @@ for (i in pop_names) {
   all_pop_ranef_dfs <- rbindlist(list(all_pop_ranef_dfs, pop_ranefs_df))
 }
 
-#renaming the columns so that they match the previous file
-colnames(all_pop_ranef_dfs) <- c("geno", "bd_geno", "bd_gxe", "h3h1_geno", "h3h1_gxe", "idry_geno", "idry_gxe", "rdry_geno", "rdry_gxe")
-
 #now need to write out the blups into a csv file for the stepwise regression to run
-setwd("/Users/jkhta/Desktop/nam_cam_fixing/10.75 - multivariate_brm_blup_extraction/output/contr_trt_4_traits_only")
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/3_lmm_blups/output/")
 
 #writing out the file as a csv file
 fwrite(all_pop_ranef_dfs, 
