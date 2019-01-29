@@ -12,6 +12,7 @@ pheno_type <- "univariate"
 if (pheno_type == "univariate") {
   #reading in the blups file, that were generated from a linear mixed model that was only
   #using the univariate mixed models in brms
+  nam_pheno <- fread("nam_blups_combined_univariate.csv",
                      sep = ",",
                      header = TRUE,
                      stringsAsFactors = FALSE)
