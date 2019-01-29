@@ -1,4 +1,3 @@
-#this script will generate the genotype file subsetted by what we have phenotyped
 library(data.table)
 library(parallel)
 library(Matrix)
@@ -12,6 +11,8 @@ library(GridLMM)
 library(ggplot2)
 
 rm(list = ls())
+
+#PART I
 
 #directory with genotype probability array and blups
 setwd("/Users/jkhta/Documents/GitHub/sar_qtl/6_push_button/")
