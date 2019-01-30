@@ -31,7 +31,15 @@ perm_no <- 1000
 
 #permutation type - genotype or phenotype permutations
 perm_type <- "geno"
+
+#controls output distance; physical = phys_dist or genetic = gen_dist
+pos_type = "gen_dist"
+
+#proximal type: cor for removing correlated markers in the calculation of the
+#kinship matrix or window - based on a centimorgan distance
+proximal_type <- "window"
 #-----PARAMETERS-----#
+
 #script for running permutations for each population/trait
 source("ind_pop_permutations.R")
 

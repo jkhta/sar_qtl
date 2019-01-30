@@ -2,12 +2,6 @@
 #on my phenotypes
 all_ril_geno_probs <- readRDS("nam_rqtl_geno_prob_array_comp_11_all_rils_NEW.RDS")
 
-#reading in my phenotype data
-nam_blups <- fread("nam_blups_combined_univariate.csv",
-                   sep = ",",
-                   header = TRUE,
-                   stringsAsFactors = FALSE)
-
 #removing missing data
 nam_blups <- nam_blups[complete.cases(nam_blups), ]
 

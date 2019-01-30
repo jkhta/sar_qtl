@@ -19,6 +19,12 @@ setwd("/Users/jkhta/Documents/GitHub/sar_qtl/6_push_button/")
 
 #script for subsetting the genotype probability array by only genotypes that
 #have phenotypes
+#reading in my phenotype data
+nam_blups <- fread("baker_blups_combined.csv",
+                   sep = ",",
+                   header = TRUE,
+                   stringsAsFactors = FALSE)
+
 source("geno_prob_array_subset_by_pheno.R")
 
 rm(list = ls())

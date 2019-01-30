@@ -65,8 +65,6 @@ pop_markers <- pop_data$pop_geno
 #generating a marker map: it can be physical or genetic depending on the choices
 marker_map <- data.frame(snp = colnames(pop_markers), stringsAsFactors = FALSE)
 
-pos_type = "gen_dist"
-
 #generating markers depending on physical or genetic distance
 if (pos_type == "phys_dist") {
   marker_map$Chr <- as.character(sapply(strsplit(marker_map$snp, split = "_"), function(x) x[2]))
@@ -75,8 +73,6 @@ if (pos_type == "phys_dist") {
   marker_map <- merge(marker_map, nam_marc_marker_info, by = "snp")
   colnames(marker_map)[2:3] <- c("Chr", "pos")
 }
-
-proximal_type <- "window"
 
 #making proximal matrix specific to population
 if (proximal_type == "cor") {
