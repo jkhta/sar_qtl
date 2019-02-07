@@ -1,6 +1,3 @@
-#reading in the genotype probability array
-Genotypes <- readRDS("nam_rqtl_geno_prob_array_final_pheno_subset.RDS")
-
 #reading in the genotype line names from the genotypes array rows
 geno_line_names <- rownames(Genotypes[[1]])
 
@@ -21,18 +18,12 @@ kinship_matrix_maker <- function(marker_probability_array, pop_pop_name) {
   
   return(pop_pop_marker_array_kinship)
 }
-  
-kinship <- "no"
 
-Genotypes_copy <- mclapply(Genotypes, function(x) as.matrix(x) %*% contr.sum(8))
-  
+#making a copy of the genotype prob array to prune
+Genotypes_copy <- mclapply(Genotypes, function(x) as.matrix(x))
+
 #creating an empty vector that will tell me the bad vectors with perfectly correlated markers
 bad_markers <- c()
-
-#running a for loop that will calculate the corrleation of the marker with other markers
-#and then drop the markers that are perfectly correlated with the one currently being tested
-#the idea is that we will create a vector of bad markers 
-cor_threshold <- 0.99
 
 #setting a cor test list to keep track of markers and their correlations
 cor_vector_list <- list()
@@ -55,7 +46,7 @@ for (i in names(Genotypes_copy)) {
   Genotypes_subset <- Genotypes_copy[-test_marker_position]
   
   #calculating the correlation of the marker with the other markers
-  cor_vector <- unlist(mclapply(1:length(Genotypes_subset), function(x) cor(test_marker, as.vector(Genotypes_subset[[x]])), mc.cores = detectCores()))
+  cor_vector <- unlist(mclapply(1:length(Genotypes_subset), function(x) cor(test_marker, as.vector(Genotypes_subset[[x]])), mc.cores = max_cores))
   
   #this will create a new element using the position of the current testing marker
   #and store the correlation vector for later testing
@@ -71,17 +62,5 @@ for (i in names(Genotypes_copy)) {
 #naming the markers
 names(cor_vector_list) <- names(Genotypes)
 
-#list with original probability array, pruned probability array, list of correlated markers,
-#and correlation lists
-bad_markers_list <- list(original_genotypes_rotated = Genotypes,
-                         pruned_genotypes_rotated = Genotypes_copy,
-                         bad_markers = bad_markers,
-                         correlation_list = cor_vector_list)
-
-#generating the file names and then saving them as RDS files
-file_name <- paste("bad_markers_list_final_", cor_threshold, "_", paste(kinship, "kinship", sep = "_"), ".rds", sep = "")
-marker_name <- paste("nam_rqtl_geno_prob_array_final_", cor_threshold, "_", paste(kinship, "kinship", sep = "_"), ".rds", sep = "")
-
-saveRDS(bad_markers_list, file_name)
-saveRDS(Genotypes_copy, marker_name)
+saveRDS(Genotypes_copy, file_output_name)
 

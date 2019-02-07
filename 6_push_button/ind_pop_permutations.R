@@ -1,30 +1,3 @@
-#reading in the pruned genotypes, and will subset the complete genotypes later by the markers remaining in the pruned set
-Genotypes_pruned <- readRDS("nam_rqtl_geno_prob_array_final_0.99_no_kinship.rds")
-
-#READIN IN THE MARKERS FOR genotypes only found within the blups data set
-#reading in the unpruned data set and grabbing the markers that were not pruned
-Genotypes_unpruned <- readRDS("nam_rqtl_geno_prob_array_final_pheno_subset.RDS")
-
-#reading in all of the phenotype data; need to read this in first to subset genotypes and kinship matrix
-pheno_type <- "univariate"
-
-#reading in different blup files based on if i want to use a univariate or a multivariate approach
-if (pheno_type == "univariate") {
-  #reading in the blups file, that were generated from a linear mixed model that was only
-  #using the univariate mixed models in brms
-  nam_pheno <- fread("nam_blups_combined_univariate.csv",
-                     sep = ",",
-                     header = TRUE,
-                     stringsAsFactors = FALSE)
-} else if (pheno_type == "multivariate") {
-  #reading in the blups file, that are based on a multivariate model in brms; this model
-  #has correlated residuals between the different traits
-  nam_pheno <- fread("nam_blups_combined_final.csv", 
-                     sep = ",", 
-                     header = TRUE, 
-                     stringsAsFactors = FALSE)
-}
-
 #trying to match up the phenotype data with the kinship matrix 
 nam_pheno_pop <- paste(sapply(strsplit(nam_pheno$geno, split = "RV"), function(x) x[1]), "RV", sep = "")
 nam_pheno$geno <- paste(nam_pheno_pop, nam_pheno$geno, sep = "_")
@@ -44,16 +17,8 @@ marker_names <- names(Genotypes)
 nam_pheno$pop <- sapply(strsplit(nam_pheno$geno, split = "_"), function(x) x[1])
 nam_pheno$pop_pop <- paste(nam_pheno$pop, nam_pheno$pop, sep = "_")
 
-#need to merge file with genetic distances to plot genetic distances
-nam_marc_marker_info <- fread("nam_marker_info_final.csv",
-                              sep = ",", 
-                              header = TRUE, 
-                              stringsAsFactors = FALSE)
 colnames(nam_marc_marker_info)[1] <- "snp"
 nam_marc_marker_info$snp <- paste("m", nam_marc_marker_info$snp, sep = "_")
-
-#NEED TO SAVE THIS AS AN R OBJECT SO I DON'T HAVE TO KEEP RUNNING IT OVER AND OVER AGAIN
-all_pop_data <- readRDS("nam_all_traits_ind_pop_pheno_geno_proximal_final.RDS")
 
 #grabbing the individual population data
 pop_name <- names(all_pop_data)[[run]]

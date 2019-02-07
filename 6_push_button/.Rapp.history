@@ -1,0 +1,3 @@
+load("/Users/jkhta/Documents/GitHub/sar_qtl/6_push_button/nam_rqtl_geno_prob_array_james_pheno_subset.RDS")
+load("/Users/jkhta/Documents/GitHub/sar_qtl/6_push_button/nam_all_traits_ind_pop_pheno_geno_proximal_james.RDS")
+load("/Users/jkhta/Documents/GitHub/sar_qtl/6_push_button/nam_rqtl_geno_prob_array_final_0.99_no_kinship.rds")

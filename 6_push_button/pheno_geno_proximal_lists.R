@@ -1,16 +1,3 @@
-#reading in the pruned genotypes, and will subset the complete genotypes later by the markers remaining in the pruned set
-Genotypes_pruned <- readRDS("nam_rqtl_geno_prob_array_final_0.99_no_kinship.rds")
-
-#READIN IN THE MARKERS FOR genotypes only found within the blups data set
-#reading in the unpruned data set and grabbing the markers that were not pruned
-Genotypes_unpruned <- readRDS("nam_rqtl_geno_prob_array_final_pheno_subset.RDS")
-
-#reading in all of the phenotype data; need to read this in first to subset genotypes and kinship matrix
-nam_pheno <- fread("nam_blups_combined_univariate.csv", 
-                   sep = ",", 
-                   header = TRUE, 
-                   stringsAsFactors = FALSE)
-
 #trying to match up the phenotype data with the kinship matrix 
 nam_pheno_pop <- paste(sapply(strsplit(nam_pheno$geno, split = "RV"), function(x) x[1]), "RV", sep = "")
 nam_pheno$geno <- paste(nam_pheno_pop, nam_pheno$geno, sep = "_")
@@ -62,23 +49,23 @@ pheno_and_geno_pop_data_puller <- function(pheno_data, marker_prob_array, pop_na
   pop_pheno_subset <- subset(pop_pheno_data, geno %in% rownames(pop_geno_mat))
   pop_geno_mat_subset <- subset(pop_geno_mat, rownames(pop_geno_mat) %in% pop_pheno_subset$geno)
   
+  #data frame of allele frequencies for each marker
+  allele_freq <- data.table(as.data.frame(apply(pop_geno_mat, 2, function(x) mean(x))), keep.rownames = TRUE)
+  colnames(allele_freq) <- c("snp", "allele_freq")
+  
   #need to generate a proximal matrix for each population
   pop_marker_window_proximal <- centimorgan_proximal_matrix_generator(pop_geno_mat_subset, nam_marc_marker_info, cm_threshold)
   pop_marker_cor <- lapply(1:ncol(pop_geno_mat_subset), function(x) marker_cor(pop_geno_mat_subset, x))
   pop_marker_cors <- as.matrix(rbindlist(lapply(pop_marker_cor, function(x) as.data.frame(t(as.matrix(x))))))
   
   #returning the pheno and geno data
-  return(list(pop_pheno = pop_pheno_data,
-              pop_geno = pop_geno_mat,
+  return(list(pop_pheno = pop_pheno_subset,
+              pop_geno = pop_geno_mat_subset,
+              pop_allele_freq = allele_freq,
               marker_cors = pop_marker_cors,
               cM_proximal = pop_marker_window_proximal))
 }
 
-#need to merge file with genetic distances to plot genetic distances
-nam_marc_marker_info <- fread("nam_marker_info_final.csv",
-                              sep = ",", 
-                              header = TRUE, 
-                              stringsAsFactors = FALSE)
 colnames(nam_marc_marker_info)[1] <- "snp"
 nam_marc_marker_info$snp <- paste("m", nam_marc_marker_info$snp, sep = "_")
 
@@ -129,4 +116,4 @@ all_pop_data <- lapply(unique(nam_pheno$pop_pop), function(x) pheno_and_geno_pop
                                                                                              pop_name = x))
 names(all_pop_data) <- unique(nam_pheno$pop_pop)
 
-saveRDS(all_pop_data, file = "nam_all_traits_ind_pop_pheno_geno_proximal_final.RDS")
+saveRDS(all_pop_data, file = file_output_name)

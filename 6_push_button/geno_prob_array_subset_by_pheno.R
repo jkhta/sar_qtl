@@ -21,4 +21,4 @@ nam_blups_subset <- nam_blups[match(rownames(ril_geno_probs_subset[[1]]), nam_bl
 identical(nam_blups_subset$geno, rownames(ril_geno_probs_subset[[1]]))
 
 #saving the file
-saveRDS(ril_geno_probs_subset, "nam_rqtl_geno_prob_array_final_pheno_subset.RDS")
+saveRDS(ril_geno_probs_subset, file_output_name)

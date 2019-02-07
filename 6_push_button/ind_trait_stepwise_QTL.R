@@ -1,30 +1,3 @@
-#reading in the pruned genotypes, and will subset the complete genotypes later by the markers remaining in the pruned set
-Genotypes_pruned <- readRDS("nam_rqtl_geno_prob_array_final_0.99_no_kinship.rds")
-
-#READIN IN THE MARKERS FOR ALL GENOTYPES
-#reading in the unpruned data set and grabbing the markers that were not pruned
-Genotypes_unpruned <- readRDS("nam_rqtl_geno_prob_array_final_pheno_subset.RDS")
-
-#reading in all of the phenotype data; need to read this in first to subset genotypes and kinship matrix
-pheno_type <- "univariate"
-
-#reading in different blup files based on if i want to use a univariate or a multivariate approach
-if (pheno_type == "univariate") {
-  #reading in the blups file, that were generated from a linear mixed model that was only
-  #using the univariate mixed models in brms
-  nam_pheno <- fread("nam_blups_combined_univariate.csv",
-                     sep = ",",
-                     header = TRUE,
-                     stringsAsFactors = FALSE)
-} else if (pheno_type == "multivariate") {
-  #reading in the blups file, that are based on a multivariate model in brms; this model
-  #has correlated residuals between the different traits
-  nam_pheno <- fread("nam_blups_combined_final.csv", 
-                     sep = ",", 
-                     header = TRUE, 
-                     stringsAsFactors = FALSE)
-}
-
 #trying to match up the phenotype data with the kinship matrix 
 nam_pheno_pop <- paste(sapply(strsplit(nam_pheno$geno, split = "RV"), function(x) x[1]), "RV", sep = "")
 nam_pheno$geno <- paste(nam_pheno_pop, nam_pheno$geno, sep = "_")
@@ -45,27 +18,18 @@ nam_pheno$pop <- sapply(strsplit(nam_pheno$geno, split = "_"), function(x) x[1])
 nam_pheno$pop_pop <- paste(nam_pheno$pop, nam_pheno$pop, sep = "_")
 
 #need to merge file with genetic distances to plot genetic distances
-nam_marc_marker_info <- fread("nam_marker_info_final.csv",
-                              sep = ",", 
-                              header = TRUE, 
-                              stringsAsFactors = FALSE)
 colnames(nam_marc_marker_info)[1] <- "snp"
 nam_marc_marker_info$snp <- paste("m", nam_marc_marker_info$snp, sep = "_")
 
-#NEED TO SAVE THIS AS AN R OBJECT SO I DON'T HAVE TO KEEP RUNNING IT OVER AND OVER AGAIN
-all_pop_data <- readRDS("nam_all_traits_ind_pop_pheno_geno_proximal_final.RDS")
-
 #grabbing the individual population data
 pheno_name <- colnames(all_pop_data$`21RV_21RV`$pop_pheno)
-pheno_name <- pheno_name[grepl("_geno|_gxe", pheno_name)]
+pheno_name <- pheno_name[grepl(phenotype_list, pheno_name)]
 
 #grabbing the markers to generate a marker map
 pop_markers <- all_pop_data$`21RV_21RV`$pop_geno
 
 #generating a marker map: it can be physical or genetic depending on the choices
 marker_map <- data.frame(snp = colnames(pop_markers), stringsAsFactors = FALSE)
-
-pos_type = "gen_dist"
 
 #generating markers depending on physical or genetic distance
 if (pos_type == "phys_dist") {
@@ -120,6 +84,7 @@ GridLMM_stepwise <- function(list_of_pop_things, pheno_name, threshold, max_mark
   sig_qtl <- c()
   
   qtl_max_scores <- c()
+  
   #signifying if thi is the first step
   first_step <- TRUE
   
@@ -138,7 +103,7 @@ GridLMM_stepwise <- function(list_of_pop_things, pheno_name, threshold, max_mark
     qtl_df <- data.frame(snp = ind_pop_scans[[1]]$snp,
                          chr = ind_pop_scans[[1]]$Chr,
                          pos = ind_pop_scans[[1]]$pos,
-                         score = -log10(pchisq(rowSums(do.call(cbind, lapply(ind_pop_scans, function(x) as.data.frame(2 * (x$ML_logLik - x$ML_Reduced_logLik))))), df = 7, lower.tail = FALSE)),
+                         score = -log10(pchisq(rowSums(do.call(cbind, lapply(ind_pop_scans, function(x) as.data.frame(2 * (x$ML_logLik - x$ML_Reduced_logLik))))), df = length(ind_pop_scans), lower.tail = FALSE)),
                          stringsAsFactors = FALSE)
     
     #we already ran the model for the first time, so need to set to false 
@@ -150,6 +115,10 @@ GridLMM_stepwise <- function(list_of_pop_things, pheno_name, threshold, max_mark
     #if the snp significance is over the threshold, add it to the vector of significant snps 
     if (qtl_df_max$score > threshold) {
       sig_qtl <- c(sig_qtl, qtl_df_max$snp)
+      
+      ind_pop_sig_list <- lapply(ind_pop_scans, function(x) x[grepl(qtl_df_max$snp, x$snp), ])
+      ind_pop_sig_dt <- rbindlist(ind_pop_sig_list)
+      ind_pop_sig_dt$pop <- names(ind_pop_sig_list)
     }
     qtl_max_scores <- rbindlist(list(qtl_max_scores, qtl_df_max))
   }
@@ -170,8 +139,6 @@ ind_pheno <- pheno_name[run]
 pheno_perms_list <- list.files(pattern = ind_pheno, 
                                recursive = TRUE, 
                                include.dirs = TRUE)
-
-perm_type <- "geno"
 
 if (perm_type == "geno") {
   #grabbing only the permutations that permuted the markers
