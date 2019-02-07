@@ -83,6 +83,8 @@ GridLMM_stepwise <- function(list_of_pop_things, pheno_name, threshold, max_mark
   
   sig_qtl <- c()
   
+  sig_qtl_allele_freq <- list()
+  
   qtl_max_scores <- c()
   
   #signifying if thi is the first step
@@ -99,12 +101,24 @@ GridLMM_stepwise <- function(list_of_pop_things, pheno_name, threshold, max_mark
                                                                          proximal = x$marker_cors,
                                                                          sig_qtl = sig_qtl))
     
+    #merging allele frequencies to calculate PVE
+    for (i in names(ind_pop_scans)) {
+      ind_pop_scans_one <- ind_pop_scans[[i]]
+      ind_pop_allele_freq <- list_of_pop_things[[i]]$pop_allele_freq
+      ind_pop_scans_allele_freq <- merge(ind_pop_scans_one, ind_pop_allele_freq, by = "snp")
+      ind_pop_scans[[i]] <- ind_pop_scans_allele_freq
+    }
+    
     #data frame with all scores 
     qtl_df <- data.frame(snp = ind_pop_scans[[1]]$snp,
                          chr = ind_pop_scans[[1]]$Chr,
                          pos = ind_pop_scans[[1]]$pos,
                          score = -log10(pchisq(rowSums(do.call(cbind, lapply(ind_pop_scans, function(x) as.data.frame(2 * (x$ML_logLik - x$ML_Reduced_logLik))))), df = length(ind_pop_scans), lower.tail = FALSE)),
                          stringsAsFactors = FALSE)
+    
+    if (first_step == TRUE) {
+      first_scan_score <- qtl_df
+    }
     
     #we already ran the model for the first time, so need to set to false 
     first_step <- FALSE
@@ -116,20 +130,40 @@ GridLMM_stepwise <- function(list_of_pop_things, pheno_name, threshold, max_mark
     if (qtl_df_max$score > threshold) {
       sig_qtl <- c(sig_qtl, qtl_df_max$snp)
       
+      #grabbing the significant snp from each population in order to calculate pve for
+      #each population
       ind_pop_sig_list <- lapply(ind_pop_scans, function(x) x[grepl(qtl_df_max$snp, x$snp), ])
       ind_pop_sig_dt <- rbindlist(ind_pop_sig_list)
       ind_pop_sig_dt$pop <- names(ind_pop_sig_list)
+      
+      sig_qtl_allele_freq[[qtl_df_max$snp]] <- subset(ind_pop_sig_dt, select = allele_freq)
     }
     qtl_max_scores <- rbindlist(list(qtl_max_scores, qtl_df_max))
   }
+  
+  ind_pop_betas <- subset(ind_pop_sig_dt, select = grepl("beta", colnames(ind_pop_sig_dt)))
+  ind_pop_snp_betas <- ind_pop_betas[, 2:ncol(ind_pop_betas)]
+  
+  sig_qtl_allele_freq_dt <- do.call(cbind, sig_qtl_allele_freq)
+  ind_pop_snp_var <- 2 * ind_pop_snp_betas^2 * sig_qtl_allele_freq_dt * (1 - sig_qtl_allele_freq_dt)
+  
+  ind_pop_pheno <- lapply(list_of_pop_things, function(x) subset(x$pop_pheno, select = pheno_name))
+  ind_pop_pheno_var <- unlist(lapply(ind_pop_pheno, function(x) var(x)))
+  
+  ind_pop_pve <- apply(ind_pop_snp_var, 2, function(x) x / ind_pop_pheno_var)
+  
+  pop_avg_pve <- apply(ind_pop_pve, 2, function(x) mean(x))
+  
   #subsetting the list of found qtl by the ones that are above the threshold
   qtl_max_scores <- subset(qtl_max_scores, score > threshold)
   
   #returning last model scans, last scan scores, all found qtl scores, and a vector of found QTL
   return(list(last_scan_models = ind_pop_scans,
+              first_scan = first_scan_score,
               last_scan = qtl_df,
               qtl_scores = qtl_max_scores,
-              found_qtl = sig_qtl))
+              found_qtl = sig_qtl,
+              qtl_pve = pop_avg_pve))
 }
 
 #grabbing an individual phenotype
