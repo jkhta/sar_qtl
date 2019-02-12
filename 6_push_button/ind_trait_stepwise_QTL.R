@@ -141,17 +141,24 @@ GridLMM_stepwise <- function(list_of_pop_things, pheno_name, threshold, max_mark
     qtl_max_scores <- rbindlist(list(qtl_max_scores, qtl_df_max))
   }
   
+  #pulling out the betas for each population
   ind_pop_betas <- subset(ind_pop_sig_dt, select = grepl("beta", colnames(ind_pop_sig_dt)))
   ind_pop_snp_betas <- ind_pop_betas[, 2:ncol(ind_pop_betas)]
   
+  #allele frequencies for each snp, for each population
   sig_qtl_allele_freq_dt <- do.call(cbind, sig_qtl_allele_freq)
-  ind_pop_snp_var <- 2 * ind_pop_snp_betas^2 * sig_qtl_allele_freq_dt * (1 - sig_qtl_allele_freq_dt)
   
+  #variance explained by snp
+  ind_pop_snp_var <- (ind_pop_snp_betas / 2) ^ 2 * sig_qtl_allele_freq_dt * (1 - sig_qtl_allele_freq_dt)
+  
+  #calculating individual population variances
   ind_pop_pheno <- lapply(list_of_pop_things, function(x) subset(x$pop_pheno, select = pheno_name))
   ind_pop_pheno_var <- unlist(lapply(ind_pop_pheno, function(x) var(x)))
   
+  #calculating percent variance explained by snp for each individual population 
   ind_pop_pve <- apply(ind_pop_snp_var, 2, function(x) x / ind_pop_pheno_var)
   
+  #taking the average of the population variances
   pop_avg_pve <- apply(ind_pop_pve, 2, function(x) mean(x))
   
   #subsetting the list of found qtl by the ones that are above the threshold
@@ -163,6 +170,10 @@ GridLMM_stepwise <- function(list_of_pop_things, pheno_name, threshold, max_mark
               last_scan = qtl_df,
               qtl_scores = qtl_max_scores,
               found_qtl = sig_qtl,
+              allele_freq = sig_qtl_allele_freq_dt,
+              qtl_betas = ind_pop_betas,
+              pheno_var = ind_pop_pheno_var,
+              ind_pop_qtl_pve = ind_pop_pve,
               qtl_pve = pop_avg_pve))
 }
 
@@ -195,11 +206,13 @@ pheno_perms_together <- lapply(1:length(pheno_perm_lik[[1]]), function(x) do.cal
 pheno_perm_scores <- -log10(pchisq(unlist(lapply(pheno_perms_together, function(x) max(rowSums(x)))), df = length(pheno_perms), lower.tail = FALSE))
 pheno_perm_threshold <- quantile(pheno_perm_scores, probs = 0.95)
 
+#running the stepwise model
 pheno_stepwise_model <- GridLMM_stepwise(all_pop_data, 
                                          pheno_name = ind_pheno,
                                          threshold = pheno_perm_threshold, 
                                          max_markers = 10)
 
+#file name for stepwise model
 pheno_stepwise_file_name <- paste(ind_pheno, pheno_type, "GridLMM_stepwise_model.RDS", sep = "_")
 
 saveRDS(pheno_stepwise_model, pheno_stepwise_file_name)
