@@ -144,6 +144,7 @@ GridLMM_stepwise <- function(list_of_pop_things, pheno_name, threshold, max_mark
   #pulling out the betas for each population
   ind_pop_betas <- subset(ind_pop_sig_dt, select = grepl("beta", colnames(ind_pop_sig_dt)))
   ind_pop_snp_betas <- ind_pop_betas[, 2:ncol(ind_pop_betas)]
+  avg_snp_betas <- apply(ind_pop_snp_betas, 2, function(x) mean(x^2))
   
   #allele frequencies for each snp, for each population
   sig_qtl_allele_freq_dt <- do.call(cbind, sig_qtl_allele_freq)
@@ -164,6 +165,12 @@ GridLMM_stepwise <- function(list_of_pop_things, pheno_name, threshold, max_mark
   #subsetting the list of found qtl by the ones that are above the threshold
   qtl_max_scores <- subset(qtl_max_scores, score > threshold)
   
+  #putting information about the snp (pve, betas, etc.) into a data frame
+  snp_info <- data.frame(qtl = sig_qtl, 
+                         avg_snp_betas_sq = avg_snp_betas, 
+                         avg_snp_pve = pop_avg_pve,
+                         score = qtl_max_scores$score)
+  
   #returning last model scans, last scan scores, all found qtl scores, and a vector of found QTL
   return(list(last_scan_models = ind_pop_scans,
               first_scan = first_scan_score,
@@ -171,10 +178,12 @@ GridLMM_stepwise <- function(list_of_pop_things, pheno_name, threshold, max_mark
               qtl_scores = qtl_max_scores,
               found_qtl = sig_qtl,
               allele_freq = sig_qtl_allele_freq_dt,
-              qtl_betas = ind_pop_betas,
-              pheno_var = ind_pop_pheno_var,
+              ind_pop_qtl_betas = ind_pop_betas,
+              avg_snp_betas = avg_snp_betas,
+              ind_pop_pheno_var = ind_pop_pheno_var,
               ind_pop_qtl_pve = ind_pop_pve,
-              qtl_pve = pop_avg_pve))
+              avg_qtl_pve = pop_avg_pve,
+              snp_info = snp_info))
 }
 
 #grabbing an individual phenotype
@@ -214,5 +223,7 @@ pheno_stepwise_model <- GridLMM_stepwise(all_pop_data,
 
 #file name for stepwise model
 pheno_stepwise_file_name <- paste(ind_pheno, pheno_type, "GridLMM_stepwise_model.RDS", sep = "_")
+snp_info_file_name <- paste(ind_pheno, "qtl_info.csv", sep = "_")
 
 saveRDS(pheno_stepwise_model, pheno_stepwise_file_name)
+fwrite(pheno_stepwise_model$snp_info, snp_info_file_name)
