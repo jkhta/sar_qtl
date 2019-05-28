@@ -24,7 +24,7 @@ marker_cor <- function(marker_matrix, marker_col) {
   testing_marker <- as.vector(marker_matrix[, marker_col])
   
   #calculating marker correlations
-  marker_cors <- unlist(mclapply(1:ncol(marker_matrix), function(y) cor(testing_marker, as.vector(marker_matrix[, y])), mc.cores = detectCores()))
+  marker_cors <- unlist(mclapply(1:ncol(marker_matrix), function(y) cor(testing_marker, as.vector(marker_matrix[, y])), mc.cores = max_cores))
   marker_cors <- ifelse(marker_cors > cor_threshold, 1, 0)
   
   return(marker_cors)

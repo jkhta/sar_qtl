@@ -150,7 +150,7 @@ GridLMM_stepwise <- function(list_of_pop_things, pheno_name, threshold, max_mark
   sig_qtl_allele_freq_dt <- do.call(cbind, sig_qtl_allele_freq)
   
   #variance explained by snp
-  ind_pop_snp_var <- (ind_pop_snp_betas / 2) ^ 2 * sig_qtl_allele_freq_dt * (1 - sig_qtl_allele_freq_dt)
+  ind_pop_snp_var <- 2 * (ind_pop_snp_betas / 2) ^ 2 * sig_qtl_allele_freq_dt * (1 - sig_qtl_allele_freq_dt)
   
   #calculating individual population variances
   ind_pop_pheno <- lapply(list_of_pop_things, function(x) subset(x$pop_pheno, select = pheno_name))

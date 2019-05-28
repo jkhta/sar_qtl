@@ -357,6 +357,15 @@ for (i in 1:length(test_model_qtl)) {
   trait_qtl_cis <- rbindlist(list(trait_qtl_cis, qtl_ci))
 }
 
+#reading in the qtl info file for the trait to merge these data frames together
+trait_qtl_info_file_name <- paste(ind_pheno, "qtl_info.csv", sep = "_")
+trait_qtl_info_file <- fread(trait_qtl_info_file_name, 
+                             sep = ",", 
+                             header = TRUE, 
+                             stringsAsFactors = FALSE)
+
+trait_qtl_cis_with_info <- merge(trait_qtl_info_file, trait_qtl_cis, by = "qtl")
+
 #now saving the confidence intervals as a csv file
 trait_qtl_ci_file_name <- paste(ind_pheno, "qtl_ci.csv", sep = "_")
 fwrite(trait_qtl_cis, trait_qtl_ci_file_name, sep = ",", row.names = FALSE, col.names = TRUE)
