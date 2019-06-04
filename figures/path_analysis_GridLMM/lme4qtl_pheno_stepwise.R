@@ -6,7 +6,7 @@ library(lme4qtl)
 
 rm(list = ls())
 
-setwd("/Users/jkhta/Desktop/nam_cam_fixing/complete_pipeline/")
+setwd("/Users/James/Documents/GitHub/sar_qtl/figures/path_analysis_GridLMM/")
 
 kinship_mat <- readRDS("nam_GridLMM_kinship.RDS")
 
@@ -25,11 +25,6 @@ for (i in 1:length(unique(nam_pheno$family))) {
 
 nam_pheno_order <- c("bd", "r_dry", "h3_h1", "i_dry")
 
-formula_generator <- function(trait, trait_list) {
-  pheno_order_num <- which(trait == trait_list)
-  pheno_formula <- as.formula(paste(trait), " ~ ")
-}
-relmatLmer()
 
 lme4qtl_test <- function(formula_red, formula_full, pheno_data, kinship) {
   kinship <- kinship
@@ -44,8 +39,6 @@ lme4qtl_test <- function(formula_red, formula_full, pheno_data, kinship) {
                            relmat = list(geno = kinship), 
                            REML = F, 
                            verbose = FALSE)
-  
-  print(anova(full_model))
   
   return(anova(reduced_model, full_model))
 }

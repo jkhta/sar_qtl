@@ -31,7 +31,15 @@ annotated_ci_comp_count$qtl <- sapply(strsplit(annotated_ci_comp_count$trait_qtl
 
 annotated_ci_comp_count <- subset(annotated_ci_comp_count, select = c("trait", "qtl", "freq"))
 colnames(annotated_ci_comp_count) <- c("Trait", "QTL", "Freq")
+annotated_ci_comp_count$Trait <- gsub("_gxe", "", annotated_ci_comp_count$Trait)
 
 fwrite(annotated_ci_comp_count, file = "sar_gxe_gene_counts.csv", sep = ",", row.names = FALSE)
+nrow(annotated_ci_comp_count)
+
+annotated_ci_comp_count_1 <- annotated_ci_comp_count[1:10, ]
+annotated_ci_comp_count_2 <- annotated_ci_comp_count[11:20, ]
+annotated_ci_comp_count_comb <- cbind(annotated_ci_comp_count[1:10, ], annotated_ci_comp_count[11:20, ])
+
+print(xtable(annotated_ci_comp_count_comb, caption = "Table 3"), include.rownames = FALSE)
 
 
