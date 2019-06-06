@@ -1,8 +1,6 @@
 #this script will verify the genotypes from published marker data to Marc's marker data
 #populations are 21RV, 20RV, 8RV, 29RV, 28RV, 27RV, 13RV
 
-library(data.table)
-
 rm(list = ls())
 
 #first reading in the genotype probability file
@@ -19,6 +17,8 @@ fri_flc_qtl <- c("m_4_407208", "m_5_3799350")
 #subsetting from the genotype probability array FRI and FLC
 names(geno_array) <- paste("m", names(geno_array), sep = "_")
 geno_array_FRI_FLC <- geno_array[fri_flc_qtl]
+
+library(data.table)
 
 #grabbing genotypes for FRI and FLC individually to compare against the past genotype data
 geno_array_FRI_FLC_col <- do.call(cbind, lapply(geno_array_FRI_FLC, function(x) ifelse(x[, 1] >= 0.5, "A", "B")))
@@ -50,9 +50,12 @@ for (i in 1:length(past_genotypes_chr_4)) {
     past_genotypes_chr_4[[i]]$Mb_diff <- abs(past_genotypes_chr_4[[i]]$Start_Mb * 1000000 - marker_anno_FRI_FLC$Start_Mb[1])
 }
 
+past_genotypes_chr_4_cM_min <- lapply(past_genotypes_chr_4, function(x) subset(x, cM_diff == min(cM_diff))$cM_diff)
+past_genotypes_chr_4_Mb_min <- lapply(past_genotypes_chr_4, function(x) subset(x, Mb_diff == min(Mb_diff))$Mb_diff)
+
 #two different metrics of closeness: cM (genetic distance) or Mb (physical distance); I think physical distance would be a lot more consistent
 past_genotypes_FRI <- lapply(past_genotypes_chr_4, function(x) t(subset(x, cM_diff == min(cM_diff))))
-past_genotypes_FRI <- lapply(past_genotypes_chr_4, function(x) t(subset(x, Start_Mb == min(Start_Mb))))
+past_genotypes_FRI <- lapply(past_genotypes_chr_4, function(x) t(subset(x, Mb_diff == min(Mb_diff))))
 
 #genotype plots
 FRI_correlation <- c()
@@ -65,14 +68,20 @@ for (i in 1:length(past_genotypes_FRI)) {
     FRI_correlation <- rbindlist(list(FRI_correlation, single_pop_FRI_cor))
 }
 
+FRI_correlation
+
 past_genotypes_chr_5 <- lapply(past_genotypes, function(x) subset(x, Chr == 5))
 
 for (i in 1:length(past_genotypes_chr_5)) {
     past_genotypes_chr_5[[i]]$cM_diff <- abs(past_genotypes_chr_5[[i]]$CR_cM - marker_anno_FRI_FLC$cM[2])
+    past_genotypes_chr_5[[i]]$Mb_diff <- abs(past_genotypes_chr_5[[i]]$Start_Mb * 1000000 - marker_anno_FRI_FLC$Start_Mb[2])
 }
 
+past_genotypes_chr_5_cM_min <- lapply(past_genotypes_chr_5, function(x) subset(x, cM_diff == min(cM_diff))$cM_diff)
+past_genotypes_chr_5_Mb_min <- lapply(past_genotypes_chr_5, function(x) subset(x, Mb_diff == min(Mb_diff))$Mb_diff)
+
 past_genotypes_FLC <- lapply(past_genotypes_chr_5, function(x) t(subset(x, cM_diff == min(cM_diff))))
-past_genotypes_FLC <- lapply(past_genotypes_chr_5, function(x) t(subset(x, Start_Mb == min(Start_Mb))))
+past_genotypes_FLC <- lapply(past_genotypes_chr_5, function(x) t(subset(x, Mb_diff == min(Mb_diff))))
 
 #genotype plots
 FLC_correlation <- c()
@@ -85,4 +94,5 @@ for (i in 1:length(past_genotypes_FLC)) {
     FLC_correlation <- rbindlist(list(FLC_correlation, single_pop_FLC_cor))
 }
 
+FLC_correlation
 
