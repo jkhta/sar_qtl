@@ -6,7 +6,7 @@ rm(list = ls())
 
 
 #reading in the nam marker information
-setwd("/Users/jkhta/Desktop/nam_cam_fixing/27 - last_data/input/marc_data/")
+setwd("/Users/James/Documents/GitHub/sar_qtl/6_push_button/")
 nam_markers <- fread("nam_marker_info_final.csv",
                  sep = ",",
                  header = TRUE,
@@ -15,7 +15,7 @@ colnames(nam_markers) <- c("marker", "chr", "pos")
 nam_markers$marker <- paste("m", nam_markers$marker, sep = "_")
 
 #reading in an example trait 95% CI using lme4qtl
-setwd("/Users/jkhta/Desktop/nam_cam_fixing/figures/input/confidence_intervals/")
+setwd("/Users/James/Documents/GitHub/sar_qtl/figures/qtl_ci_linkage_map/covariate/")
 
 phenotype_ci_list <- lapply(list.files(pattern = "gxe"), function(x) fread(x, sep = ",", header = TRUE, stringsAsFactors = FALSE))
 phenotype_names <- sapply(strsplit(list.files(pattern = "gxe"), split = "_"), function(x) paste(x[1], x[2], sep = "_"))
@@ -32,9 +32,9 @@ for (i in 1:length(phenotype_ci_list)) {
 phenotype_ci_dt <- rbindlist(phenotype_ci_list)
 phenotype_ci_dt$chr <- sapply(strsplit(phenotype_ci_dt$qtl, split = "_"), function(x) x[2])
 
-setwd("/Users/jkhta/Desktop/")
+setwd("/Users/James/Documents/GitHub/sar_qtl/figures/qtl_ci_linkage_map/")
 
-sink("GridLMM_gxe_cis.mct")
+sink("GridLMM_gxe_cov_cis.mct")
 
 for (i in 1:5) {
   chr_markers <- subset(nam_markers, chr == i)
