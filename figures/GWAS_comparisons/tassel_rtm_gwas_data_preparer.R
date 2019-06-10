@@ -18,6 +18,7 @@ nam_blups$geno <- paste(nam_family, nam_blups$geno, sep = "_")
 #grabbing only bolting time
 nam_blups_subset <- subset(nam_blups, select = c(geno, bd_geno))
 
+#saving files
 setwd("/Users/James/Documents/GitHub/sar_qtl/figures/GWAS_comparisons/")
 
 #saving file for tassel
