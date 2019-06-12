@@ -1,0 +1,65 @@
+#script to merge and plot direct and indirect effects
+library(data.table)
+library(ggplot2)
+library(ggpubr)
+library(plyr)
+
+rm(list = ls())
+
+setwd("/Users/James/Documents/GitHub/sar_qtl/7_path_analysis/output/")
+path_data <- rbindlist(lapply(list.files(pattern = "path_eff_FRIFLC.csv"), 
+                              function(x) fread(x, sep = ",", header = TRUE, stringsAsFactors = FALSE)))
+path_data$pop_facet <- factor(path_data$pop, levels = c("sha", "oy", "jea", "ita", "cvi", "bur", "blh"))
+path_data$trait_facet <- factor(path_data$trait, levels = c("bd", "rdry", "h3h1", "idry"))
+
+#looking at fri and flc individually
+path_data_FRI_FLC_ind <- rbindlist(lapply(list.files(pattern = "path_eff_alt.csv"), 
+                                          function(x) fread(x, sep = ",", header = TRUE, stringsAsFactors = FALSE)))
+path_data_FRI_FLC_ind$pop <- revalue(path_data_FRI_FLC_ind$pop, c("sha" = "Sha", "oy" = "Oy-0", "jea" = "Jea", "ita" = "Ita-0", "cvi" = "Cvi-0", "bur" = "Bur-0", "blh" = "Blh-1"))
+path_data_FRI_FLC_ind$pop_facet <- factor(path_data_FRI_FLC_ind$pop, levels = c("sha" = "Sha", "oy" = "Oy-0", "jea" = "Jea", "ita" = "Ita-0", "cvi" = "Cvi-0", "bur" = "Bur-0", "blh" = "Blh-1"))
+
+path_data_FRI_FLC_ind$trait_facet <- factor(path_data_FRI_FLC_ind$trait, levels = c("bd", "rdry", "h3h1", "idry"))
+path_data_FRI_FLC_ind$effect_type <- revalue(path_data_FRI_FLC_ind$effect_type, c("dir" = "Direct", "ind" = "Indirect"))
+
+geom_point_size <- 30
+
+path_data_diff_B4 <- subset(path_data_FRI_FLC_ind, env == "diff" & allele_comb == "B4")
+path_data_diff_B4_ggplot <- ggplot(data = path_data_diff_B4, aes(x = est, y = pop_facet, color = effect_type)) +
+    geom_point(size = 4) +
+    geom_errorbarh(aes(xmax = est + se, xmin = est - se), height = 0.25, size = 2) +
+    geom_vline(xintercept = 0, 
+               color = "black", size = 0.25) + 
+    facet_wrap(~ trait_facet, nrow = 1) + 
+    xlab("QTL effect") + 
+    ylab("Population") +
+    theme(legend.text = element_text(size = 20),
+          legend.title = element_blank(), 
+          axis.title = element_text(size = 20),
+          axis.text.y = element_text(size = 20),
+          plot.title = element_text(hjust = 0.5),
+          legend.position = "none") + 
+    ggtitle("SAR4")
+
+path_data_diff_B5 <- subset(path_data_FRI_FLC_ind, env == "diff" & allele_comb == "B5")
+path_data_diff_B5_ggplot <- ggplot(data = path_data_diff_B5, aes(x = est, y = pop_facet, color = effect_type)) +
+    geom_point(size = 4) +
+    geom_errorbarh(aes(xmax = est + se, xmin = est - se), height = 0.25, size = 2) +
+    geom_vline(xintercept = 0, 
+               color = "black", size = 0.25) + 
+    facet_wrap(~ trait_facet, nrow = 1) + 
+    xlab("QTL effect") + 
+    ylab("Population") +
+    theme(legend.text = element_text(size = 20),
+          legend.title = element_blank(), 
+          axis.title = element_text(size = 20),
+          axis.title.y = element_blank(),
+          axis.text.y = element_blank(),
+          plot.title = element_text(hjust = 0.5)) + 
+    scale_x_continuous(breaks = round(seq(min(path_data_diff_B5$est), max(path_data_diff_B5$est), by = 0.3), 1)) +
+    ggtitle("SAR5")
+
+ggarrange(path_data_diff_B4_ggplot, path_data_diff_B5_ggplot, 
+          labels = c("A", "B"),
+          ncol = 2)
+setwd("/Users/James/Documents/GitHub/sar_qtl/figures/path_analysis_figures/")
+ggsave("SAR4_SAR5_effect_comparison.png", device = "png", width = 15, height = 6)
