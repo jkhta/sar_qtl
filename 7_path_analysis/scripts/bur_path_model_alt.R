@@ -5,7 +5,7 @@ library(semPlot)
 
 rm(list = ls())
 
-setwd("/Users/jkhta/Desktop/nam_cam_fixing/34 - pop_path_analysis/output/")
+setwd("/Users/James/Documents/GitHub/sar_qtl/7_path_analysis/output/")
 
 bur_data <- fread("bur_col_pheno_qtl_combo_merge.csv",
                   sep = ",",
@@ -117,6 +117,30 @@ semPaths(fit_best,
          nCharNodes = 0)
 
 path_parameters <- parameterestimates(fit_best, standardized = TRUE)
+
+path_parameters_trait <- subset(path_parameters, lhs %in% c("bd", "rdry", "h3h1", "idry") & rhs %in% c("bd", "rdry", "h3h1", "idry") & !grepl("~~", op), select = c(lhs, op, rhs, group, est, label))
+path_parameters_trait$formula <- with(path_parameters_trait, paste(lhs, op, rhs, sep = " "))
+path_parameters_trait_sun <- path_parameters_trait[str_is(path_parameters_trait$label, str_lower_case), ]
+required_formula <- c("rdry ~ bd", "h3h1 ~ bd", "h3h1 ~ rdry", "idry ~ bd", "idry ~ rdry", "idry ~ h3h1")
+path_trait_correlations_sun <- data.frame(matrix(ncol = length(required_formula)))
+
+for (i in 1:length(required_formula)) {
+    path_trait_correlations_sun[, i] <- tryCatch(subset(path_parameters_trait_sun, formula == required_formula[i])$est, error = NA)
+}
+colnames(path_trait_correlations_sun) <- required_formula
+path_trait_correlations_sun$env <- "Sun"
+path_trait_correlations_sun$pop <- "bur"
+
+path_parameters_trait_shade <- path_parameters_trait[str_is(path_parameters_trait$label, str_upper_case), ]
+path_trait_correlations_shade <- data.frame(matrix(ncol = length(required_formula)))
+
+for (i in 1:length(required_formula)) {
+    path_trait_correlations_shade[, i] <- tryCatch(subset(path_parameters_trait_shade, formula == required_formula[i])$est, error = NA)
+}
+colnames(path_trait_correlations_shade) <- required_formula
+path_trait_correlations_shade$env <- "Shade"
+path_trait_correlations_shade$pop <- "bur"
+
 path_parameters_eff <- subset(path_parameters, grepl("sun|shade|diff", lhs))
 path_parameters_eff$allele_comb <- sapply(strsplit(path_parameters_eff$label, split = "_"), function(x) x[1])
 path_parameters_eff$trait <- sapply(strsplit(path_parameters_eff$label, split = "_"), function(x) x[2])
@@ -125,5 +149,8 @@ path_parameters_eff$env <- sapply(strsplit(path_parameters_eff$label, split = "_
 nrow(path_parameters_eff)
 path_parameters_eff$pop <- "bur"
 
-setwd("/Users/jkhta/Desktop/nam_cam_fixing/34 - pop_path_analysis/output/")
+setwd("/Users/James/Documents/GitHub/sar_qtl/7_path_analysis/output/")
 fwrite(path_parameters_eff, "bur_path_eff_alt.csv", sep = ",", row.names = FALSE)
+
+fwrite(path_trait_correlations_sun, "bur_trait_eff_alt_sun.csv", sep = ",", row.names = FALSE, na = "NA")
+fwrite(path_trait_correlations_shade, "bur_trait_eff_alt_shade.csv", sep = ",", row.names = FALSE, na = "NA")
