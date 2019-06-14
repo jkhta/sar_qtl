@@ -5,7 +5,7 @@ library(semPlot)
 
 rm(list = ls())
 
-setwd("/Users/James/Documents/GitHub/sar_qtl/7_path_analysis/output/")
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/7_path_analysis/output/")
 
 oy_data <-fread("oy_col_pheno_qtl_combo_merge.csv",
                 sep = ",",
@@ -15,12 +15,12 @@ setnames(oy_data, c("r_dry", "h3_h1", "i_dry"), c("rdry", "h3h1", "idry"))
 oy_data$treatment <- factor(oy_data$treatment, levels = c("Sun", "Shade"))
 head(oy_data)
 
-oy_data[, c("A4", "A5", "AA", "AB", "BA", "BB")] <- NULL
+oy_data[, c("A4", "A42", "A5", "AA", "AB", "BA", "BB")] <- NULL
 
 m_best <- "
 rdry ~ c(a, A) * bd
-h3h1 ~ c(b, B) * rdry
-idry ~ c(c, C) * rdry + c(d, D) * h3h1
+h3h1 ~ c(b, B) * rdry + c(c, C) * B42
+idry ~ c(d, D) * rdry + c(e, E) * h3h1
 
 #B4
 
@@ -59,6 +59,44 @@ B4_idry_dir_diff := 0
 B4_idry_ind_sun := 0
 B4_idry_ind_shade := 0
 B4_idry_ind_diff := 0
+
+#B42
+
+#bd
+B42_bd_dir_sun := 0
+B42_bd_dir_shade := 0
+B42_bd_dir_diff := 0
+
+B42_bd_ind_sun := 0
+B42_bd_ind_shade := 0
+B42_bd_ind_diff := 0
+
+#rdry
+B42_rdry_dir_sun := 0
+B42_rdry_dir_shade := 0
+B42_rdry_dir_diff := 0
+
+B42_rdry_ind_sun := 0
+B42_rdry_ind_shade := 0
+B42_rdry_ind_diff := 0
+
+#h3h1
+B42_h3h1_dir_sun := c
+B42_h3h1_dir_shade := C
+B42_h3h1_dir_diff := C - c
+
+B42_h3h1_ind_sun := 0
+B42_h3h1_ind_shade := 0
+B42_h3h1_ind_diff := 0
+
+#idry
+B42_idry_dir_sun := 0
+B42_idry_dir_shade := 0
+B42_idry_dir_diff := 0
+
+B42_idry_ind_sun := c * e
+B42_idry_ind_shade := C * E
+B42_idry_ind_diff := (C * E) - (c * e)
 
 #B5
 

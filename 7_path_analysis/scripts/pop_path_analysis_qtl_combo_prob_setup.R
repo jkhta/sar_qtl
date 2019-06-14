@@ -1,6 +1,7 @@
 #path analysis
 #need to grab the snps m_4_407208 and m_5_3799350
 library(data.table)
+library(plyr)
 
 rm(list = ls())
 #reading in the genotype data
@@ -9,7 +10,7 @@ setwd("/Users/jkhta/Documents/GitHub/sar_qtl/6_push_button/")
 geno_data <- readRDS("nam_rqtl_geno_prob_array_comp_11_all_rils_NEW.RDS")
 
 #grabbing the qtl markers
-geno_data_markers <- geno_data[c("4_407208", "5_3799350")]
+geno_data_markers <- geno_data[c("4_407208", "5_3799350", "4_9222034")]
 
 #now need to 
 geno_data_markers_col <- lapply(geno_data_markers, function(x) subset(x, select = 1))
@@ -25,6 +26,8 @@ geno_data_qtl_combos <- with(geno_data_markers_both_df, data.frame(geno = rownam
                                                                    B4 = m_4_407208.B,
                                                                    A5 = m_5_3799350.A,
                                                                    B5 = m_5_3799350.B,
+                                                                   A42 = m_4_9222034.A,
+                                                                   B42 = m_4_9222034.B,
                                                                    AA = m_4_407208.A * m_5_3799350.A, 
                                                                    AB = m_4_407208.A * m_5_3799350.B,
                                                                    BA = m_4_407208.B * m_5_3799350.A,
@@ -39,12 +42,12 @@ pheno_data <- fread("nam_cam_data_combined_tformed_std_FINAL.csv",
 #subsetting phenotype data that is not the accessions
 unique(pheno_data$cross)
 pheno_data_subset <- subset(pheno_data, cross != "accession")
-geno_family <- paste(sapply(str_split(pheno_data_subset$geno, pattern = "RV"), function(x) x[1]), "RV", sep = "")
+geno_family <- paste(sapply(strsplit(pheno_data_subset$geno, split = "RV"), function(x) x[1]), "RV", sep = "")
 genotypes <- paste(geno_family, pheno_data_subset$geno, sep = "_")
 pheno_data_subset$geno <- genotypes
 
 geno_pheno_merge <- merge(pheno_data_subset, geno_data_qtl_combos, by = "geno")
-setwd("/Users/jkhta/Desktop/nam_cam_fixing/34 - pop_path_analysis/output/")
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/7_path_analysis/output/")
 fwrite(geno_pheno_merge, 
        "nam_pheno_qtl_combo_merge.csv",
        sep = ",", 

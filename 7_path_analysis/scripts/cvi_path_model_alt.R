@@ -2,10 +2,11 @@
 library(data.table)
 library(lavaan)
 library(semPlot)
+library(lettercase)
 
 rm(list = ls())
 
-setwd("/Users/James/Documents/GitHub/sar_qtl/7_path_analysis/output/")
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/7_path_analysis/output/")
 
 cvi_data <- fread("cvi_col_pheno_qtl_combo_merge.csv",
                   sep = ",",
@@ -15,13 +16,13 @@ setnames(cvi_data, c("r_dry", "h3_h1", "i_dry"), c("rdry", "h3h1", "idry"))
 cvi_data$treatment <- factor(cvi_data$treatment, levels = c("Sun", "Shade"))
 head(cvi_data)
 
-cvi_data[, c("A4", "A5", "AA", "AB", "BA", "BB")] <- NULL
+cvi_data[, c("A4", "A42", "A5", "AA", "AB", "BA", "BB")] <- NULL
 
 m_best <- "
-bd ~ c(a, A) * B5
-rdry ~ c(b, B) * bd
-h3h1 ~ c(c, C) * bd + c(d, D) * rdry + c(e, E) * B5
-idry ~ c(f, F) * bd + c(g, G) * rdry + c(h, H) * h3h1
+bd ~ c(a, A) * B42 + c(b, B) * B5
+rdry ~ c(c, C) * bd
+h3h1 ~ c(d, D) * bd + c(e, E) * rdry + c(f, F) * B42 + c(g, G) * B5
+idry ~ c(h, H) * bd + c(i, I) * rdry + c(j, J) * h3h1
 
 #B4
 
@@ -61,12 +62,50 @@ B4_idry_ind_sun := 0
 B4_idry_ind_shade := 0
 B4_idry_ind_diff := 0
 
+#B42
+
+#bd
+B42_bd_dir_sun := a
+B42_bd_dir_shade := A
+B42_bd_dir_diff := A - a
+
+B42_bd_ind_sun := 0
+B42_bd_ind_shade := 0
+B42_bd_ind_diff := 0
+
+#rdry
+B42_rdry_dir_sun := 0
+B42_rdry_dir_shade := 0
+B42_rdry_dir_diff := 0
+
+B42_rdry_ind_sun := a * c
+B42_rdry_ind_shade := A * C
+B42_rdry_ind_diff := (A * C) - (a * c)
+
+#h3h1
+B42_h3h1_dir_sun := f
+B42_h3h1_dir_shade := F
+B42_h3h1_dir_diff := F - f
+
+B42_h3h1_ind_sun := (a * d) + (a * c * e)
+B42_h3h1_ind_shade := (A * D) + (A * C * E)
+B42_h3h1_ind_diff := ((A * D) + (A * C * E)) - ((a * d) + (a * c * e))
+
+#idry
+B42_idry_dir_sun := 0
+B42_idry_dir_shade := 0
+B42_idry_dir_diff := 0
+
+B42_idry_ind_sun := (a * h) + (a * c * i) + (a * d * j) + (a * c * e * j) + (f * j)
+B42_idry_ind_shade := (A * H) + (A * C * I) + (A * D * J) + (A * C * E * J) + (F * J)
+B42_idry_ind_diff := ((A * H) + (A * C * I) + (A * D * J) + (A * C * E * J) + (F * J)) - ((a * h) + (a * c * i) + (a * d * j) + (a * c * e * j) + (f * j))
+
 #B5
 
 #bd
-B5_bd_dir_sun := a
-B5_bd_dir_shade := A
-B5_bd_dir_diff := A - a
+B5_bd_dir_sun := b
+B5_bd_dir_shade := B
+B5_bd_dir_diff := B - b
 
 B5_bd_ind_sun := 0
 B5_bd_ind_shade := 0
@@ -77,27 +116,27 @@ B5_rdry_dir_sun := 0
 B5_rdry_dir_shade := 0
 B5_rdry_dir_diff := 0
 
-B5_rdry_ind_sun := a * b
-B5_rdry_ind_shade := A * B
-B5_rdry_ind_diff := (A * B) - (a * b)
+B5_rdry_ind_sun := b * c
+B5_rdry_ind_shade := B * C
+B5_rdry_ind_diff := (B * C) - (b * c)
 
 #h3h1
-B5_h3h1_dir_sun := e
-B5_h3h1_dir_shade := E
-B5_h3h1_dir_diff := E - e
+B5_h3h1_dir_sun := g
+B5_h3h1_dir_shade := G
+B5_h3h1_dir_diff := G - g
 
-B5_h3h1_ind_sun := (a * c) + (a * b * d)
-B5_h3h1_ind_shade := (A * C) + (A * B * D)
-B5_h3h1_ind_diff := ((A * C) + (A * B * D)) - ((a * c) + (a * b * d))
+B5_h3h1_ind_sun := (b * d) + (b * c * e)
+B5_h3h1_ind_shade := (B * D) + (B * C * E)
+B5_h3h1_ind_diff := ((B * D) + (B * C * E)) - ((b * d) + (b * c * e))
 
 #idry
 B5_idry_dir_sun := 0
 B5_idry_dir_shade := 0
 B5_idry_dir_diff := 0
 
-B5_idry_ind_sun := (a * f) + (a * b * g) + (a * c * h) + (a * b * d * h) + (e * h)
-B5_idry_ind_shade := (A * F) + (A * B * G) + (A * C * H) + (A * B * D * H) + (E * H)
-B5_idry_ind_diff := ((A * F) + (A * B * G) + (A * C * H) + (A * B * D * H) + (E * H)) - ((a * f) + (a * b * g) + (a * c * h) + (a * b * d * h) + (e * h))
+B5_idry_ind_sun := (b * h) + (b * c * i) + (b * d * j) + (b * c * e * j) + (g * j)
+B5_idry_ind_shade := (B * H) + (B * C * I) + (B * D * J) + (B * C * E * J) + (G * J)
+B5_idry_ind_diff := ((B * H) + (B * C * I) + (B * D * J) + (B * C * E * J) + (G * J)) - ((b * h) + (b * c * i) + (b * d * j) + (b * c * e * j) + (g * j))
 "
 
 fit_best <- sem(m_best, data = cvi_data, group = "treatment")
