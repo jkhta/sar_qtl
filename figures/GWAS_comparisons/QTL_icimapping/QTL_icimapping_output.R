@@ -123,6 +123,13 @@ nam_pheno_bd_geno <- as.data.frame(matrix(nam_pheno_t[1, ], ncol = ncol(nam_phen
 rownames(nam_pheno_bd_geno) <- "Bdgeno"
 nam_pheno_bd_geno <- as.data.frame(data.table(nam_pheno_bd_geno, keep.rownames = TRUE))
 
+nam_pheno_bd_gxe <- as.data.frame(matrix(nam_pheno_t[2, ], ncol = ncol(nam_pheno_t)))
+rownames(nam_pheno_bd_gxe) <- "Bdgxe"
+nam_pheno_bd_gxe <- as.data.frame(data.table(nam_pheno_bd_gxe, keep.rownames = TRUE))
+
+
 fwrite(nam_pheno_bd_geno, "nam_ici_bd_pheno.csv", col.names = FALSE, sep = ",")
+fwrite(nam_pheno_bd_gxe, "nam_ici_bd_gxe_pheno.csv", col.names = FALSE, sep = ",")
+
 fwrite(nam_geno_t, "nam_ici_genotype_bd_geno.csv", col.names = FALSE, row.names = FALSE, sep = ",")
 
