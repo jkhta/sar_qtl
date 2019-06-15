@@ -1,0 +1,7 @@
+!****Mapping Parameters of two mapping methods: IM-ADD, ICIM-ADD*************************
+1                                                !For ALL   : Indicator to deal missing phenotype (1 for deletion; 2 for mean replacement)
+1          2.5            1        0.001            !JICIM-ADD : Indicator (0 for no; 1 for yes);  Threshold LOD;  Step in cM;  PIN
+0          2.5            1                         !JIM-ADD   : Indicator (0 for no; 1 for yes);  Threshold LOD;  Step in cM
+!****Permutations of two mapping methods: IM-ADD, ICIM-ADD*******************************
+1         1000         0.05                        !JICIM-ADD : Indicator (0 for no; 1 for yes);  Number of Shuffling;  Genome-wide Type I Error
+0         1000         0.05                        !JIM-ADD   : Indicator (0 for no; 1 for yes);  Number of Shuffling;  Genome-wide Type I Error
