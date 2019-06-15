@@ -1,11 +1,10 @@
 trait,qtl,ID,chr,start,end,symbol,Note
-bd_gxe,m_5_4216890,AT5G12050,Chr5,3889906,3891514,"",rho GTPase-activating protein
-bd_gxe,m_5_4216890,AT5G13220,Chr5,4218786,4221077,JAZ10,jasmonate-zim-domain protein 10
-bd_gxe,m_5_4216890,AT5G13330,Chr5,4271730,4274674,Rap2.6L,related to AP2 6l
-bd_gxe,m_5_4216890,AT5G14750,Chr5,4763372,4764834,MYB66,myb domain protein 66
-bd_gxe,m_5_4216890,AT5G14760,Chr5,4768263,4772153,AO,L-aspartate oxidase
-bd_gxe,m_5_4216890,AT5G15150,Chr5,4913699,4915976,HB-3,homeobox 3
-bd_gxe,m_5_4216890,AT5G15160,Chr5,4921243,4922812,BNQ2,BANQUO 2
+bd_gxe,m_4_407208,AT4G00820,Chr4,349025,351550,iqd17,IQ-domain 17
+bd_gxe,m_4_407208,AT4G00880,Chr4,366373,367274,"",SAUR-like auxin-responsive protein family
+bd_gxe,m_4_9222034,AT4G14130,Chr4,8137020,8138392,XTH15,xyloglucan endotransglucosylase/hydrolase 15
+bd_gxe,m_4_9222034,AT4G14560,Chr4,8360996,8362033,IAA1,indole-3-acetic acid inducible
+bd_gxe,m_4_9222034,AT4G15210,Chr4,8666334,8669526,BAM5,beta-amylase 5
+bd_gxe,m_4_9222034,AT4G15440,Chr4,8835368,8838676,HPL1,hydroperoxide lyase 1
 bd_gxe,m_4_9222034,AT4G16250,Chr4,9195247,9199840,PHYD,phytochrome D
 bd_gxe,m_4_9222034,AT4G16260,Chr4,9199972,9201643,"",Glycosyl hydrolase superfamily protein
 bd_gxe,m_4_9222034,AT4G16500,Chr4,9300721,9302434,"",Cystatin/monellin superfamily protein
@@ -16,106 +15,38 @@ bd_gxe,m_4_9222034,AT4G17470,Chr4,9742350,9744867,"",alpha/beta-Hydrolases super
 bd_gxe,m_4_9222034,AT4G17880,Chr4,9933326,9935685,MYC4,Basic helix-loop-helix (bHLH) DNA-binding family protein
 bd_gxe,m_4_9222034,AT4G18130,Chr4,10042137,10046346,PHYE,phytochrome E
 bd_gxe,m_4_9222034,AT4G18220,Chr4,10078638,10080362,"",Drug/metabolite transporter superfamily protein
-bd_gxe,m_4_407208,AT4G00820,Chr4,349025,351550,iqd17,IQ-domain 17
-bd_gxe,m_4_407208,AT4G00880,Chr4,366373,367274,"",SAUR-like auxin-responsive protein family
-bd_gxe,m_4_407208,AT4G01330,Chr4,550175,553097,"",Protein kinase superfamily protein
-bd_gxe,m_5_3799350,AT5G11260,Chr5,3593335,3595073,HY5,Basic-leucine zipper (bZIP) transcription factor family protein
-bd_gxe,m_5_3799350,AT5G11320,Chr5,3611247,3613640,YUC4,Flavin-binding monooxygenase family protein
-h3h1_gxe,m_4_407208,AT4G00820,Chr4,349025,351550,iqd17,IQ-domain 17
-h3h1_gxe,m_4_407208,AT4G00880,Chr4,366373,367274,"",SAUR-like auxin-responsive protein family
-h3h1_gxe,m_5_3799350,AT5G08070,Chr5,2584358,2586035,TCP17,TCP domain protein 17
-h3h1_gxe,m_5_3799350,AT5G08130,Chr5,2606002,2610250,BIM1,basic helix-loop-helix (bHLH) DNA-binding superfamily protein
-h3h1_gxe,m_5_3799350,AT5G08640,Chr5,2803833,2805606,FLS1,flavonol synthase 1
-h3h1_gxe,m_5_3799350,AT5G09650,Chr5,2991149,2993213,PPa6,pyrophosphorylase 6
-h3h1_gxe,m_5_3799350,AT5G10140,Chr5,3173382,3179448,FLC,K-box region and MADS-box transcription factor family protein
-h3h1_gxe,m_5_3799350,AT5G11190,Chr5,3564824,3566260,SHN2,Integrase-type DNA-binding superfamily protein
-h3h1_gxe,m_5_3799350,AT5G11260,Chr5,3593335,3595073,HY5,Basic-leucine zipper (bZIP) transcription factor family protein
-h3h1_gxe,m_5_3799350,AT5G11320,Chr5,3611247,3613640,YUC4,Flavin-binding monooxygenase family protein
-h3h1_gxe,m_5_25950815,AT5G64120,Chr5,25659257,25661007,"",Peroxidase superfamily protein
-h3h1_gxe,m_5_25950815,AT5G64850,Chr5,25921402,25923418,"",sorbin/SH3 domain protein
-h3h1_gxe,m_1_4032248,AT1G05680,Chr1,1703002,1704838,UGT74E2,Uridine diphosphate glycosyltransferase 74E2
-h3h1_gxe,m_1_4032248,AT1G06040,Chr1,1828340,1829983,STO,B-box zinc finger family protein
-h3h1_gxe,m_1_4032248,AT1G06080,Chr1,1843463,1846311,ADS1,delta 9 desaturase 1
-h3h1_gxe,m_1_4032248,AT1G06390,Chr1,1946746,1950860,GSK1,GSK3/SHAGGY-like protein kinase 1
-h3h1_gxe,m_1_4032248,AT1G07135,Chr1,2189877,2190784,"",glycine-rich protein
-h3h1_gxe,m_1_4032248,AT1G07360,Chr1,2260317,2262923,MAC5A,CCCH-type zinc fingerfamily protein with RNA-binding domain-containing protein
-h3h1_gxe,m_1_4032248,AT1G08550,Chr1,2706868,2709988,NPQ1,non-photochemical quenching 1
-h3h1_gxe,m_1_4032248,AT1G09460,Chr1,3053698,3055360,"",Carbohydrate-binding X8 domain superfamily protein
-h3h1_gxe,m_1_4032248,AT1G09500,Chr1,3066674,3068796,"",NAD(P)-binding Rossmann-fold superfamily protein
-h3h1_gxe,m_1_4032248,AT1G09530,Chr1,3075768,3079654,PIF3,phytochrome interacting factor 3
-h3h1_gxe,m_1_4032248,AT1G09570,Chr1,3095160,3100819,PHYA,phytochrome A
-h3h1_gxe,m_1_4032248,AT1G10140,Chr1,3322554,3323735,"",Uncharacterized conserved protein UCP031279
-h3h1_gxe,m_1_4032248,AT1G10470,Chr1,3441988,3444360,ARR4,response regulator 4
-h3h1_gxe,m_1_4032248,AT1G10585,Chr1,3493770,3495244,"",basic helix-loop-helix (bHLH) DNA-binding superfamily protein
-h3h1_gxe,m_1_4032248,AT1G12080,Chr1,4084162,4085185,"",Vacuolar calcium-binding protein-like protein
-h3h1_gxe,m_1_4032248,AT1G13245,Chr1,4525414,4526204,RTFL17,ROTUNDIFOLIA like 17
-idry_gxe,m_5_25950815,,,,,,
-idry_gxe,m_5_4216890,AT5G13220,Chr5,4218786,4221077,JAZ10,jasmonate-zim-domain protein 10
-idry_gxe,m_5_4216890,AT5G13330,Chr5,4271730,4274674,Rap2.6L,related to AP2 6l
-idry_gxe,m_5_4216890,AT5G14750,Chr5,4763372,4764834,MYB66,myb domain protein 66
-idry_gxe,m_5_4216890,AT5G14760,Chr5,4768263,4772153,AO,L-aspartate oxidase
-idry_gxe,m_5_4216890,AT5G15150,Chr5,4913699,4915976,HB-3,homeobox 3
-idry_gxe,m_5_4216890,AT5G15160,Chr5,4921243,4922812,BNQ2,BANQUO 2
-idry_gxe,m_4_407208,AT4G00820,Chr4,349025,351550,iqd17,IQ-domain 17
-idry_gxe,m_4_407208,AT4G00880,Chr4,366373,367274,"",SAUR-like auxin-responsive protein family
-idry_gxe,m_4_16212324,AT4G32280,Chr4,15583332,15584903,IAA29,indole-3-acetic acid inducible 29
-idry_gxe,m_4_16212324,AT4G32290,Chr4,15589434,15591213,"",Core-2/I-branching beta-1%2C6-N-acetylglucosaminyltransferase family protein
-idry_gxe,m_4_16212324,AT4G32540,Chr4,15700829,15703000,YUC1,Flavin-binding monooxygenase family protein
-idry_gxe,m_4_16212324,AT4G33400,Chr4,16077898,16080721,"",Vacuolar import/degradation%2C Vid27-related protein
-idry_gxe,m_4_16212324,AT4G34000,Chr4,16295334,16298285,ABF3,abscisic acid responsive elements-binding factor 3
-idry_gxe,m_4_16212324,AT4G34590,Chr4,16521861,16523230,GBF6,G-box binding factor 6
-idry_gxe,m_4_16212324,AT4G34710,Chr4,16560030,16563044,ADC2,arginine decarboxylase 2
-idry_gxe,m_4_16212324,AT4G34770,Chr4,16591179,16591910,"",SAUR-like auxin-responsive protein family
-idry_gxe,m_4_16212324,AT4G34950,Chr4,16642142,16644928,"",Major facilitator superfamily protein
-idry_gxe,m_1_6872980,AT1G14280,Chr1,4877506,4879307,PKS2,phytochrome kinase substrate 2
-idry_gxe,m_1_6872980,AT1G14910,Chr1,5139712,5143735,"",ENTH/ANTH/VHS superfamily protein
-idry_gxe,m_1_6872980,AT1G14920,Chr1,5148982,5151415,GAI,GRAS family transcription factor family protein
-idry_gxe,m_1_6872980,AT1G15580,Chr1,5365512,5366497,IAA5,indole-3-acetic acid inducible 5
-idry_gxe,m_1_6872980,AT1G15790,Chr1,5438171,5440131,"",mediator of RNA polymerase II transcription subunit 15a-like protein
-idry_gxe,m_1_6872980,AT1G15800,Chr1,5441072,5443911,"",hypothetical protein
-idry_gxe,m_1_6872980,AT1G16410,Chr1,5608682,5612064,CYP79F1,cytochrome p450 79f1
-idry_gxe,m_1_6872980,AT1G17220,Chr1,5885007,5890500,FUG1,Translation initiation factor 2%2C small GTP-binding protein
-idry_gxe,m_1_6872980,AT1G17380,Chr1,5955155,5957511,JAZ5,jasmonate-zim-domain protein 5
-idry_gxe,m_1_6872980,AT1G17420,Chr1,5977323,5981521,LOX3,lipoxygenase 3
-idry_gxe,m_1_6872980,AT1G18400,Chr1,6331398,6333856,BEE1,BR enhanced expression 1
-idry_gxe,m_1_6872980,AT1G18590,Chr1,6398531,6400029,SOT17,sulfotransferase 17
-idry_gxe,m_1_6872980,AT1G19180,Chr1,6621777,6623668,JAZ1,jasmonate-zim-domain protein 1
-idry_gxe,m_1_6872980,AT1G20900,Chr1,7272526,7274072,ESC,Putative AT-hook DNA-binding family protein
-idry_gxe,m_1_6872980,AT1G21050,Chr1,7366590,7368203,"",MIZU-KUSSEI-like protein (Protein of unknown function%2C DUF617)
-idry_gxe,m_1_6872980,AT1G21060,Chr1,7371657,7374114,"",Serine/Threonine-kinase%2C putative (Protein of unknown function%2C DUF547)
-idry_gxe,m_4_9222034,AT4G15210,Chr4,8666334,8669526,BAM5,beta-amylase 5
-idry_gxe,m_4_9222034,AT4G15440,Chr4,8835368,8838676,HPL1,hydroperoxide lyase 1
-idry_gxe,m_4_9222034,AT4G16250,Chr4,9195247,9199840,PHYD,phytochrome D
-idry_gxe,m_4_9222034,AT4G16260,Chr4,9199972,9201643,"",Glycosyl hydrolase superfamily protein
-idry_gxe,m_4_9222034,AT4G16500,Chr4,9300721,9302434,"",Cystatin/monellin superfamily protein
-idry_gxe,m_4_9222034,AT4G16515,Chr4,9305166,9305845,RGF6,root meristem growth factor
-idry_gxe,m_4_9222034,AT4G16780,Chr4,9449114,9450905,HB-2,homeobox protein 2
-idry_gxe,m_4_9222034,AT4G17230,Chr4,9660593,9663809,SCL13,SCARECROW-like 13
-idry_gxe,m_4_9222034,AT4G17470,Chr4,9742350,9744867,"",alpha/beta-Hydrolases superfamily protein
-idry_gxe,m_4_9222034,AT4G17880,Chr4,9933326,9935685,MYC4,Basic helix-loop-helix (bHLH) DNA-binding family protein
-idry_gxe,m_4_9222034,AT4G18130,Chr4,10042137,10046346,PHYE,phytochrome E
-idry_gxe,m_4_9222034,AT4G18220,Chr4,10078638,10080362,"",Drug/metabolite transporter superfamily protein
-idry_gxe,m_5_3799350,AT5G11260,Chr5,3593335,3595073,HY5,Basic-leucine zipper (bZIP) transcription factor family protein
-idry_gxe,m_5_3799350,AT5G11320,Chr5,3611247,3613640,YUC4,Flavin-binding monooxygenase family protein
-rdry_gxe,m_4_407208,AT4G00820,Chr4,349025,351550,iqd17,IQ-domain 17
-rdry_gxe,m_4_407208,AT4G00880,Chr4,366373,367274,"",SAUR-like auxin-responsive protein family
-rdry_gxe,m_5_26130021,AT5G64850,Chr5,25921402,25923418,"",sorbin/SH3 domain protein
-rdry_gxe,m_5_3799350,AT5G11190,Chr5,3564824,3566260,SHN2,Integrase-type DNA-binding superfamily protein
-rdry_gxe,m_5_3799350,AT5G11260,Chr5,3593335,3595073,HY5,Basic-leucine zipper (bZIP) transcription factor family protein
-rdry_gxe,m_5_3799350,AT5G11320,Chr5,3611247,3613640,YUC4,Flavin-binding monooxygenase family protein
-rdry_gxe,m_4_16212324,AT4G32280,Chr4,15583332,15584903,IAA29,indole-3-acetic acid inducible 29
-rdry_gxe,m_4_16212324,AT4G32290,Chr4,15589434,15591213,"",Core-2/I-branching beta-1%2C6-N-acetylglucosaminyltransferase family protein
-rdry_gxe,m_4_16212324,AT4G32540,Chr4,15700829,15703000,YUC1,Flavin-binding monooxygenase family protein
-rdry_gxe,m_4_16212324,AT4G33400,Chr4,16077898,16080721,"",Vacuolar import/degradation%2C Vid27-related protein
-rdry_gxe,m_4_16212324,AT4G34000,Chr4,16295334,16298285,ABF3,abscisic acid responsive elements-binding factor 3
-rdry_gxe,m_4_16212324,AT4G34590,Chr4,16521861,16523230,GBF6,G-box binding factor 6
-rdry_gxe,m_4_16212324,AT4G34710,Chr4,16560030,16563044,ADC2,arginine decarboxylase 2
-rdry_gxe,m_4_16212324,AT4G34770,Chr4,16591179,16591910,"",SAUR-like auxin-responsive protein family
-rdry_gxe,m_4_16212324,AT4G34950,Chr4,16642142,16644928,"",Major facilitator superfamily protein
-rdry_gxe,m_1_1131884,AT1G03630,Chr1,907523,909650,POR C,protochlorophyllide oxidoreductase C
-rdry_gxe,m_1_1131884,AT1G03870,Chr1,982381,983544,FLA9,FASCICLIN-like arabinoogalactan 9
-rdry_gxe,m_1_1131884,AT1G04180,Chr1,1104493,1106241,YUC9,YUCCA 9
-rdry_gxe,m_1_1131884,AT1G04240,Chr1,1128149,1129689,SHY2,AUX/IAA transcriptional regulator family protein
-rdry_gxe,m_1_1131884,AT1G04310,Chr1,1154740,1157813,ERS2,ethylene response sensor 2
-rdry_gxe,m_1_1131884,AT1G04400,Chr1,1185512,1188696,CRY2,cryptochrome 2
-rdry_gxe,m_1_1131884,AT1G04610,Chr1,1279351,1281618,YUC3,YUCCA 3
+bd_gxe,m_5_3799350,,,,,,
+h3_h1_gxe,m_2_11952697,,,,,,
+h3_h1_gxe,m_5_4991121,AT5G12050,Chr5,3889906,3891514,"",rho GTPase-activating protein
+h3_h1_gxe,m_5_4991121,AT5G13220,Chr5,4218786,4221077,JAZ10,jasmonate-zim-domain protein 10
+h3_h1_gxe,m_5_4991121,AT5G13330,Chr5,4271730,4274674,Rap2.6L,related to AP2 6l
+h3_h1_gxe,m_5_4991121,AT5G14750,Chr5,4763372,4764834,MYB66,myb domain protein 66
+h3_h1_gxe,m_5_4991121,AT5G14760,Chr5,4768263,4772153,AO,L-aspartate oxidase
+h3_h1_gxe,m_5_4991121,AT5G15150,Chr5,4913699,4915976,HB-3,homeobox 3
+h3_h1_gxe,m_5_4991121,AT5G15160,Chr5,4921243,4922812,BNQ2,BANQUO 2
+i_dry_gxe,m_4_407208,AT4G00820,Chr4,349025,351550,iqd17,IQ-domain 17
+i_dry_gxe,m_4_407208,AT4G00880,Chr4,366373,367274,"",SAUR-like auxin-responsive protein family
+i_dry_gxe,m_5_4216890,AT5G12050,Chr5,3889906,3891514,"",rho GTPase-activating protein
+i_dry_gxe,m_5_4216890,AT5G13220,Chr5,4218786,4221077,JAZ10,jasmonate-zim-domain protein 10
+i_dry_gxe,m_5_4216890,AT5G13330,Chr5,4271730,4274674,Rap2.6L,related to AP2 6l
+i_dry_gxe,m_5_4216890,AT5G14750,Chr5,4763372,4764834,MYB66,myb domain protein 66
+i_dry_gxe,m_5_4216890,AT5G14760,Chr5,4768263,4772153,AO,L-aspartate oxidase
+i_dry_gxe,m_5_4216890,AT5G15150,Chr5,4913699,4915976,HB-3,homeobox 3
+i_dry_gxe,m_5_4216890,AT5G15160,Chr5,4921243,4922812,BNQ2,BANQUO 2
+r_dry_gxe,m_4_407208,AT4G00820,Chr4,349025,351550,iqd17,IQ-domain 17
+r_dry_gxe,m_4_407208,AT4G00880,Chr4,366373,367274,"",SAUR-like auxin-responsive protein family
+r_dry_gxe,m_4_9222034,AT4G15210,Chr4,8666334,8669526,BAM5,beta-amylase 5
+r_dry_gxe,m_4_9222034,AT4G15440,Chr4,8835368,8838676,HPL1,hydroperoxide lyase 1
+r_dry_gxe,m_4_9222034,AT4G16250,Chr4,9195247,9199840,PHYD,phytochrome D
+r_dry_gxe,m_4_9222034,AT4G16260,Chr4,9199972,9201643,"",Glycosyl hydrolase superfamily protein
+r_dry_gxe,m_4_9222034,AT4G16500,Chr4,9300721,9302434,"",Cystatin/monellin superfamily protein
+r_dry_gxe,m_4_9222034,AT4G16515,Chr4,9305166,9305845,RGF6,root meristem growth factor
+r_dry_gxe,m_4_9222034,AT4G16780,Chr4,9449114,9450905,HB-2,homeobox protein 2
+r_dry_gxe,m_5_26130021,AT5G64850,Chr5,25921402,25923418,"",sorbin/SH3 domain protein
+r_dry_gxe,m_5_3799350,AT5G09650,Chr5,2991149,2993213,PPa6,pyrophosphorylase 6
+r_dry_gxe,m_5_3799350,AT5G10140,Chr5,3173382,3179448,FLC,K-box region and MADS-box transcription factor family protein
+r_dry_gxe,m_5_3799350,AT5G11190,Chr5,3564824,3566260,SHN2,Integrase-type DNA-binding superfamily protein
+r_dry_gxe,m_5_3799350,AT5G11260,Chr5,3593335,3595073,HY5,Basic-leucine zipper (bZIP) transcription factor family protein
+r_dry_gxe,m_5_3799350,AT5G11320,Chr5,3611247,3613640,YUC4,Flavin-binding monooxygenase family protein
+r_dry_gxe,m_5_3799350,AT5G12050,Chr5,3889906,3891514,"",rho GTPase-activating protein
+r_dry_gxe,m_5_3799350,AT5G13220,Chr5,4218786,4221077,JAZ10,jasmonate-zim-domain protein 10

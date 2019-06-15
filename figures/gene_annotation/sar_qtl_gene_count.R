@@ -7,8 +7,8 @@ rm(list = ls())
 setwd("/Users/jkhta/Desktop/nam_cam_fixing/32 - gene_annotation/output/")
 
 #reading all of the annotated ci tables
-annotated_ci_phenotypes <- sapply(strsplit(list.files(), split = "_"), function(x) paste(x[1], x[2], sep = "_"))
-annotated_ci_tables <- lapply(list.files(), function(x) fread(x, sep = ",", header = TRUE, stringsAsFactors = FALSE))
+annotated_ci_phenotypes <- sapply(strsplit(list.files(pattern = "qtl_ci.csv"), split = "_qtl_ci"), function(x) x[1])
+annotated_ci_tables <- lapply(list.files(pattern = "qtl_ci.csv"), function(x) fread(x, sep = ",", header = TRUE, stringsAsFactors = FALSE))
 
 #putting a trait column for each ci table for each trait
 for (i in 1:length(annotated_ci_tables)) {

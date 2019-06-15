@@ -5,10 +5,10 @@ library(xtable)
 
 rm(list = ls())
 
-setwd("/Users/James/Documents/GitHub/sar_qtl/figures/gene_annotation/")
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/gene_annotation/")
 
 #reading all of the annotated ci tables
-annotated_ci_phenotypes <- sapply(strsplit(list.files(pattern = "gxe_qtl_ci"), split = "_"), function(x) paste(x[1], x[2], sep = "_"))
+annotated_ci_phenotypes <- sapply(strsplit(list.files(pattern = "gxe_qtl_ci"), split = "_qtl_ci"), function(x) x[1])
 annotated_ci_tables <- lapply(list.files(pattern = "gxe_qtl_ci"), function(x) fread(x, sep = ",", header = TRUE, stringsAsFactors = FALSE))
 
 #putting a trait column for each ci table for each trait
@@ -24,8 +24,10 @@ fwrite(annotated_ci_comp_subset, file = "sar_gxe_gene_annotation.csv", sep = ","
 
 #now to generate sar gene annotation count for a smaller table
 annotated_ci_comp_subset$trait_qtl <- with(annotated_ci_comp_subset, paste(trait, qtl, sep = "_"))
-
-annotated_ci_comp_count <- count(annotated_ci_comp_subset, vars = c("trait_qtl"))
+annotated_ci_comp_all_qtl <- data.frame(trait_qtl = unique(annotated_ci_comp_subset$trait_qtl))
+annotated_ci_comp_subset_no_na <- annotated_ci_comp_subset[complete.cases(annotated_ci_comp_subset$symbol), ]
+annotated_ci_comp_count <- count(annotated_ci_comp_subset_no_na, vars = c("trait_qtl"))
+annotated_ci_comp_count <- merge(annotated_ci_comp_count, annotated_ci_comp_all_qtl, by = "trait_qtl", all = TRUE)
 annotated_ci_comp_count$trait <- sapply(strsplit(annotated_ci_comp_count$trait_qtl, split = "_m"), function(x) x[1])
 annotated_ci_comp_count$qtl <- sapply(strsplit(annotated_ci_comp_count$trait_qtl, split = "_m"), function(x) paste("m", x[2], sep = ""))
 
