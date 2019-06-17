@@ -24,6 +24,7 @@ path_data_FRI_FLC_ind$effect_type <- revalue(path_data_FRI_FLC_ind$effect_type, 
 geom_point_size <- 30
 
 path_data_diff_B4 <- subset(path_data_FRI_FLC_ind, env == "diff" & allele_comb == "B4")
+path_data_diff_B4[path_data_diff_B4 == 0] <- NA
 path_data_diff_B4_ggplot <- ggplot(data = path_data_diff_B4, aes(x = est, y = pop_facet, color = effect_type)) +
     geom_point(size = 4) +
     geom_errorbarh(aes(xmax = est + se, xmin = est - se), height = 0.25, size = 2) +
@@ -36,11 +37,12 @@ path_data_diff_B4_ggplot <- ggplot(data = path_data_diff_B4, aes(x = est, y = po
           legend.title = element_blank(), 
           axis.title = element_text(size = 20),
           axis.text.y = element_text(size = 20),
-          plot.title = element_text(hjust = 0.5),
+          plot.title = element_text(hjust = 0.5, size = 20),
           legend.position = "none") + 
-    ggtitle("SAR4")
+    ggtitle("m_4_41028")
 
 path_data_diff_B5 <- subset(path_data_FRI_FLC_ind, env == "diff" & allele_comb == "B5")
+path_data_diff_B5[path_data_diff_B5 == 0] <- NA
 path_data_diff_B5_ggplot <- ggplot(data = path_data_diff_B5, aes(x = est, y = pop_facet, color = effect_type)) +
     geom_point(size = 4) +
     geom_errorbarh(aes(xmax = est + se, xmin = est - se), height = 0.25, size = 2) +
@@ -54,9 +56,9 @@ path_data_diff_B5_ggplot <- ggplot(data = path_data_diff_B5, aes(x = est, y = po
           axis.title = element_text(size = 20),
           axis.title.y = element_blank(),
           axis.text.y = element_blank(),
-          plot.title = element_text(hjust = 0.5)) + 
-    scale_x_continuous(breaks = round(seq(min(path_data_diff_B5$est), max(path_data_diff_B5$est), by = 0.3), 1)) +
-    ggtitle("SAR5")
+          plot.title = element_text(hjust = 0.5, size = 20)) + 
+    scale_x_continuous(breaks = round(seq(min(path_data_diff_B5$est, na.rm = TRUE), max(path_data_diff_B5$est, na.rm = TRUE), by = 0.3), 1)) +
+    ggtitle("m_5_3799350")
 
 ggarrange(path_data_diff_B4_ggplot, path_data_diff_B5_ggplot, 
           labels = c("A", "B"),

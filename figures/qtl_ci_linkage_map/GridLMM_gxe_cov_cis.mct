@@ -4382,7 +4382,7 @@ group 2
 "" 74.05509693 
 
 qtls ;
-h3_h1 41.04571779 41.04571779 41.04571779 44.42582879 B C2
+h3h1 41.04571779 41.04571779 41.04571779 44.42582879 B C2
  
 group 3 
  
@@ -8124,11 +8124,11 @@ group 4
 "" 72.70599054 
 
 qtls ;
-bd_gxe 0 0 0 2.48738128 B C1
+bd 0 0 0 2.48738128 B C1
  
-bd_gxe 33.50998925 33.50998925 33.50998925 42.82112719 B C1
+bd 33.50998925 33.50998925 33.50998925 42.82112719 B C1
  
-r_dry 0 0 0 4.633814612 B C4
+rdry 0 0 0 4.633814612 B C4
  
 group 5 
  
@@ -10690,141 +10690,11 @@ group 5
 "" 107.0651405 
 
 qtls ;
-bd_gxe 13.34161516 13.34161516 13.34161516 15.1431961 B C1
+bd 13.34161516 13.34161516 13.34161516 15.1431961 B C1
  
-h3_h1 13.34161521 13.34161521 13.34161521 18.81057251 B C2
+h3h1 13.34161521 13.34161521 13.34161521 18.81057251 B C2
  
-i_dry 76.56933314 76.56933314 76.56933314 78.58141142 B C3
+idry 76.56933314 76.56933314 76.56933314 78.58141142 B C3
  
-i_dry 13.34161521 13.34161521 13.34161521 18.3773387 B C3
-
-[Chart Options]
-Version=22
-
-[Page Setup]
-PageSize=1
-PageOrientation=1
-CustomWidth=21000
-CustomHeight=29700
-LeftMargin=2500
-RightMargin=2500
-TopMargin=2500
-BottomMargin=2500
-
-[Title&Footer]
-ChartTitle=
-TitleMethod=1
-TitleFontName=Arial
-TitleFontSize=16
-TitleFontStyle=B
-TitleBottom=500
-FooterMethod=0
-FooterFontName=Arial
-FooterFontSize=8
-FooterFontStyle=B
-[Page layout]
-NamesFontName=Arial
-NamesFontSize=14
-NamesFontStyle=B
-NamesBottom=500
-MultipleBars=1
-ChromSpacing=2000
-ChromWidthMethod=0
-FixChromWidth=7000
-
-[Homologs]
-ShowHomologs=0
-HomAuto=1
-HomUse=0
-HomFirst=0
-HomCharNum=0
-HomIgnCase=0
-HilightStyle=0
-HilightFontStyle=
-HilightSize=0
-HilightFontSize=10
-HilightColor=0
-HilightColorMethod=0
-HilightColorNum=1
-ConnMethod=1
-ConnSelf=0
-ConnSelfRight=0
-ConnSelfWidth=400
-ConnDotSize=150
-ConnColor=1
-ConnLineStyle=1
-ConnLineBold=0
-ConnColorMethod=0
-
-[Bars]
-BarPosAligned=0
-BarCentered=1
-BarTops=0
-FixedScale=0
-MaxBarLength=12000
-MM100perCM=100
-VertShiftUnits=0
-BarWidth=300
-IndBold=1
-IndCol=1
-IndicatorWidth=0
-RoundTips=1
-SplitMapCM=0
-
-[Loci]
-LocusFontName=Arial
-LocusFontSize=10
-LocusFontStyle=
-PositionMethod=0
-PositionTicks=20
-LocusNamePosition=1
-LociPerLine=0
-ShowTexts=1
-TextStyle=0
-Decimals=1
-
-[QTLs&Graphs]
-QTLFontName=Arial
-QTLFontSize=18
-QTLFontStyle=
-QTLBarWidth=500
-QTLSupName=0
-QTLEnds=1
-QTLPosition=1
-YaxisFontName=Arial
-YaxisFontSize=8
-YaxisFontStyle=
-YaxisFixedLength=1
-YaxisLength=5000
-YaxisMMperUnit=2.00000000000E+0002
-RoundGraphPoints=1
-SymbolSize=200
-ShowLegend=1
-LegendFontName=Arial
-LegendFontSize=10
-LegendFontStyle=
-
-[Colors&Lines]
-LineWidth=100
-BoldLineWidth=200
-Transparent=1
-MaxColor=18
-16777215
-0
-255
-32768
-8388608
-33023
-16711808
-16384
-128
-16711680
-4194368
-6849602
-4276649
-2979646
-8421631
-16744576
-12615935
-4227200
-16512
+idry 13.34161521 13.34161521 13.34161521 18.3773387 B C3
+ 

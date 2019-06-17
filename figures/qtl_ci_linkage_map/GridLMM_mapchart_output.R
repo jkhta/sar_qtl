@@ -14,11 +14,14 @@ nam_markers <- fread("nam_marker_info_final.csv",
 colnames(nam_markers) <- c("marker", "chr", "pos")
 nam_markers$marker <- paste("m", nam_markers$marker, sep = "_")
 
+trait_type <- "covariate"
+
 #reading in an example trait 95% CI using lme4qtl
-setwd("/Users/James/Documents/GitHub/sar_qtl/figures/qtl_ci_linkage_map/covariate/")
+setwd(paste("/Users/James/Documents/GitHub/sar_qtl/figures/qtl_ci_linkage_map/", trait_type, "/", sep = ""))
 
 phenotype_ci_list <- lapply(list.files(pattern = "gxe"), function(x) fread(x, sep = ",", header = TRUE, stringsAsFactors = FALSE))
-phenotype_names <- sapply(strsplit(list.files(pattern = "gxe"), split = "_"), function(x) paste(x[1], x[2], sep = "_"))
+phenotype_names <- sapply(strsplit(list.files(pattern = "gxe"), split = "_gxe"), function(x) x[1])
+phenotype_names <- gsub("_", "", phenotype_names)
 names(phenotype_ci_list) <- phenotype_names
 
 for (i in 1:length(phenotype_ci_list)) {
