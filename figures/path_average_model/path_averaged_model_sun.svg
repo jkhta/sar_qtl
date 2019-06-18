@@ -15,7 +15,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   sodipodi:docname="path_averaged_model.svg"
+   sodipodi:docname="path_averaged_model_sun.svg"
    inkscape:export-filename="C:\Users\James\Documents\GitHub\sar_qtl\figures\path_average_model\path_average_sun_model.png"
    inkscape:export-xdpi="600"
    inkscape:export-ydpi="600">
@@ -304,7 +304,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497475"
-     inkscape:cx="676.64188"
+     inkscape:cx="374.60627"
      inkscape:cy="731.64085"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -322,7 +322,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -395,7 +395,7 @@
            height="57.504505"
            x="1106.7654"
            y="245.3768" /></flowRegion><flowPara
-         id="flowPara4578"></flowPara></flowRoot>    <g
+         id="flowPara4578" /></flowRoot>    <g
        id="g5187"
        transform="translate(-184.06523,-53.118527)">
       <rect
@@ -682,24 +682,24 @@
          style="font-size:16.93333244px;text-align:center;text-anchor:middle;stroke-width:0.26458332px"
          id="tspan8658">biomass</tspan></text>
     <rect
-       style="opacity:1;fill:#460000;fill-opacity:1;stroke:#460000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:#460000;fill-opacity:1;stroke:#460000;stroke-width:1.11029029;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect8660"
-       width="62.006531"
-       height="25.657875"
-       x="328.74152"
-       y="-47.243164"
+       width="68.845245"
+       height="28.48769"
+       x="326.12396"
+       y="-47.188019"
        rx="0"
-       ry="11.75986" />
+       ry="13.056858" />
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:12.69999981px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="32.928242"
-       y="340.69821"
+       x="31.458191"
+       y="341.50003"
        id="text8664"
        transform="rotate(-90)"><tspan
          sodipodi:role="line"
          id="tspan8662"
-         x="340.69821"
+         x="340.02997"
          y="32.928242"
          style="font-size:19.75555611px;fill:#ffffff;fill-opacity:1;stroke-width:0.26458332px">Sun</tspan></text>
     <rect
