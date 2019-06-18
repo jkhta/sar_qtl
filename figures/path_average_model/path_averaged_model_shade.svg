@@ -15,7 +15,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
-   sodipodi:docname="path_averaged_model_shade.svg"
+   sodipodi:docname="path_averaged_model_SHADE.svg"
    inkscape:export-filename="C:\Users\James\Documents\GitHub\sar_qtl\figures\path_average_model\path_average_shade_model.png"
    inkscape:export-xdpi="600"
    inkscape:export-ydpi="600">
@@ -304,7 +304,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497475"
-     inkscape:cx="323.85802"
+     inkscape:cx="282.43592"
      inkscape:cy="731.64085"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -1001,31 +1001,31 @@
          x="172.31357"
          y="-69.304352"
          style="font-size:10.58333302px;stroke-width:0.26458332px"
-         id="tspan8771-3">0.77</tspan></text>
+         id="tspan8771-3">0.91</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-112.85332"
-       y="112.21893"
+       x="-112.8559"
+       y="112.21377"
        id="text8757-6-0"
        transform="rotate(-90)"><tspan
          sodipodi:role="line"
-         x="112.21893"
+         x="112.21119"
          y="-112.85332"
          style="font-size:10.58333302px;stroke-width:0.26458332px"
-         id="tspan8771-3-0">-0.19</tspan></text>
+         id="tspan8771-3-0">-0.12</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-116.06053"
-       y="33.754696"
+       x="-116.06311"
+       y="36.258419"
        id="text8757-6-0-5"
        transform="rotate(-90)"><tspan
          sodipodi:role="line"
-         x="33.754696"
+         x="36.25584"
          y="-116.06053"
          style="font-size:10.58333302px;stroke-width:0.26458332px"
-         id="tspan8771-3-0-1">-0.14</tspan></text>
+         id="tspan8771-3-0-1">0.18</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -1037,7 +1037,7 @@
          x="317.21994"
          y="-116.06311"
          style="font-size:10.58333302px;stroke-width:0.26458332px"
-         id="tspan8771-3-3">0.08</tspan></text>
+         id="tspan8771-3-3">0.14</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -1049,7 +1049,7 @@
          x="243.97952"
          y="-112.85332"
          style="font-size:10.58333302px;stroke-width:0.26458332px"
-         id="tspan8771-3-3-1">0.47</tspan></text>
+         id="tspan8771-3-3-1">0.43</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -1061,6 +1061,6 @@
          x="172.37817"
          y="-177.40811"
          style="font-size:10.58333302px;stroke-width:0.26458332px"
-         id="tspan8771-3-3-1-1">0.43</tspan></text>
+         id="tspan8771-3-3-1-1">0.41</tspan></text>
   </g>
 </svg>
