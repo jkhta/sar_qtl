@@ -78,8 +78,14 @@ path_data_diff_B5_ggplot <- ggplot(data = path_data_diff_B5, aes(x = est, y = po
     scale_x_continuous(breaks = round(seq(min(path_data_diff_B5$est, na.rm = TRUE), max(path_data_diff_B5$est, na.rm = TRUE), by = 0.3), 1)) +
     ggtitle("m_5_3799350")
 
-ggarrange(path_data_diff_B4_ggplot, path_data_diff_B5_ggplot, path_data_diff_B42_ggplot,
+setwd("/Users/James/Documents/GitHub/sar_qtl/figures/path_analysis_figures/")
+
+ggarrange(path_data_diff_B4_ggplot, path_data_diff_B5_ggplot,
+          labels = c("A", "B"),
+          font.label = list(size = 30))
+ggsave("SAR4_SAR5_effect_comparison.png", device = "png", width = 15, height = 12)
+
+ggarrange(path_data_diff_B4_ggplot, path_data_diff_B42_ggplot, path_data_diff_B5_ggplot, 
           labels = c("A", "B", "C"),
           font.label = list(size = 30))
-setwd("/Users/James/Documents/GitHub/sar_qtl/figures/path_analysis_figures/")
-ggsave("SAR4_SAR5_effect_comparison.png", device = "png", width = 15, height = 6)
+ggsave("SAR4_SAR42_SAR5_effect_comparison.png", device = "png", width = 15, height = 12)
