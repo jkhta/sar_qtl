@@ -48,7 +48,14 @@ proximal_kinship_generator <- function(geno_pheno_data, sig_qtl) {
   pop_proximal <- geno_pheno_data$cM_proximal
   rownames(pop_proximal) <- colnames(pop_proximal) <- colnames(pop_geno)
   pop_proximal_subset <- pop_proximal[rownames(pop_proximal) %in% sig_qtl, ]
-  pop_proximal_comb <- unlist(apply(pop_proximal_subset, 2, function(x) sum(x)))
+  
+  #if trait only has 1 qtl then keep the vector the same; if the trait
+  #has more than one than apply the sum function
+  if (is.null(dim(pop_proximal_subset)) == TRUE) {
+    pop_proximal_comb <- pop_proximal_subset
+  } else {
+    pop_proximal_comb <- unlist(apply(pop_proximal_subset, 2, function(x) sum(x)))
+  }
   pop_proximal_tf <- ifelse(pop_proximal_comb > 0, FALSE, TRUE)
   pop_geno_subset <- pop_geno[, pop_proximal_tf]
   X  <- pop_geno_subset
