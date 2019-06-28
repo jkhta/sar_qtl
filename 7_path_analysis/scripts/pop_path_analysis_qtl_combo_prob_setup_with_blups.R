@@ -35,8 +35,8 @@ geno_data_qtl_combos <- with(geno_data_markers_both_df, data.frame(geno = rownam
 
 
 #reading in phenotype data (plant data)
-setwd("/Users/jkhta/Documents/GitHub/sar_qtl/3_lmm_blups/output/")
-pheno_data <- fread("nam_blups_combined_univariate.csv",
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/sun_and_shade_blups/output/")
+pheno_data <- fread("pop_sun_shade_blups.csv",
                     sep = ",", header = TRUE, stringsAsFactors = FALSE)
 
 #subsetting phenotype data that is not the accessions
@@ -54,9 +54,10 @@ fwrite(geno_pheno_merge,
        na = "NA")
 
 geno_pheno_merge_by_pop <- lapply(paste(unique(geno_family), unique(geno_family), sep = "_"), function(x) subset(geno_pheno_merge, grepl(x, geno)))
-
+geno_family_unique <- unique(geno_family)
+geno_family_pop_names <- revalue(geno_family_unique, c("21RV" = "blh", "20RV" = "bur", "8RV" = "cvi", "29RV" = "ita", "28RV" = "jea", "27RV" = "oy", "13RV" = "sha"))
 for (i in 1:length(geno_pheno_merge_by_pop)) {
-  file_name <- paste(unique(geno_family)[i], "blups_qtl_combo_merge.csv", sep = "_")
+  file_name <- paste(unique(geno_family_pop_names)[i], "blups_qtl_combo_merge.csv", sep = "_")
   fwrite(geno_pheno_merge_by_pop[[i]], 
          file_name, 
          sep = ",", 

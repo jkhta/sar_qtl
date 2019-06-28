@@ -23,9 +23,13 @@ for (i in unique(nam_trait_lme4qtl_fixef$trait)) {
   ggplot(trait_fixef, aes(x = pop, y = fixef, fill = pop)) +
     geom_bar(stat = "identity") +
     geom_errorbar(aes(ymin = fixef - fixef_std, ymax = fixef + fixef_std), width = 0.2) +
-    facet_grid(~ qtl, scale = "free")
-  
+    facet_grid(~ qtl, scale = "free") +
+    xlab("Population") +
+    ylab("QTL effects") +
+    theme(text = element_text(size = 20),
+          legend.position = "none")
+    
   ggfilename <- paste(i, "as_with_std.png")
   
-  ggsave(ggfilename, device = "png", width = 15, height = 10)
+  ggsave(ggfilename, device = "png", width = 20, height = 10)
 }
