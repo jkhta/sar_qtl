@@ -54,9 +54,9 @@ path_data_diff_B42_ggplot <- ggplot(data = path_data_diff_B42, aes(x = est, y = 
     theme(legend.text = element_text(size = 20),
           legend.title = element_blank(), 
           axis.title = element_text(size = 20),
-          axis.text.y = element_text(size = 20),
-          plot.title = element_text(hjust = 0.5, size = 20),
-          legend.position = "none") + 
+          axis.title.y = element_blank(),
+          axis.text.y = element_blank(),
+          plot.title = element_text(hjust = 0.5, size = 20)) + 
     ggtitle("m_4_9222034")
 
 path_data_diff_B5 <- subset(path_data_FRI_FLC_ind, env == "diff" & allele_comb == "B5")
@@ -81,11 +81,32 @@ path_data_diff_B5_ggplot <- ggplot(data = path_data_diff_B5, aes(x = est, y = po
 setwd("/Users/James/Documents/GitHub/sar_qtl/figures/path_analysis_figures/")
 
 ggarrange(path_data_diff_B4_ggplot, path_data_diff_B5_ggplot,
+          vjust = 1.1,
+          hjust = c(-4.5, -0.5),
           labels = c("A", "B"),
           font.label = list(size = 30))
-ggsave("SAR4_SAR5_effect_comparison.png", device = "png", width = 15, height = 12)
+ggsave("SAR4_SAR5_effect_comparison.png", device = "png", width = 15, height = 6)
+
+path_data_diff_B5_ggplot <- ggplot(data = path_data_diff_B5, aes(x = est, y = pop_facet, color = effect_type)) +
+    geom_point(size = 4) +
+    geom_errorbarh(aes(xmax = est + se, xmin = est - se), height = 0.25, size = 2) +
+    geom_vline(xintercept = 0, 
+               color = "black", size = 0.25) + 
+    facet_wrap(~ trait_facet, nrow = 1) + 
+    xlab("QTL effect") + 
+    ylab("Population") +
+    theme(legend.text = element_text(size = 20),
+          legend.title = element_blank(), 
+          axis.title = element_text(size = 20),
+          axis.text.y = element_text(size = 20),
+          plot.title = element_text(hjust = 0.5, size = 20),
+          legend.position = "none") + 
+    scale_x_continuous(breaks = round(seq(min(path_data_diff_B5$est, na.rm = TRUE), max(path_data_diff_B5$est, na.rm = TRUE), by = 0.3), 1)) +
+    ggtitle("m_5_3799350")
 
 ggarrange(path_data_diff_B4_ggplot, path_data_diff_B42_ggplot, path_data_diff_B5_ggplot, 
+          vjust = 1.1,
+          hjust = c(-4.5, -0.5, -4),
           labels = c("A", "B", "C"),
           font.label = list(size = 30))
 ggsave("SAR4_SAR42_SAR5_effect_comparison.png", device = "png", width = 15, height = 12)
