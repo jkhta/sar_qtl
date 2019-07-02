@@ -56,4 +56,9 @@ for (i in pop_names) {
 }
 
 setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/sun_and_shade_blups/output/")
-fwrite(all_pop_blups, "pop_sun_shade_blups.csv", sep = ",", row.names = FALSE, col.names = TRUE)
+fwrite(all_pop_blups, 
+       "pop_sun_shade_blups.csv", 
+       sep = ",", 
+       row.names = FALSE, 
+       col.names = TRUE,
+       na = "NA")

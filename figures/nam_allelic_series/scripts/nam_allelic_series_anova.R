@@ -16,7 +16,8 @@ FRI_subset$pop <- as.factor(FRI_subset$pop)
 FRI_aov <- aovSufficient(fixef ~ pop, 
                          data = FRI_subset, 
                          weights = FRI_subset$count, 
-                         sd = FRI_subset$fixef_std*sqrt(FRI_subset$count)/2)
+                         #sd = FRI_subset$fixef_std*sqrt(FRI_subset$count)/2)
+                         sd = FRI_subset$fixef_std*sqrt(FRI_subset$count))
 summary(FRI_aov)
 
 #multiple comparisons between groups

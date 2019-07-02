@@ -37,7 +37,9 @@ geno_data_qtl_combos <- with(geno_data_markers_both_df, data.frame(geno = rownam
 #reading in phenotype data (plant data)
 setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/sun_and_shade_blups/output/")
 pheno_data <- fread("pop_sun_shade_blups.csv",
-                    sep = ",", header = TRUE, stringsAsFactors = FALSE)
+                    sep = ",", 
+                    header = TRUE, 
+                    stringsAsFactors = FALSE)
 
 #subsetting phenotype data that is not the accessions
 pheno_data_subset <- subset(pheno_data, grepl("RV", pheno_data$geno))
