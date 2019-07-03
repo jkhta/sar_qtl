@@ -6,7 +6,7 @@ library(lettercase)
 
 rm(list = ls())
 
-setwd("/Users/jkhta/Documents/GitHub/sar_qtl/7_path_analysis/output/")
+setwd("/Users/James/Documents/GitHub/sar_qtl/7_path_analysis/output/")
 
 bur_data <- fread("bur_blups_qtl_combo_merge.csv",
                   sep = ",",
@@ -21,8 +21,8 @@ bur_data[, c("A4", "A42", "A5", "AA", "AB", "BA", "BB")] <- NULL
 m_best <- "
 bd ~ c(a, A) * B42 + c(b, B) * B5
 rdry ~ c(c, C) * bd + c(d, D) * B5
-h3h1 ~ c(e, E) * B5
-idry ~ c(f, F) * rdry + c(g, G) * h3h1
+h3h1 ~ c(e, E) * rdry + c(f, F) * B5
+idry ~ c(g, G) * rdry + c(h, H) * h3h1
 
 #B4
 
@@ -87,18 +87,18 @@ B42_h3h1_dir_sun := 0
 B42_h3h1_dir_shade := 0
 B42_h3h1_dir_diff := 0
 
-B42_h3h1_ind_sun := 0
-B42_h3h1_ind_shade := 0
-B42_h3h1_ind_diff := 0
+B42_h3h1_ind_sun := a * c * e
+B42_h3h1_ind_shade := A * C * E
+B42_h3h1_ind_diff := (A * C * E) - (a * c * e)
 
 #idry
 B42_idry_dir_sun := 0
 B42_idry_dir_shade := 0
 B42_idry_dir_diff := 0
 
-B42_idry_ind_sun := (a * c * f)
-B42_idry_ind_shade := (A * C * F)
-B42_idry_ind_diff := ((A * C * F)) - ((a * c * f))
+B42_idry_ind_sun := (a * c * g) + (a * c * e * h)
+B42_idry_ind_shade := (A * C * G) + (A * C * E * H)
+B42_idry_ind_diff := ((A * C * G) + (A * C * E * H)) - ((a * c * g) + (a * c * e * h))
 
 #B5
 
@@ -121,25 +121,25 @@ B5_rdry_ind_shade := B * C
 B5_rdry_ind_diff := (B * C) - (b * c)
 
 #h3h1
-B5_h3h1_dir_sun := e
-B5_h3h1_dir_shade := E
-B5_h3h1_dir_diff := E - e
+B5_h3h1_dir_sun := f
+B5_h3h1_dir_shade := F
+B5_h3h1_dir_diff := F - f
 
-B5_h3h1_ind_sun := 0
-B5_h3h1_ind_shade := 0
-B5_h3h1_ind_diff := 0
+B5_h3h1_ind_sun := (b * c * e) + (d * e)
+B5_h3h1_ind_shade := (B * C * E) + (D * E)
+B5_h3h1_ind_diff := ((B * C * E) + (D * E)) - ((b * c * e) + (d * e))
 
 #idry
 B5_idry_dir_sun := 0
 B5_idry_dir_shade := 0
 B5_idry_dir_diff := 0
 
-B5_idry_ind_sun := (b * c * f) + (d * f) + (e * g)
-B5_idry_ind_shade := (B * C * F) + (D * F) + (E * G)
-B5_idry_ind_diff := ((B * C * F) + (D * F) + (E * G)) - ((b * c * f) + (d * f) + (e * g))
+B5_idry_ind_sun := (b * c * g) + (b * c * e * h) + (d * g) + (d * e * h) + (f * h)
+B5_idry_ind_shade := (B * C * G) + (B * C * E * H) + (D * G) + (D * E * H) + (F * H)
+B5_idry_ind_diff := ((B * C * G) + (B * C * E * H) + (D * G) + (D * E * H) + (F * H)) - ((b * c * g) + (b * c * e * h) + (d * g) + (d * e * h) + (f * h))
 "
 
-fit_best <- sem(m_best, data = bur_data, group = "treatment")
+fit_best <- sem(m_best, data = bur_data, group = "treatment", missing = "ML")
 summary(fit_best, fit.measures = TRUE)
 
 semPaths(fit_best, 
@@ -165,7 +165,7 @@ required_formula <- c("bd ~ B4", "bd ~ B42", "bd ~ B5", "rdry ~ B4", "rdry ~ B42
 path_parameters_qtl_effects_sun <- data.frame(matrix(ncol = length(required_formula)))
 
 for (i in 1:length(required_formula)) {
-  path_parameters_qtl_effects_sun[, i] <- tryCatch(subset(path_parameters_qtl_sun, formula == required_formula[i])$est, error = NA)
+    path_parameters_qtl_effects_sun[, i] <- tryCatch(subset(path_parameters_qtl_sun, formula == required_formula[i])$est, error = NA)
 }
 colnames(path_parameters_qtl_effects_sun) <- required_formula
 path_parameters_qtl_effects_sun$env <- "Sun"
@@ -175,7 +175,7 @@ path_parameters_qtl_shade <- path_parameters_qtl[str_is(path_parameters_qtl$labe
 path_parameters_qtl_effects_shade <- data.frame(matrix(ncol = length(required_formula)))
 
 for (i in 1:length(required_formula)) {
-  path_parameters_qtl_effects_shade[, i] <- tryCatch(subset(path_parameters_qtl_shade, formula == required_formula[i])$est, error = NA)
+    path_parameters_qtl_effects_shade[, i] <- tryCatch(subset(path_parameters_qtl_shade, formula == required_formula[i])$est, error = NA)
 }
 colnames(path_parameters_qtl_effects_shade) <- required_formula
 path_parameters_qtl_effects_shade$env <- "Shade"
@@ -188,7 +188,7 @@ required_formula <- c("rdry ~ bd", "h3h1 ~ bd", "h3h1 ~ rdry", "idry ~ bd", "idr
 path_trait_correlations_sun <- data.frame(matrix(ncol = length(required_formula)))
 
 for (i in 1:length(required_formula)) {
-  path_trait_correlations_sun[, i] <- tryCatch(subset(path_parameters_trait_sun, formula == required_formula[i])$est, error = NA)
+    path_trait_correlations_sun[, i] <- tryCatch(subset(path_parameters_trait_sun, formula == required_formula[i])$est, error = NA)
 }
 colnames(path_trait_correlations_sun) <- required_formula
 path_trait_correlations_sun$env <- "Sun"
@@ -198,7 +198,7 @@ path_parameters_trait_shade <- path_parameters_trait[str_is(path_parameters_trai
 path_trait_correlations_shade <- data.frame(matrix(ncol = length(required_formula)))
 
 for (i in 1:length(required_formula)) {
-  path_trait_correlations_shade[, i] <- tryCatch(subset(path_parameters_trait_shade, formula == required_formula[i])$est, error = NA)
+    path_trait_correlations_shade[, i] <- tryCatch(subset(path_parameters_trait_shade, formula == required_formula[i])$est, error = NA)
 }
 colnames(path_trait_correlations_shade) <- required_formula
 path_trait_correlations_shade$env <- "Shade"
@@ -212,7 +212,7 @@ path_parameters_eff$env <- sapply(strsplit(path_parameters_eff$label, split = "_
 nrow(path_parameters_eff)
 path_parameters_eff$pop <- "bur"
 
-setwd("/Users/jkhta/Documents/GitHub/sar_qtl/7_path_analysis/output/blups_analysis/")
+setwd("/Users/James/Documents/GitHub/sar_qtl/7_path_analysis/output/blups_analysis/")
 fwrite(path_parameters_eff, "bur_path_eff_blups.csv", sep = ",", row.names = FALSE)
 
 fwrite(path_trait_correlations_sun, "bur_trait_eff_blups_sun.csv", sep = ",", row.names = FALSE, na = "NA")

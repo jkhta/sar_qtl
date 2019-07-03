@@ -6,7 +6,7 @@ library(lettercase)
 
 rm(list = ls())
 
-setwd("/Users/jkhta/Documents/GitHub/sar_qtl/7_path_analysis/output/")
+setwd("/Users/James/Documents/GitHub/sar_qtl/7_path_analysis/output/")
 
 sha_data <-fread("sha_blups_qtl_combo_merge.csv",
                  sep = ",",
@@ -139,7 +139,7 @@ B5_idry_ind_shade := (C * D * G) + (E * G) + (F * H)
 B5_idry_ind_diff := ((C * D * G) + (E * G) + (F * H)) - ((c * d * g) + (e * g) + (f * h))
 "
 
-fit_best <- sem(m_best, data = sha_data, group = "treatment")
+fit_best <- sem(m_best, data = sha_data, group = "treatment", missing = "ML")
 summary(fit_best, fit.measures = TRUE)
 
 semPaths(fit_best, 
@@ -213,7 +213,7 @@ path_parameters_eff$env <- sapply(strsplit(path_parameters_eff$label, split = "_
 nrow(path_parameters_eff)
 path_parameters_eff$pop <- "sha"
 
-setwd("/Users/jkhta/Documents/GitHub/sar_qtl/7_path_analysis/output/blups_analysis/")
+setwd("/Users/James/Documents/GitHub/sar_qtl/7_path_analysis/output/blups_analysis/")
 fwrite(path_parameters_eff, "sha_path_eff_blups.csv", sep = ",", row.names = FALSE)
 
 fwrite(path_trait_correlations_sun, "sha_trait_eff_blups_sun.csv", sep = ",", row.names = FALSE, na = "NA")

@@ -6,7 +6,7 @@ library(lettercase)
 
 rm(list = ls())
 
-setwd("/Users/jkhta/Documents/GitHub/sar_qtl/7_path_analysis/output/")
+setwd("/Users/James/Documents/GitHub/sar_qtl/7_path_analysis/output/")
 
 cvi_data <- fread("cvi_blups_qtl_combo_merge.csv",
                   sep = ",",
@@ -139,7 +139,7 @@ B5_idry_ind_shade := (B * C * E) + (B * C * D * F)
 B5_idry_ind_diff := ((B * C * E) + (B * C * D * F)) - ((b * c * e) + (b * c * d * f))
 "
 
-fit_best <- sem(m_best, data = cvi_data, group = "treatment")
+fit_best <- sem(m_best, data = cvi_data, group = "treatment", missing = "ML")
 summary(fit_best, fit.measures = TRUE)
 
 semPaths(fit_best, 
@@ -212,7 +212,7 @@ path_parameters_eff$env <- sapply(strsplit(path_parameters_eff$label, split = "_
 nrow(path_parameters_eff)
 path_parameters_eff$pop <- "cvi"
 
-setwd("/Users/jkhta/Documents/GitHub/sar_qtl/7_path_analysis/output/blups_analysis/")
+setwd("/Users/James/Documents/GitHub/sar_qtl/7_path_analysis/output/blups_analysis/")
 fwrite(path_parameters_eff, "cvi_path_eff_blups.csv", sep = ",", row.names = FALSE)
 
 fwrite(path_trait_correlations_sun, "cvi_trait_eff_blups_sun.csv", sep = ",", row.names = FALSE, na = "NA")
