@@ -12,3 +12,12 @@ tassel_bd_geno_subset <- subset(tassel_bd_geno, select = c(1, 2, 3, 4, 9))
 tassel_bd_geno_subset <- tassel_bd_geno_subset[-c(1, nrow(tassel_bd_geno_subset)), ]
 
 print(xtable(tassel_bd_geno_subset), include.rownames = FALSE)
+
+#xtable for bd_gxe
+tassel_bd_gxe <- fread("tassel_bd_gxe_output.txt", sep = "\t", header = TRUE, stringsAsFactors = FALSE)
+
+tassel_bd_gxe_subset <- subset(tassel_bd_gxe, select = c(1, 2, 3, 4, 9))
+
+tassel_bd_gxe_subset <- tassel_bd_gxe_subset[-c(1, nrow(tassel_bd_gxe_subset)), ]
+
+print(xtable(tassel_bd_gxe_subset), include.rownames = FALSE)

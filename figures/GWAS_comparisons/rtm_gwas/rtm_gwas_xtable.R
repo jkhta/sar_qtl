@@ -11,3 +11,8 @@ rtm_bd_geno <- fread("rtm-gwas-assoc.out.190610_103359485.aov1", sep = "\t", hea
 rtm_bd_geno_subset <- rtm_bd_geno[!grepl("EV", rtm_bd_geno$Source), ]
 
 print(xtable(rtm_bd_geno_subset), include.rownames = FALSE)
+
+rtm_bd_gxe <- fread("rtm-gwas-assoc.out.190708_135201489.aov1", sep = "\t", header = TRUE, stringsAsFactors = FALSE)
+rtm_bd_gxe_subset <- rtm_bd_gxe[!grepl("EV", rtm_bd_gxe$Source), ]
+
+print(xtable(rtm_bd_gxe_subset), include.rownames = FALSE)
