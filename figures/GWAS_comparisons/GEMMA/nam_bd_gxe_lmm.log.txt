@@ -1,0 +1,30 @@
+##
+## GEMMA Version = 0.96
+##
+## Command Line Input = ./gemma.macosx.96 -g nam_geno_bimbam_final.tsv -p nam_bd_gxe_gemma.txt -a NAM_snp_annotation.csv -k output/nam_gemma_kinship_final.sXX.txt -lmm 4 -o nam_bd_gxe_lmm 
+##
+## Date = Mon Jul  8 11:52:35 2019
+##
+## Summary Statistics:
+## number of total individuals = 1005
+## number of analyzed individuals = 1005
+## number of covariates = 1
+## number of phenotypes = 1
+## number of total SNPs = 182314
+## number of analyzed SNPs = 163932
+## REMLE log-likelihood in the null model = 2148.35
+## MLE log-likelihood in the null model = 2151.31
+## pve estimate in the null model = 0.836036
+## se(pve) in the null model = 0.03109
+## vg estimate in the null model = 0.00216386
+## ve estimate in the null model = 0.000424377
+## beta estimate in the null model =   -0.000128054
+## se(beta) =   0.00064982
+##
+## Computation Time:
+## total computation time = 7.40763 min 
+## computation time break down: 
+##      time on eigen-decomposition = 0.00706063 min 
+##      time on calculating UtX = 0.565182 min 
+##      time on optimization = 6.36342 min 
+##
