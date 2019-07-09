@@ -27,8 +27,14 @@ sar_gxe_qtl_dt <- rbindlist(sar_gxe_qtl_list)
 sar_gene_counts$trait <- paste(sar_gene_counts$trait, "gxe", sep = "_")
 sar_gxe_qtl_dt_with_anno <- merge(sar_gxe_qtl_dt, sar_gene_counts, by = c("trait", "qtl"))
 sar_gxe_qtl_dt_with_anno_subset <- subset(sar_gxe_qtl_dt_with_anno, select = c(trait, qtl, avg_snp_pve, score, left_bound, right_bound, num_genes))
-sar_gxe_qtl_dt_with_anno_subset[is.na(sar_gxe_qtl_dt_with_anno_subset$`# Annotated genes`), ]$`# Annotated genes`  <- 0
+sar_gxe_qtl_dt_with_anno_subset[is.na(sar_gxe_qtl_dt_with_anno_subset$num_genes), ]$num_genes  <- 0
 colnames(sar_gxe_qtl_dt_with_anno_subset) <- c("Trait", "QTL", "SNP PVE", "-log10(p)", "Left Bound", "Right Bound", "# Annotated Genes")
 
+#multiple SNP PVE by 100 to represent a percentage
+sar_gxe_qtl_dt_with_anno_subset$`SNP PVE` <- sar_gxe_qtl_dt_with_anno_subset$`SNP PVE` * 100
+
+#removing the underscore and gxe
+sar_gxe_qtl_dt_with_anno_subset$Trait <- gsub("_|gxe", "", sar_gxe_qtl_dt_with_anno_subset$Trait)
+
 fwrite(sar_gxe_qtl_dt_with_anno_subset, "sar_gxe_qtl_info_with_anno.csv", sep = ",", row.names = FALSE)
-print(xtable(sar_gxe_qtl_dt_with_anno_subset, digits = 3), include.rownames = FALSE)
+print(xtable(sar_gxe_qtl_dt_with_anno_subset, digits = 2), include.rownames = FALSE)

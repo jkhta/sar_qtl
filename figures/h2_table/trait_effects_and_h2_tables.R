@@ -15,10 +15,17 @@ h2_table <- fread("trait_effects_and_h2_no_ci.csv",
 #changing column names and removing underscores
 colnames(h2_table)[1] <- NA
 rownames(h2_table) <- NULL
-colnames(h2_table) <- c("Trait", "Shelf Fixef", "Treatment Fixef", "Geno Var", "GxE Var", "Res", "H2", "GxE PVE")
+colnames(h2_table) <- c("Trait", "Shelf (sd)", "Treatment (sd)", "Geno Var", "GxE Var", "Residual Var", "H2 (%)", "GxE PVE (%)")
+
+#multiplying H2 and GxE PVE by 100 to represent percentages
+h2_table$H2 <- h2_table$H2 * 100
+h2_table$`GxE PVE` <- h2_table$`GxE PVE` * 100 
+
+#moreving underscores
+h2_table$Trait <- gsub("_", "", h2_table$Trait)
 
 #generating xtable
-print(xtable(h2_table, caption = "Table 1", digits = 3), include.rownames=FALSE)
+print(xtable(h2_table, caption = "Table 1", digits = 2), include.rownames=FALSE)
 
 #reading in qtl found for genotype random effects and GxE random effects
 setwd("/Users/James/Documents/GitHub/sar_qtl/figures/qtl_table/")
@@ -39,8 +46,11 @@ colnames(qtl_table_geno) <- c("QTL", "SNP PVE", "-log10p", "Left Bound", "Right 
 
 qtl_table_geno <- subset(qtl_table_geno, select = c("Trait", "QTL", "SNP PVE", "-log10p", "Left Bound", "Right Bound"))
 
+#multiplying SNP PVE by 100 to represent a percentage
+qtl_table_geno$`SNP PVE` <- qtl_table_geno$`SNP PVE` * 100
+
 #generating xtable
-xtable(qtl_table_geno, caption = "Table 2")
+print(xtable(qtl_table_geno, caption = "Table 2"), include.rownames=FALSE)
 
 #reading in qtl found for GxE random effects
 qtl_table_gxe <- lapply(list.files(pattern = "gxe"), function(x) fread(x, sep = ",", header = TRUE, stringsAsFactors = FALSE))
