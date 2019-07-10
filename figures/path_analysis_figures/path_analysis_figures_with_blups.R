@@ -35,6 +35,7 @@ path_data_diff_B4_ggplot <- ggplot(data = path_data_diff_B4, aes(x = est, y = po
           axis.text.x = element_text(size = 15),
           axis.text.y = element_text(size = 20),
           plot.title = element_text(hjust = 0.5, size = 20),
+          strip.text.x = element_text(size = 20),
           legend.position = "none") + 
     scale_x_continuous(
         labels = scales::number_format(accuracy = 0.1)) +
@@ -55,7 +56,8 @@ path_data_diff_B42_ggplot <- ggplot(data = path_data_diff_B42, aes(x = est, y = 
           axis.title = element_text(size = 20),
           axis.title.y = element_blank(),
           axis.text.y = element_blank(),
-          plot.title = element_text(hjust = 0.5, size = 20)) + 
+          plot.title = element_text(hjust = 0.5, size = 20),
+          strip.text.x = element_text(size = 20)) + 
     ggtitle("m_4_9222034")
 
 path_data_diff_B5 <- subset(path_data_FRI_FLC_ind, env == "diff" & allele_comb == "B5")
@@ -73,7 +75,8 @@ path_data_diff_B5_ggplot <- ggplot(data = path_data_diff_B5, aes(x = est, y = po
           axis.title = element_text(size = 20),
           axis.title.y = element_blank(),
           axis.text.y = element_blank(),
-          plot.title = element_text(hjust = 0.5, size = 20)) + 
+          plot.title = element_text(hjust = 0.5, size = 20),
+          strip.text.x = element_text(size = 20)) + 
     scale_x_continuous(breaks = round(seq(min(path_data_diff_B5$est, na.rm = TRUE), max(path_data_diff_B5$est, na.rm = TRUE), by = 0.3), 1)) +
     ggtitle("m_5_3799350")
 
@@ -101,7 +104,8 @@ path_data_diff_B42_ggplot <- ggplot(data = path_data_diff_B42, aes(x = est, y = 
           axis.title.y = element_blank(),
           axis.text.x = element_text(size = 15),
           axis.text.y = element_blank(),
-          plot.title = element_text(hjust = 0.5, size = 20))  +
+          plot.title = element_text(hjust = 0.5, size = 20),
+          strip.text.x = element_text(size = 20))  +
     ggtitle("m_4_9222034")
 
 #yaxis text and legend
@@ -119,6 +123,7 @@ path_data_diff_B5_ggplot <- ggplot(data = path_data_diff_B5, aes(x = est, y = po
           axis.text.x = element_text(size = 15),
           axis.text.y = element_text(size = 20),
           plot.title = element_text(hjust = 0.5, size = 20),
+          strip.text.x = element_text(size = 20),
           legend.position = "none") + 
     #scale_x_continuous(breaks = round(seq(min(path_data_diff_B5$est, na.rm = TRUE), max(path_data_diff_B5$est, na.rm = TRUE), by = 0.3), 1)) +
     ggtitle("m_5_3799350")
@@ -128,4 +133,6 @@ ggarrange(path_data_diff_B4_ggplot, path_data_diff_B42_ggplot, path_data_diff_B5
           #hjust = c(-4.5, , -4),
           labels = c("A", "B", "C"),
           font.label = list(size = 30))
+setwd("/Users/James/Documents/GitHub/sar_qtl/figures/path_analysis_figures/")
+
 ggsave("SAR4_SAR42_SAR5_effect_blups_comparison.png", device = "png", width = 18, height = 12)

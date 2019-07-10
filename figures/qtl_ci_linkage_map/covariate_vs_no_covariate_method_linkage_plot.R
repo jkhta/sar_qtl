@@ -32,6 +32,7 @@ im_B <- ggplot() + background_image(bd_geno_cov) +
 
 ggarrange(im_A, im_B,
           labels = c("A", "B"),
-          ncol = 2)
+          ncol = 2,
+          font.label = list(size = 25))
 
 ggsave("gxe_qtl_linkage_no_cov_vs_cov_compared.png", device = "png", height = 8, width = 15, bg = "transparent")

@@ -45,7 +45,7 @@ ggplot(gemma_bd_geno_lm_ouput_change, aes(x = PScum, y = -log10(p_lrt))) +
     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
           panel.background = element_blank(), axis.line = element_line(colour = "black")) +
     theme(legend.position = "none") +
-    theme(axis.text = element_text(size = 10), axis.title = element_text(size = 20)) +
+    theme(axis.text = element_text(size = 20), axis.title = element_text(size = 20)) +
     xlab("Chromosome") + 
     ylab("-log10(p)")
 ggsave("gemma_bd_geno_lm_manhattan_plot.png", device = "png", width = 10, height = 8)
@@ -86,7 +86,7 @@ ggplot(gemma_bd_geno_lmm_ouput_change, aes(x = PScum, y = -log10(p_lrt))) +
     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
           panel.background = element_blank(), axis.line = element_line(colour = "black")) +
     theme(legend.position = "none") +
-    theme(axis.text = element_text(size = 10), axis.title = element_text(size = 20)) +
+    theme(axis.text = element_text(size = 20), axis.title = element_text(size = 20)) +
     xlab("Chromosome") + 
     ylab("-log10(p)")
 ggsave("gemma_bd_geno_lmm_manhattan_plot.png", device = "png", width = 10, height = 8)
@@ -127,7 +127,7 @@ ggplot(gemma_bd_gxe_ouput_change, aes(x = PScum, y = -log10(p_lrt))) +
     theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
           panel.background = element_blank(), axis.line = element_line(colour = "black")) +
     theme(legend.position = "none") +
-    theme(axis.text = element_text(size = 10), axis.title = element_text(size = 20)) +
+    theme(axis.text = element_text(size = 20), axis.title = element_text(size = 20)) +
     xlab("Chromosome") + 
     ylab("-log10(p)")
 ggsave("gemma_bd_gxe_lmm_manhattan_plot.png", device = "png", width = 10, height = 8)
