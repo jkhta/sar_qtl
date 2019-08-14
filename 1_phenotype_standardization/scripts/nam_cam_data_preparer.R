@@ -1,4 +1,4 @@
-#now the ultimate nam cam testing
+#combines data from all reps, removes erroneous data, and then transforms and standardizes the data
 library(data.table)
 library(lme4)
 library(car)
@@ -8,7 +8,7 @@ library(sjmisc)
 library(optimx)
 
 rm(list = ls())
-setwd("/Users/jkhta/Documents/GitHub/sar_qtl/1_phenotype_standardization/input/")
+setwd("/Users/James/Documents/GitHub/sar_qtl/1_phenotype_standardization/input/")
 
 #reading in the phenotype data for all experiments as a list
 nam_cam_data_files <- list.files(pattern = "*phenotypes_combined.csv")
@@ -59,8 +59,8 @@ apply(nam_cam_data_phenotypes_clean, 2, function(x) any(x == 0, na.rm = TRUE))
 nam_cam_clean <- cbind(nam_cam_info_data, nam_cam_data_phenotypes_clean)
 
 #writing out the cleaned phenotype data
-setwd("/Users/jkhta/Documents/GitHub/sar_qtl/1_phenotype_standardization/output/")
-write.csv(nam_cam_clean, "nam_cam_data_combined.csv", row.names = FALSE)
+#setwd("/Users/jkhta/Documents/GitHub/sar_qtl/1_phenotype_standardization/output/")
+#write.csv(nam_cam_clean, "nam_cam_data_combined.csv", row.names = FALSE)
 
 #reordering the factors in the data set
 nam_cam_clean$treatment <- factor(nam_cam_clean$treatment, levels = c("Sun", "Shade"))
