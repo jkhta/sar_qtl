@@ -1,3 +1,5 @@
+#this script fits a bayesian linear mixed model for each individual population, for each trait
+#shade responses are measured as genotype x treatment random effects
 library(brms)
 library(data.table)
 
