@@ -1,4 +1,4 @@
-#getting the blups from the univariate models and then mapping qtl with those BLUPs
+#getting the blups from the univariate models
 library(brms)
 library(data.table)
 library(plyr)

@@ -1,4 +1,4 @@
-#this will generate a genotype probability matrix on the set for the pipeline to run on
+#this will generate a genotype probability matrix for the markers for Haley-Knott regression
 library(qtl)
 library(data.table)
 library(lme4qtl)
