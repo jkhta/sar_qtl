@@ -6,7 +6,7 @@ library(plyr)
 
 rm(list = ls())
 
-setwd("/Users/James/Documents/GitHub/sar_qtl/7_path_analysis/output/blups_analysis/")
+setwd("/Users/James/Documents/GitHub/sar_qtl/7_path_analysis/data/")
 
 sun_trait_eff <- rbindlist(lapply(list.files(pattern = "trait_eff_blups_sun.csv"), function(x) fread(x, sep = ",", header = TRUE, stringsAsFactors = FALSE)))
 

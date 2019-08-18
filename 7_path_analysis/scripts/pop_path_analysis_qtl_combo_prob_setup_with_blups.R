@@ -5,7 +5,7 @@ library(plyr)
 
 rm(list = ls())
 #reading in the genotype data
-setwd("/Users/jkhta/Documents/GitHub/sar_qtl/6_push_button/")
+setwd("/Users/James/Documents/GitHub/sar_qtl/6_push_button/data")
 
 geno_data <- readRDS("nam_rqtl_geno_prob_array_comp_11_all_rils_NEW.RDS")
 
@@ -35,7 +35,7 @@ geno_data_qtl_combos <- with(geno_data_markers_both_df, data.frame(geno = rownam
 
 
 #reading in phenotype data (plant data)
-setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/sun_and_shade_blups/output/")
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/3_lmm_blups/output/")
 pheno_data <- fread("pop_sun_shade_blups.csv",
                     sep = ",", 
                     header = TRUE, 
@@ -48,7 +48,7 @@ genotypes <- paste(geno_family, pheno_data_subset$geno, sep = "_")
 pheno_data_subset$geno <- genotypes
 
 geno_pheno_merge <- merge(pheno_data_subset, geno_data_qtl_combos, by = "geno")
-setwd("/Users/jkhta/Documents/GitHub/sar_qtl/7_path_analysis/output/")
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/7_path_analysis/data/")
 fwrite(geno_pheno_merge, 
        "nam_blups_qtl_combo_merge.csv",
        sep = ",", 

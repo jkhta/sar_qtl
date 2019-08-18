@@ -6,7 +6,7 @@ library(ggpubr)
 rm(list = ls())
 
 #reading in the allelic series data
-setwd("/Users/James/Documents/GitHub/sar_qtl/figures/nam_allelic_series/output/")
+setwd("/Users/James/Documents/GitHub/sar_qtl/figures/nam_allelic_series/data/")
 
 nam_trait_lme4qtl_fixef <- fread("trait_lme4qtl_fixef.csv",
                                  sep = ",",
@@ -48,5 +48,5 @@ ggarrange(bd_geno_fixef_ggplot_m_4_407208,
           labels = c("A", "B"),
           font.label = list(size = 25))
 
-setwd("/Users/James/Documents/GitHub/sar_qtl/figures/nam_allelic_series/output/")
+setwd("/Users/James/Documents/GitHub/sar_qtl/figures/nam_allelic_series/img/")
 ggsave("bd_geno_allelic_series.png", device = "png", width = 14, height = 8)

@@ -4,7 +4,7 @@ library(ggplot2)
 
 rm(list = ls())
 
-setwd("/Users/James/Documents/GitHub/sar_qtl/7_path_analysis/output/blups_analysis/")
+setwd("/Users/James/Documents/GitHub/sar_qtl/7_path_analysis/data/")
 path_data <- rbindlist(lapply(list.files(pattern = "path_eff_blups.csv"), 
                               function(x) fread(x, sep = ",", header = TRUE, stringsAsFactors = FALSE)))
 path_data$pop_facet <- factor(path_data$pop, levels = c("sha", "oy", "jea", "ita", "cvi", "bur", "blh"))
@@ -26,6 +26,7 @@ for (i in unique(path_data$env)) {
                   axis.title = element_text(size = 20),
                   axis.text.y = element_text(size = 20)) + 
             ggtitle(i)
+        ggsave(paste(i, j, "FRI_FLC_ind_blups_path_effects.png", sep = "_"), width = 6, height = 4, units = "in")
     }
 }
 

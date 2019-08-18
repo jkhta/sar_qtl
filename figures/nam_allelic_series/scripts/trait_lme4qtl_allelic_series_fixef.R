@@ -120,7 +120,7 @@ for (i in 1:length(gridlmm_models)) {
   trait_qtl_fixef <- rbindlist(list(trait_qtl_fixef, fixef_table_list_with_count))
 } 
 
-setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/nam_allelic_series/output/")
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/nam_allelic_series/data/")
 trait_qtl_fixef$pop <- revalue(trait_qtl_fixef$pop, c("21RV_21RV" = "Blh-1",
                                                       "20RV_20RV" = "Bur-0",
                                                       "8RV_8RV" = "Cvi-0",
