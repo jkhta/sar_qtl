@@ -15,7 +15,7 @@ rm(list = ls())
 #PART I
 
 #directory with genotype probability array and blups
-setwd("/Users/jkhta/Documents/GitHub/sar_qtl/6_push_button/")
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/6_push_button/data")
 
 #-----STEP 1 START-----#
 
