@@ -12,7 +12,7 @@ nam_kinship <- readRDS("nam_GridLMM_kinship.RDS")
 #reading in the GridLMM stepwise models 
 trait_qtl_fixef <- c()
 setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/nam_allelic_series/input/")
-gridlmm_models <- list.files(pattern = "GridLMM_stepwise_model.RDS")
+gridlmm_models <- list.files(pattern = "james_GridLMM_stepwise_model.RDS")
 
 #function to merge the genotype and phenotype information into a single data frame
 geno_pheno_merger <- function(pop_name, nam_data, sig_qtl) {
@@ -68,11 +68,11 @@ proximal_kinship_generator <- function(geno_pheno_data, sig_qtl) {
 for (i in 1:length(gridlmm_models)) {
   #grabbing the trait
   setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/nam_allelic_series/input/")
-  traits <- sapply(strsplit(list.files(pattern = "cov_GridLMM_stepwise_model.RDS"), split = "_james_"), function(x) x[1])
+  traits <- sapply(strsplit(list.files(pattern = "james_GridLMM_stepwise_model.RDS"), split = "_james_"), function(x) x[1])
   trait <- traits[i]
   
   #grabbing the right model
-  gridlmm_trait_model_name <- list.files(pattern = "GridLMM_stepwise_model.RDS")[i]
+  gridlmm_trait_model_name <- list.files(pattern = "james_GridLMM_stepwise_model.RDS")[i]
   gridlmm_trait_model <- readRDS(gridlmm_trait_model_name)
   
   #grabbing the qtl found
@@ -129,7 +129,7 @@ trait_qtl_fixef$pop <- revalue(trait_qtl_fixef$pop, c("21RV_21RV" = "Blh-1",
                                                       "27RV_27RV" = "Oy-0",
                                                       "13RV_13RV" = "Sha"))
 
-fwrite(trait_qtl_fixef, "trait_lme4qtl_fixef.csv", sep = ",", row.names = FALSE, col.names = TRUE)
+fwrite(trait_qtl_fixef, "trait_lme4qtl_fixef_cov.csv", sep = ",", row.names = FALSE, col.names = TRUE)
 
 
 

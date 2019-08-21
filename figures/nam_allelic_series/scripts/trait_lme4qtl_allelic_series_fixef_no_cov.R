@@ -1,4 +1,5 @@
 #this script will generate the lme4qtl models to get the standard errors of the effects
+library(lme4)
 library(lme4qtl)
 library(data.table)
 library(plyr)
@@ -12,7 +13,7 @@ nam_kinship <- readRDS("nam_GridLMM_kinship.RDS")
 #reading in the GridLMM stepwise models 
 trait_qtl_fixef <- c()
 setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/nam_allelic_series/input/")
-gridlmm_models <- list.files(pattern = "GridLMM_stepwise_model.RDS")
+gridlmm_models <- list.files(pattern = "james_GridLMM_stepwise_model.RDS")
 
 #function to merge the genotype and phenotype information into a single data frame
 geno_pheno_merger <- function(pop_name, nam_data, sig_qtl) {
@@ -68,11 +69,11 @@ proximal_kinship_generator <- function(geno_pheno_data, sig_qtl) {
 for (i in 1:length(gridlmm_models)) {
   #grabbing the trait
   setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/nam_allelic_series/input/")
-  traits <- sapply(strsplit(list.files(pattern = "cov_GridLMM_stepwise_model.RDS"), split = "_james_"), function(x) x[1])
+  traits <- sapply(strsplit(list.files(pattern = "james_GridLMM_stepwise_model.RDS"), split = "_james_"), function(x) x[1])
   trait <- traits[i]
   
   #grabbing the right model
-  gridlmm_trait_model_name <- list.files(pattern = "GridLMM_stepwise_model.RDS")[i]
+  gridlmm_trait_model_name <- list.files(pattern = "james_GridLMM_stepwise_model.RDS")[i]
   gridlmm_trait_model <- readRDS(gridlmm_trait_model_name)
   
   #grabbing the qtl found
@@ -86,17 +87,7 @@ for (i in 1:length(gridlmm_models)) {
   nam_geno_pheno_merge_list <- lapply(names(nam_geno_pheno), function(x) geno_pheno_merger(x, nam_geno_pheno, gridlmm_qtl))
   
   #generating formula for the responses; the shade responses are different because they have covariates  
-  if(trait == "bd_gxe") {
-    model_formula <- as.formula(paste(trait, " ~ ", paste(gridlmm_qtl, collapse = " + "), " + ", "(1|geno)", sep = ""))
-  } else if (trait == "r_dry_gxe") {
-    model_formula <- as.formula(paste(trait, " ~ ", "bd_gxe", " + ", paste(gridlmm_qtl, collapse = " + "), " + ", "(1|geno)", sep = ""))
-  } else if (trait == "h3_h1_gxe") {
-    model_formula <- as.formula(paste(trait, " ~ ", "bd_gxe + r_dry_gxe", " + ", paste(gridlmm_qtl, collapse = " + "), " + ", "(1|geno)", sep = ""))
-  } else if (trait == "i_dry_gxe") {
-    model_formula <- as.formula(paste(trait, " ~ ", "bd_gxe + r_dry_gxe + i_dry_gxe", " + ", paste(gridlmm_qtl, collapse = " + "), " + ", "(1|geno)", sep = ""))
-  } else {
-    model_formula <- as.formula(paste(trait, " ~ ", paste(gridlmm_qtl, collapse = " + "), " + ", "(1|geno)", sep = ""))
-  }
+  model_formula <- as.formula(paste(trait, " ~ ", paste(gridlmm_qtl, collapse = " + "), " + ", "(1|geno)", sep = ""))
   
   #generating the population counts 
   nam_pop_counts <- data.frame(pop = unlist(lapply(nam_geno_pheno_merge_list, function(x) unique(x$pop_pop))), 
@@ -129,7 +120,7 @@ trait_qtl_fixef$pop <- revalue(trait_qtl_fixef$pop, c("21RV_21RV" = "Blh-1",
                                                       "27RV_27RV" = "Oy-0",
                                                       "13RV_13RV" = "Sha"))
 
-fwrite(trait_qtl_fixef, "trait_lme4qtl_fixef.csv", sep = ",", row.names = FALSE, col.names = TRUE)
+fwrite(trait_qtl_fixef, "trait_lme4qtl_fixef_no_cov.csv", sep = ",", row.names = FALSE, col.names = TRUE)
 
 
 

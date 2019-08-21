@@ -5,27 +5,49 @@ library(xtable)
 rm(list = ls())
 
 #table output for trait effects and heritabilities
-setwd("/Users/James/Documents/GitHub/sar_qtl/figures/h2_table/input/")
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/h2_table/input/")
 
 h2_table <- fread("trait_effects_and_h2_no_ci.csv", 
                   sep = ",", 
                   header = TRUE, 
                   stringsAsFactors = FALSE)
 
+acc_h2_table <- fread("acc_trait_effects_and_h2_no_ci.csv",
+                      sep = ",", 
+                      header = TRUE, 
+                      stringsAsFactors = FALSE)
+
+#grabbing only the gxe heritability
+acc_h2_table_subset <- subset(acc_h2_table, select = c(trait, acc_gxe_h2))
+
+#nam stats with acc stats
+h2_table_merge <- merge(h2_table, acc_h2_table_subset, by = "trait")
+
 #changing column names and removing underscores
-colnames(h2_table)[1] <- NA
-rownames(h2_table) <- NULL
-colnames(h2_table) <- c("Trait", "Shelf (sd)", "Treatment (sd)", "Geno Var", "GxE Var", "Residual Var", "H2 (%)", "GxE PVE (%)")
+rownames(h2_table_merge) <- NULL
+colnames(h2_table_merge) <- c("Trait", "Shelf", "Intercept", "Treatment", "Geno Var", "GxE Var", "Residual Var", "H2", "GxE PVE", "Acc GxE PVE")
 
 #multiplying H2 and GxE PVE by 100 to represent percentages
-h2_table$H2 <- h2_table$H2 * 100
-h2_table$`GxE PVE` <- h2_table$`GxE PVE` * 100 
+h2_table_merge$H2 <- h2_table_merge$H2 * 100
+h2_table_merge$`GxE PVE` <- h2_table_merge$`GxE PVE` * 100 
+h2_table_merge$`Acc GxE PVE` <- h2_table_merge$`Acc GxE PVE` * 100 
 
 #moreving underscores
-h2_table$Trait <- gsub("_", "", h2_table$Trait)
+h2_table_merge$Trait <- gsub("_", "", h2_table_merge$Trait)
 
 #generating xtable
-print(xtable(h2_table, caption = "Table 1", digits = 2), include.rownames=FALSE)
+print(xtable(h2_table_merge, label = ("S2_Table"), digits = 2), include.rownames=FALSE)
+
+#table with sun intercept, treatment fixed effect, and coefficient of variation
+h2_table_new <- data.frame(Trait = h2_table$trait,
+                           Intercept = h2_table$int_fixef,
+                           Treatment = h2_table$treatment_fixef,
+                           CV = sqrt(h2_table$gxe_var)/h2_table$treatment_fixef,
+                           stringsAsFactors = FALSE)
+h2_table_new$Trait <- gsub("_", "", h2_table_new$Trait)
+
+print(xtable(h2_table_new, label = ("Table 1"), caption = "Averages of the intercept and treatment fixed effects, and the coefficient of variation for plasticity (CV) for each trait. bd, bolting time; h3h1, inflorescence growth over 2 weeks; rdry, dry rosette biomass; idry, dry inflorescence biomass.", digits = 2), include.rownames=FALSE)
+
 
 #reading in qtl found for genotype random effects and GxE random effects
 setwd("/Users/James/Documents/GitHub/sar_qtl/figures/qtl_table/data/")

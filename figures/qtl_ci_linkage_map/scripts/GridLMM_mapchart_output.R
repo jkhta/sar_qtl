@@ -6,7 +6,7 @@ rm(list = ls())
 
 
 #reading in the nam marker information
-setwd("/Users/James/Documents/GitHub/sar_qtl/6_push_button/data")
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/6_push_button/data")
 nam_markers <- fread("nam_marker_info_final.csv",
                  sep = ",",
                  header = TRUE,
@@ -17,7 +17,7 @@ nam_markers$marker <- paste("m", nam_markers$marker, sep = "_")
 trait_type <- "covariate"
 
 #reading in an example trait 95% CI using lme4qtl
-setwd(paste("/Users/James/Documents/GitHub/sar_qtl/figures/qtl_ci_linkage_map/", trait_type, "/", sep = ""))
+setwd(paste("/Users/jkhta/Documents/GitHub/sar_qtl/figures/qtl_ci_linkage_map/", trait_type, "/", sep = ""))
 
 phenotype_ci_list <- lapply(list.files(pattern = "gxe"), function(x) fread(x, sep = ",", header = TRUE, stringsAsFactors = FALSE))
 phenotype_names <- sapply(strsplit(list.files(pattern = "gxe"), split = "_gxe"), function(x) x[1])
