@@ -15,6 +15,13 @@ trait_qtl_fixef <- c()
 setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/nam_allelic_series/input/")
 gridlmm_models <- list.files(pattern = "james_GridLMM_stepwise_model.RDS")
 
+#reading in file to add average plasticity 
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/h2_table/input/")
+fixef_and_h2_table <- fread("trait_effects_and_h2_no_ci.csv",
+                            sep = ",",
+                            header = TRUE,
+                            stringsAsFactors = FALSE)
+
 #function to merge the genotype and phenotype information into a single data frame
 geno_pheno_merger <- function(pop_name, nam_data, sig_qtl) {
   pop_geno_pheno <- nam_data[[pop_name]]
@@ -105,22 +112,45 @@ for (i in 1:length(gridlmm_models)) {
                                                                                                   nam_population = names(lme4qtl_model_list)[[x]], 
                                                                                                   trait_of_interest = trait, 
                                                                                                   sig_qtl = gridlmm_qtl)))
+  
   #mergin the fixed effects table with the counts to run the anova with sufficient statistics
   fixef_table_list_with_count <- merge(fixef_table_list, nam_pop_counts, by = "pop")
   
   trait_qtl_fixef <- rbindlist(list(trait_qtl_fixef, fixef_table_list_with_count))
 } 
 
-setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/nam_allelic_series/data/")
-trait_qtl_fixef$pop <- revalue(trait_qtl_fixef$pop, c("21RV_21RV" = "Blh-1",
-                                                      "20RV_20RV" = "Bur-0",
-                                                      "8RV_8RV" = "Cvi-0",
-                                                      "29RV_29RV" = "Ita-0",
-                                                      "28RV_28RV" = "Jea",
-                                                      "27RV_27RV" = "Oy-0",
-                                                      "13RV_13RV" = "Sha"))
+#copying 
+trait_qtl_fixef$fixef_norm <- trait_qtl_fixef$fixef
 
-fwrite(trait_qtl_fixef, "trait_lme4qtl_fixef_no_cov.csv", sep = ",", row.names = FALSE, col.names = TRUE)
+trait_qtl_fixef_normalized <- c()
+
+#normalizing the fixed effect estimates of the plasticities; the genotype main effects are
+#unchanged
+for (i in unique(trait_qtl_fixef$trait)) {
+  trait_qtl_fixef_subset <- subset(trait_qtl_fixef, trait == i)
+  if (grepl("_geno", i) == TRUE) {
+    trait_qtl_fixef_normalized <- rbindlist(list(trait_qtl_fixef_normalized, trait_qtl_fixef_subset))
+    next
+  } else {
+    name_base <- sapply(strsplit(i, split = "_gxe"), function(x) x[1])
+    trait_trt_fixef <- abs(subset(fixef_and_h2_table, trait == name_base, select = treatment_fixef)$treatment_fixef)
+    trait_qtl_fixef_subset$fixef_norm <- trait_qtl_fixef_subset$fixef_norm/trait_trt_fixef
+    trait_qtl_fixef_normalized <- rbindlist(list(trait_qtl_fixef_normalized, trait_qtl_fixef_subset))
+  }
+}
+
+#changing name of populations
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/nam_allelic_series/data/")
+trait_qtl_fixef_normalized$pop <- revalue(trait_qtl_fixef_normalized$pop, c("21RV_21RV" = "Blh-1",
+                                                                            "20RV_20RV" = "Bur-0",
+                                                                            "8RV_8RV" = "Cvi-0",
+                                                                            "29RV_29RV" = "Ita-0",
+                                                                            "28RV_28RV" = "Jea",
+                                                                            "27RV_27RV" = "Oy-0",
+                                                                            "13RV_13RV" = "Sha"))
+
+#writing out the file
+fwrite(trait_qtl_fixef_normalized, "trait_lme4qtl_fixef_no_cov.csv", sep = ",", row.names = FALSE, col.names = TRUE)
 
 
 
