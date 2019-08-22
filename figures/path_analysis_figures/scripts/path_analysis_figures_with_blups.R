@@ -6,7 +6,7 @@ library(plyr)
 
 rm(list = ls())
 
-setwd("/Users/James/Documents/GitHub/sar_qtl/7_path_analysis/data/")
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/7_path_analysis/data/")
 
 #looking at fri and flc individually
 path_data_FRI_FLC_ind <- rbindlist(lapply(list.files(pattern = "path_eff_blups.csv"), 
@@ -16,6 +16,12 @@ path_data_FRI_FLC_ind$pop_facet <- factor(path_data_FRI_FLC_ind$pop, levels = c(
 
 path_data_FRI_FLC_ind$trait_facet <- factor(path_data_FRI_FLC_ind$trait, levels = c("bd", "rdry", "h3h1", "idry"))
 path_data_FRI_FLC_ind$effect_type <- revalue(path_data_FRI_FLC_ind$effect_type, c("dir" = "Direct", "ind" = "Indirect"))
+
+#changing name of traits
+path_data_FRI_FLC_ind$trait_facet <- mapvalues(path_data_FRI_FLC_ind$trait_facet,
+                                               from = c("bd", "rdry", "h3h1", "idry"),
+                                               to = c("BD", "RB", "IG", "IB"))
+
 
 geom_point_size <- 30
 
@@ -39,7 +45,7 @@ path_data_diff_B4_ggplot <- ggplot(data = path_data_diff_B4, aes(x = est, y = po
           legend.position = "none") + 
     scale_x_continuous(
         labels = scales::number_format(accuracy = 0.1)) +
-    ggtitle("m_4_41028")
+    ggtitle("SAR_4_1")
 
 path_data_diff_B42 <- subset(path_data_FRI_FLC_ind, env == "diff" & allele_comb == "B42")
 path_data_diff_B42[path_data_diff_B42 == 0] <- NA
@@ -58,7 +64,7 @@ path_data_diff_B42_ggplot <- ggplot(data = path_data_diff_B42, aes(x = est, y = 
           axis.text.y = element_blank(),
           plot.title = element_text(hjust = 0.5, size = 20),
           strip.text.x = element_text(size = 20)) + 
-    ggtitle("m_4_9222034")
+    ggtitle("SAR_4_2")
 
 path_data_diff_B5 <- subset(path_data_FRI_FLC_ind, env == "diff" & allele_comb == "B5")
 path_data_diff_B5[path_data_diff_B5 == 0] <- NA
@@ -78,15 +84,15 @@ path_data_diff_B5_ggplot <- ggplot(data = path_data_diff_B5, aes(x = est, y = po
           plot.title = element_text(hjust = 0.5, size = 20),
           strip.text.x = element_text(size = 20)) + 
     scale_x_continuous(breaks = round(seq(min(path_data_diff_B5$est, na.rm = TRUE), max(path_data_diff_B5$est, na.rm = TRUE), by = 0.3), 1)) +
-    ggtitle("m_5_3799350")
-
-setwd("/Users/James/Documents/GitHub/sar_qtl/figures/path_analysis_figures/img/")
+    ggtitle("SAR_5")
 
 ggarrange(path_data_diff_B4_ggplot, path_data_diff_B5_ggplot,
           vjust = 1.1,
           hjust = c(-4.5, -0.5),
           labels = c("A", "B"),
           font.label = list(size = 30))
+
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/path_analysis_figures/img/")
 ggsave("SAR4_SAR5_effect_comparison.png", device = "png", width = 15, height = 6)
 
 #no legend and yaxis text
@@ -106,7 +112,7 @@ path_data_diff_B42_ggplot <- ggplot(data = path_data_diff_B42, aes(x = est, y = 
           axis.text.y = element_blank(),
           plot.title = element_text(hjust = 0.5, size = 20),
           strip.text.x = element_text(size = 20))  +
-    ggtitle("m_4_9222034")
+    ggtitle("SAR_4_2")
 
 #yaxis text and legend
 path_data_diff_B5_ggplot <- ggplot(data = path_data_diff_B5, aes(x = est, y = pop_facet, color = effect_type)) +
@@ -126,13 +132,13 @@ path_data_diff_B5_ggplot <- ggplot(data = path_data_diff_B5, aes(x = est, y = po
           strip.text.x = element_text(size = 20),
           legend.position = "none") + 
     #scale_x_continuous(breaks = round(seq(min(path_data_diff_B5$est, na.rm = TRUE), max(path_data_diff_B5$est, na.rm = TRUE), by = 0.3), 1)) +
-    ggtitle("m_5_3799350")
+    ggtitle("SAR_5")
 
 ggarrange(path_data_diff_B4_ggplot, path_data_diff_B42_ggplot, path_data_diff_B5_ggplot, 
           vjust = 1.1,
           #hjust = c(-4.5, , -4),
           labels = c("A", "B", "C"),
           font.label = list(size = 30))
-setwd("/Users/James/Documents/GitHub/sar_qtl/figures/path_analysis_figures/img/")
 
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/path_analysis_figures/img/")
 ggsave("SAR4_SAR42_SAR5_effect_blups_comparison.png", device = "png", width = 18, height = 12)

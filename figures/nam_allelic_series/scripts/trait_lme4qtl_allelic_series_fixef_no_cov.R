@@ -120,23 +120,16 @@ for (i in 1:length(gridlmm_models)) {
 } 
 
 #copying 
-trait_qtl_fixef$fixef_norm <- trait_qtl_fixef$fixef
-
 trait_qtl_fixef_normalized <- c()
 
 #normalizing the fixed effect estimates of the plasticities; the genotype main effects are
 #unchanged
 for (i in unique(trait_qtl_fixef$trait)) {
   trait_qtl_fixef_subset <- subset(trait_qtl_fixef, trait == i)
-  if (grepl("_geno", i) == TRUE) {
-    trait_qtl_fixef_normalized <- rbindlist(list(trait_qtl_fixef_normalized, trait_qtl_fixef_subset))
-    next
-  } else {
-    name_base <- sapply(strsplit(i, split = "_gxe"), function(x) x[1])
-    trait_trt_fixef <- abs(subset(fixef_and_h2_table, trait == name_base, select = treatment_fixef)$treatment_fixef)
-    trait_qtl_fixef_subset$fixef_norm <- trait_qtl_fixef_subset$fixef_norm/trait_trt_fixef
-    trait_qtl_fixef_normalized <- rbindlist(list(trait_qtl_fixef_normalized, trait_qtl_fixef_subset))
-  }
+  name_base <- sapply(strsplit(i, split = "_g"), function(x) x[1])
+  trait_trt_fixef <- abs(subset(fixef_and_h2_table, trait == name_base, select = treatment_fixef)$treatment_fixef)
+  trait_qtl_fixef_subset$trt_eff <- trait_trt_fixef
+  trait_qtl_fixef_normalized <- rbindlist(list(trait_qtl_fixef_normalized, trait_qtl_fixef_subset))
 }
 
 #changing name of populations
