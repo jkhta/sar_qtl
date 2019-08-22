@@ -1,5 +1,6 @@
 library(qtl)
 library(data.table)
+library(plyr)
 
 #this file will generate a mapchart output using the GridLMM output
 rm(list = ls())
@@ -35,9 +36,17 @@ for (i in 1:length(phenotype_ci_list)) {
 phenotype_ci_dt <- rbindlist(phenotype_ci_list)
 phenotype_ci_dt$chr <- sapply(strsplit(phenotype_ci_dt$qtl, split = "_"), function(x) x[2])
 
-setwd("/Users/James/Documents/GitHub/sar_qtl/figures/qtl_ci_linkage_map/")
+phenotype_ci_dt$phenotype_name <- revalue(phenotype_ci_dt$phenotype_name, c("bd" = "BD", "h3h1" = "IG", "idry" = "IB", "rdry" = "RB"))
 
-sink("GridLMM_gxe_cov_cis.mct")
+#replacing trait names 
+
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/qtl_ci_linkage_map/img/")
+
+if (trait_type == "no_covariate") {
+  sink("GridLMM_gxe_no_cov_cis.mct")
+} else if (trait_type == "covariate") {
+  sink("GridLMM_gxe_cov_cis.mct")
+}
 
 for (i in 1:5) {
   chr_markers <- subset(nam_markers, chr == i)

@@ -35,6 +35,9 @@ h2_table_merge$`Acc GxE PVE` <- h2_table_merge$`Acc GxE PVE` * 100
 #moreving underscores
 h2_table_merge$Trait <- gsub("_", "", h2_table_merge$Trait)
 
+#changing trait names
+h2_table_merge$Trait <- revalue(h2_table_merge$Trait, c("bd" = "BD", "h3h1" = "IG", "idry" = "IB", "rdry" = "RB"))
+
 #generating xtable
 print(xtable(h2_table_merge, label = ("S2_Table"), digits = 2), include.rownames=FALSE)
 
@@ -45,6 +48,9 @@ h2_table_new <- data.frame(Trait = h2_table$trait,
                            CV = sqrt(h2_table$gxe_var)/h2_table$treatment_fixef,
                            stringsAsFactors = FALSE)
 h2_table_new$Trait <- gsub("_", "", h2_table_new$Trait)
+
+#changing trait names
+h2_table_new$Trait <- revalue(h2_table_new$Trait, c("bd" = "BD", "h3h1" = "IG", "idry" = "IB", "rdry" = "RB"))
 
 print(xtable(h2_table_new, label = ("Table 1"), caption = "Averages of the intercept and treatment fixed effects, and the coefficient of variation for plasticity (CV) for each trait. bd, bolting time; h3h1, inflorescence growth over 2 weeks; rdry, dry rosette biomass; idry, dry inflorescence biomass.", digits = 2), include.rownames=FALSE)
 
