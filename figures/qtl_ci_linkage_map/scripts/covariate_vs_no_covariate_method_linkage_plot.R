@@ -1,5 +1,4 @@
 #this script will generate a plot for the linkage map comparing the covariate vs. no covariate methods
-
 library(ggpubr)
 library(png)
 
