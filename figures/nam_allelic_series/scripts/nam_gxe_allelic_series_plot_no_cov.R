@@ -7,7 +7,6 @@ rm(list = ls())
 
 #reading in the allelic series data
 setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/nam_allelic_series/data/")
-
 nam_trait_lme4qtl_fixef <- fread("trait_lme4qtl_fixef_no_cov.csv",
                                  sep = ",",
                                  header = TRUE, 
@@ -101,4 +100,4 @@ ggarrange(BD_fixef_ggplot_BD_1,
           font.label = list(size = 25))
 
 setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/nam_allelic_series/img/")
-ggsave("gxe_allelic_series_normalized_subset.png", device = "png", width = 18, height = 10)
+ggsave("gxe_allelic_series_normalized_subset.png", device = "png", width = 20, height = 10)

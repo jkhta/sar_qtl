@@ -1,10 +1,9 @@
+#this file will generate a mapchart output using the GridLMM output
 library(qtl)
 library(data.table)
 library(plyr)
 
-#this file will generate a mapchart output using the GridLMM output
 rm(list = ls())
-
 
 #reading in the nam marker information
 setwd("/Users/jkhta/Documents/GitHub/sar_qtl/6_push_button/data")
@@ -36,9 +35,8 @@ for (i in 1:length(phenotype_ci_list)) {
 phenotype_ci_dt <- rbindlist(phenotype_ci_list)
 phenotype_ci_dt$chr <- sapply(strsplit(phenotype_ci_dt$qtl, split = "_"), function(x) x[2])
 
-phenotype_ci_dt$phenotype_name <- revalue(phenotype_ci_dt$phenotype_name, c("bd" = "BD", "h3h1" = "IG", "idry" = "IB", "rdry" = "RB"))
-
 #replacing trait names 
+phenotype_ci_dt$phenotype_name <- revalue(phenotype_ci_dt$phenotype_name, c("bd" = "BD_SAR", "h3h1" = "IG_SAR", "idry" = "IB_SAR", "rdry" = "RB_SAR"))
 
 setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/qtl_ci_linkage_map/img/")
 

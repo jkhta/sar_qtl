@@ -2,11 +2,15 @@
 library(data.table)
 library(xtable)
 
-setwd("/Users/James/Documents/GitHub/sar_qtl/figures/qtl_table/data/")
+rm(list = ls())
+
+#reading in tables for QTL found for genotype random effects (G QTL)
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/qtl_table/data/")
 
 g_qtl_list <- lapply(list.files(pattern = "geno_qtl_ci.csv"), function(x) fread(x, sep = ",", header = TRUE, stringsAsFactors = FALSE))
 g_qtl_phenotypes <- sapply(strsplit(list.files(pattern = "geno_qtl_ci.csv"), split = "_geno"), function(x) x[1])
 
+#adding trait names to data and then list -> data table
 for (i in 1:length(g_qtl_list)) {
   g_qtl_list[[i]]$trait <- g_qtl_phenotypes[i]
 }
