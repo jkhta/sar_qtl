@@ -20,7 +20,7 @@ path_data_FRI_FLC_ind$effect_type <- revalue(path_data_FRI_FLC_ind$effect_type, 
 #changing name of traits
 path_data_FRI_FLC_ind$trait_facet <- mapvalues(path_data_FRI_FLC_ind$trait_facet,
                                                from = c("bd", "rdry", "h3h1", "idry"),
-                                               to = c("BD", "RB", "IG", "IB"))
+                                               to = c("BD_SAR", "RB_SAR", "IG_SAR", "IB_SAR"))
 
 
 geom_point_size <- 30
@@ -45,7 +45,7 @@ path_data_diff_B4_ggplot <- ggplot(data = path_data_diff_B4, aes(x = est, y = po
           legend.position = "none") + 
     scale_x_continuous(
         labels = scales::number_format(accuracy = 0.1)) +
-    ggtitle("SAR_4_1")
+    ggtitle("SAR4_1")
 
 path_data_diff_B42 <- subset(path_data_FRI_FLC_ind, env == "diff" & allele_comb == "B42")
 path_data_diff_B42[path_data_diff_B42 == 0] <- NA
@@ -64,7 +64,7 @@ path_data_diff_B42_ggplot <- ggplot(data = path_data_diff_B42, aes(x = est, y = 
           axis.text.y = element_blank(),
           plot.title = element_text(hjust = 0.5, size = 20),
           strip.text.x = element_text(size = 20)) + 
-    ggtitle("SAR_4_2")
+    ggtitle("SAR4_2")
 
 path_data_diff_B5 <- subset(path_data_FRI_FLC_ind, env == "diff" & allele_comb == "B5")
 path_data_diff_B5[path_data_diff_B5 == 0] <- NA
@@ -84,7 +84,7 @@ path_data_diff_B5_ggplot <- ggplot(data = path_data_diff_B5, aes(x = est, y = po
           plot.title = element_text(hjust = 0.5, size = 20),
           strip.text.x = element_text(size = 20)) + 
     scale_x_continuous(breaks = round(seq(min(path_data_diff_B5$est, na.rm = TRUE), max(path_data_diff_B5$est, na.rm = TRUE), by = 0.3), 1)) +
-    ggtitle("SAR_5")
+    ggtitle("SAR5")
 
 ggarrange(path_data_diff_B4_ggplot, path_data_diff_B5_ggplot,
           vjust = 1.1,
@@ -112,7 +112,7 @@ path_data_diff_B42_ggplot <- ggplot(data = path_data_diff_B42, aes(x = est, y = 
           axis.text.y = element_blank(),
           plot.title = element_text(hjust = 0.5, size = 20),
           strip.text.x = element_text(size = 20))  +
-    ggtitle("SAR_4_2")
+    ggtitle("SAR4_2")
 
 #yaxis text and legend
 path_data_diff_B5_ggplot <- ggplot(data = path_data_diff_B5, aes(x = est, y = pop_facet, color = effect_type)) +
@@ -132,7 +132,7 @@ path_data_diff_B5_ggplot <- ggplot(data = path_data_diff_B5, aes(x = est, y = po
           strip.text.x = element_text(size = 20),
           legend.position = "none") + 
     #scale_x_continuous(breaks = round(seq(min(path_data_diff_B5$est, na.rm = TRUE), max(path_data_diff_B5$est, na.rm = TRUE), by = 0.3), 1)) +
-    ggtitle("SAR_5")
+    ggtitle("SAR5")
 
 ggarrange(path_data_diff_B4_ggplot, path_data_diff_B42_ggplot, path_data_diff_B5_ggplot, 
           vjust = 1.1,

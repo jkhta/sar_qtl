@@ -31,7 +31,7 @@ nam_trait_lme4qtl_fixef_gxe$fixef_std_norm <- with(nam_trait_lme4qtl_fixef_gxe, 
 
 #changing trait names
 new_trait_name_df <- data.frame(old_name = c("bd_gxe", "h3_h1_gxe", "i_dry_gxe", "r_dry_gxe"), 
-                                new_name = c("BD", "IG", "IB", "RB"),
+                                new_name = c("BD_SAR", "IG_SAR", "IB_SAR", "RB_SAR"),
                                 stringsAsFactors = FALSE)
 nam_trait_lme4qtl_fixef_gxe$trait <- mapvalues(nam_trait_lme4qtl_fixef_gxe$trait, 
                                                from = new_trait_name_df$old_name,
@@ -53,7 +53,7 @@ for (i in unique(nam_trait_lme4qtl_fixef_gxe$trait)) {
              geom_errorbar(aes(ymin = fixef_norm - fixef_std_norm, ymax = fixef_norm + fixef_std_norm), width = 0.2) +
              facet_grid(~ QTL, scale = "free") +
              xlab("Population") +
-             ylab("Plasticity change") +
+             ylab("% Change in plasticity") +
              theme(text = element_text(size = 20),
                    axis.text = element_text(size = 20),
                    plot.title = element_text(hjust = 0.5),
@@ -63,37 +63,37 @@ for (i in unique(nam_trait_lme4qtl_fixef_gxe$trait)) {
 }
 
 #plotting all plots
-ggarrange(BD_fixef_ggplot_BD_1,
-          BD_fixef_ggplot_BD_2,
-          BD_fixef_ggplot_BD_3,
-          RB_fixef_ggplot_RB_1,
-          RB_fixef_ggplot_RB_2,
-          RB_fixef_ggplot_RB_3,
-          RB_fixef_ggplot_RB_4,
-          IG_fixef_ggplot_IG_1,
-          IG_fixef_ggplot_IG_2,
-          IB_fixef_ggplot_IB_1,
-          IB_fixef_ggplot_IB_2,
+ggarrange(BD_SAR_fixef_ggplot_BD_SAR4_1,
+          BD_SAR_fixef_ggplot_BD_SAR4_2,
+          BD_SAR_fixef_ggplot_BD_SAR5_1,
+          RB_SAR_fixef_ggplot_RB_SAR4_1,
+          RB_SAR_fixef_ggplot_RB_SAR4_2,
+          RB_SAR_fixef_ggplot_RB_SAR5_1,
+          RB_SAR_fixef_ggplot_RB_SAR5_2,
+          IG_SAR_fixef_ggplot_IG_SAR2_1,
+          IG_SAR_fixef_ggplot_IG_SAR5_1,
+          IB_SAR_fixef_ggplot_IB_SAR4_1,
+          IB_SAR_fixef_ggplot_IB_SAR5_1,
           nrow = 4, 
           ncol = 3, 
           labels = c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"),
           font.label = list(size = 25))
 
 #choosing the plots that look like they have allelic series
-#BD_1, RB_2, RB_3, IG_1, IG_2, IB_2
+#BD_SAR4_1, RB_SAR4_2, RB_SAR5_1, IG_SAR2_1, IG_SAR5_1, IB_SAR5_1
 
 #now modifying the plots
-RB_fixef_ggplot_RB_2 <- RB_fixef_ggplot_RB_2 + theme(axis.title.y = element_blank())
-RB_fixef_ggplot_RB_3 <- RB_fixef_ggplot_RB_3 + theme(axis.title.y = element_blank())
-IG_fixef_ggplot_IG_2 <- IG_fixef_ggplot_IG_2 + theme(axis.title.y = element_blank())
-IB_fixef_ggplot_IB_2 <- IB_fixef_ggplot_IB_2 + theme(axis.title.y = element_blank())
+RB_SAR_fixef_ggplot_RB_SAR4_2 <- RB_SAR_fixef_ggplot_RB_SAR4_2 + theme(axis.title.y = element_blank())
+RB_SAR_fixef_ggplot_RB_SAR5_1 <- RB_SAR_fixef_ggplot_RB_SAR5_1 + theme(axis.title.y = element_blank())
+IG_SAR_fixef_ggplot_IG_SAR5_1 <- IG_SAR_fixef_ggplot_IG_SAR5_1 + theme(axis.title.y = element_blank())
+IB_SAR_fixef_ggplot_IB_SAR5_1 <- IB_SAR_fixef_ggplot_IB_SAR5_1 + theme(axis.title.y = element_blank())
 
-ggarrange(BD_fixef_ggplot_BD_1,
-          RB_fixef_ggplot_RB_2,
-          RB_fixef_ggplot_RB_3,
-          IG_fixef_ggplot_IG_1,
-          IG_fixef_ggplot_IG_2,
-          IB_fixef_ggplot_IB_2,
+ggarrange(BD_SAR_fixef_ggplot_BD_SAR4_1,
+          RB_SAR_fixef_ggplot_RB_SAR4_2,
+          RB_SAR_fixef_ggplot_RB_SAR5_1,
+          IG_SAR_fixef_ggplot_IG_SAR2_1,
+          IG_SAR_fixef_ggplot_IG_SAR5_1,
+          IB_SAR_fixef_ggplot_IB_SAR5_1,
           nrow = 2, 
           ncol = 3, 
           labels = c("A", "B", "C", "D", "E", "F"),

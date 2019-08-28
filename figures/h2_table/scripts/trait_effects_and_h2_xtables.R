@@ -36,7 +36,11 @@ h2_table_merge$`Acc GxE PVE` <- h2_table_merge$`Acc GxE PVE` * 100
 h2_table_merge$Trait <- gsub("_", "", h2_table_merge$Trait)
 
 #changing trait names
-h2_table_merge$Trait <- revalue(h2_table_merge$Trait, c("bd" = "BD", "h3h1" = "IG", "idry" = "IB", "rdry" = "RB"))
+h2_table_merge$Trait <- revalue(h2_table_merge$Trait, c("bd" = "BD_SAR", "h3h1" = "IG_SAR", "idry" = "IB_SAR", "rdry" = "RB_SAR"))
+
+#removing columns that are already included in Table 1
+h2_table_merge$Intercept <- NULL
+h2_table_merge$Treatment <- NULL
 
 #generating xtable
 print(xtable(h2_table_merge, label = ("S2_Table"), digits = 2), include.rownames=FALSE)
@@ -50,7 +54,7 @@ h2_table_new <- data.frame(Trait = h2_table$trait,
 h2_table_new$Trait <- gsub("_", "", h2_table_new$Trait)
 
 #changing trait names
-h2_table_new$Trait <- revalue(h2_table_new$Trait, c("bd" = "BD", "h3h1" = "IG", "idry" = "IB", "rdry" = "RB"))
+h2_table_new$Trait <- revalue(h2_table_new$Trait, c("bd" = "BD_SAR", "h3h1" = "IG_SAR", "idry" = "IB_SAR", "rdry" = "RB_SAR"))
 
 print(xtable(h2_table_new, label = ("Table 1"), caption = "Averages of the intercept and treatment fixed effects, and the coefficient of variation for plasticity (CV) for each trait. bd, bolting time; h3h1, inflorescence growth over 2 weeks; rdry, dry rosette biomass; idry, dry inflorescence biomass.", digits = 2), include.rownames=FALSE)
 
