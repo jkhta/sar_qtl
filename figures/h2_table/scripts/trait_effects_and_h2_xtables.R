@@ -1,6 +1,7 @@
 #this script will generate a LaTeX output of different tables
 library(data.table)
 library(xtable)
+library(plyr)
 
 rm(list = ls())
 
@@ -22,21 +23,23 @@ acc_h2_table_subset <- subset(acc_h2_table, select = c(trait, acc_gxe_h2))
 
 #nam stats with acc stats
 h2_table_merge <- merge(h2_table, acc_h2_table_subset, by = "trait")
+h2_table_merge$CV <- NULL
 
 #changing column names and removing underscores
 rownames(h2_table_merge) <- NULL
-colnames(h2_table_merge) <- c("Trait", "Shelf", "Intercept", "Treatment", "Geno Var", "GxE Var", "Residual Var", "H2", "GxE PVE", "Acc GxE PVE")
+colnames(h2_table_merge) <- c("Trait", "Shelf", "Intercept", "Treatment", "Geno Var", "GxE Var", "Residual Var", "G-PVE", "GxE-PVE", "E-PVE", "Acc. GxE-PVE")
 
 #multiplying H2 and GxE PVE by 100 to represent percentages
-h2_table_merge$H2 <- h2_table_merge$H2 * 100
-h2_table_merge$`GxE PVE` <- h2_table_merge$`GxE PVE` * 100 
-h2_table_merge$`Acc GxE PVE` <- h2_table_merge$`Acc GxE PVE` * 100 
+#h2_table_merge$`G-PVE` <- h2_table_merge$`G-PVE` * 100
+#h2_table_merge$`GxE-PVE` <- h2_table_merge$`GxE-PVE` * 100 
+#h2_table_merge$`E-PVE` <- h2_table_merge$`E-PVE` * 100 
+#h2_table_merge$`Acc. GxE-PVE` <- h2_table_merge$`Acc. GxE-PVE` * 100 
 
 #moreving underscores
 h2_table_merge$Trait <- gsub("_", "", h2_table_merge$Trait)
 
 #changing trait names
-h2_table_merge$Trait <- revalue(h2_table_merge$Trait, c("bd" = "BD_SAR", "h3h1" = "IG_SAR", "idry" = "IB_SAR", "rdry" = "RB_SAR"))
+h2_table_merge$Trait <- revalue(h2_table_merge$Trait, c("bd" = "BD", "h3h1" = "IG", "idry" = "IB", "rdry" = "RB"))
 
 #removing columns that are already included in Table 1
 h2_table_merge$Intercept <- NULL
@@ -49,15 +52,30 @@ print(xtable(h2_table_merge, label = ("S2_Table"), digits = 2), include.rownames
 h2_table_new <- data.frame(Trait = h2_table$trait,
                            Intercept = h2_table$int_fixef,
                            Treatment = h2_table$treatment_fixef,
-                           CV = sqrt(h2_table$gxe_var)/h2_table$treatment_fixef,
+                           CV_g = abs(h2_table$CV),
                            stringsAsFactors = FALSE)
 h2_table_new$Trait <- gsub("_", "", h2_table_new$Trait)
 
 #changing trait names
-h2_table_new$Trait <- revalue(h2_table_new$Trait, c("bd" = "BD_SAR", "h3h1" = "IG_SAR", "idry" = "IB_SAR", "rdry" = "RB_SAR"))
+h2_table_new$Trait <- revalue(h2_table_new$Trait, c("bd" = "BD", "h3h1" = "IG", "idry" = "IB", "rdry" = "RB"))
 
-print(xtable(h2_table_new, label = ("Table 1"), caption = "Averages of the intercept and treatment fixed effects, and the coefficient of variation for plasticity (CV) for each trait. bd, bolting time; h3h1, inflorescence growth over 2 weeks; rdry, dry rosette biomass; idry, dry inflorescence biomass.", digits = 2), include.rownames=FALSE)
+print(xtable(h2_table_new, label = ("Table 1"), caption = "Posterior means of the intercept and treatment fixed effects, and the coefficient of variation for plasticity (CV) averaged over all populations for each trait. BD, bolting days; IG, inflorescence growth over 2 weeks; RB, dry rosette biomass; IB, dry inflorescence biomass.", digits = 2), include.rownames=FALSE)
 
+#generating a table for the effects and their CI's
+h2_table_with_post_mean_and_ci <- fread("trait_effects_and_h2_post_mean_and_ci.csv",
+                                        sep = ",",
+                                        header = TRUE,
+                                        stringsAsFactors = FALSE)
+
+h2_table_new_with_ci <- data.frame(Trait = h2_table_with_post_mean_and_ci$trait,
+                                   Intercept = h2_table_with_post_mean_and_ci$int_fixef,
+                                   Treatment = h2_table_with_post_mean_and_ci$treatment_fixef,
+                                   CV_g = h2_table_with_post_mean_and_ci$CV,
+                                   stringsAsFactors = FALSE)
+h2_table_new_with_ci$Trait <- gsub("_", "", h2_table_new_with_ci$Trait)
+h2_table_new_with_ci$Trait <- revalue(h2_table_new_with_ci$Trait, c("bd" = "BD", "h3h1" = "IG", "idry" = "IB", "rdry" = "RB"))
+
+print(xtable(h2_table_new_with_ci, label = ("Table 1"), caption = "Posterior means of the intercept and treatment fixed effects, and the coefficient of variation for plasticity (CV) averaged over all populations for each trait. Values in parentheses next to each posterior mean is the 95\\% credible interval for the mean. BD, bolting days; IG, inflorescence growth over 2 weeks; RB, dry rosette biomass; IB, dry inflorescence biomass.", digits = 2), include.rownames=FALSE)
 
 #reading in qtl found for genotype random effects and GxE random effects
 setwd("/Users/James/Documents/GitHub/sar_qtl/figures/qtl_table/data/")

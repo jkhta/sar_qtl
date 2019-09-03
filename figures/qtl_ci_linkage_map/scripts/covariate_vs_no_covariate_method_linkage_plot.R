@@ -4,7 +4,7 @@ library(png)
 
 rm(list = ls())
 
-setwd("/Users/James/Documents/GitHub/sar_qtl/figures/qtl_ci_linkage_map/img/")
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/qtl_ci_linkage_map/img/")
 
 bd_geno_no_cov <- readPNG("gxe_qtl_linkage_no_cov_rotated.png")
 bd_geno_cov <- readPNG("gxe_qtl_linkage_cov_rotated.png")

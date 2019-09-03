@@ -4,7 +4,7 @@ library(png)
 
 rm(list = ls())
 
-setwd("/Users/James/Documents/GitHub/sar_qtl/figures/path_sum_model/img/")
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/path_sum_model/img/")
 
 sum_path_sun <- readPNG("sig_paths_sum_sun_model_alt.png")
 sum_path_shade <- readPNG("sig_paths_sum_shade_model_alt.png")

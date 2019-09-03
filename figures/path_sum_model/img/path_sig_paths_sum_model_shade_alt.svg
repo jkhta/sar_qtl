@@ -14,9 +14,9 @@
    viewBox="0 0 400 350"
    version="1.1"
    id="svg8"
-   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
    sodipodi:docname="path_sig_paths_sum_model_shade_alt.svg"
-   inkscape:export-filename="C:\Users\James\Documents\GitHub\sar_qtl\figures\path_sum_model\img\sig_paths_sum_shade_model_alt.png"
+   inkscape:export-filename="/Users/jkhta/Documents/GitHub/sar_qtl/figures/path_sum_model/img/sig_paths_sum_shade_model_alt.png"
    inkscape:export-xdpi="600"
    inkscape:export-ydpi="600">
   <defs
@@ -304,7 +304,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497475"
-     inkscape:cx="261.08707"
+     inkscape:cx="543.92978"
      inkscape:cy="731.64085"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -322,7 +322,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -369,17 +369,17 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:12.69999981px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="31.918163"
-       y="83.387375"
+       x="32.113796"
+       y="87.1129"
        id="text4570"
        transform="rotate(-90)"
        inkscape:transform-center-x="7.5595238"
        inkscape:transform-center-y="8.3154846"><tspan
          sodipodi:role="line"
          id="tspan4568"
-         x="84.233833"
-         y="31.071707"
-         style="stroke-width:0.26458332px">SAR4_1</tspan></text>
+         x="87.308533"
+         y="31.918163"
+         style="font-size:11.28888893px;stroke-width:0.26458332px">SAR4_1</tspan></text>
     <flowRoot
        xml:space="preserve"
        id="flowRoot4572"
@@ -401,17 +401,17 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:12.69999981px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="31.905762"
-       y="159.14073"
+       x="32.113796"
+       y="163.1739"
        id="text4582"
        transform="rotate(-90)"
        inkscape:transform-center-x="0.75595238"
        inkscape:transform-center-y="5.2916751"><tspan
          sodipodi:role="line"
          id="tspan4580"
-         x="159.98718"
-         y="31.059303"
-         style="stroke-width:0.26458332px">SAR4_2</tspan></text>
+         x="163.38194"
+         y="31.905762"
+         style="font-size:11.28888893px;stroke-width:0.26458332px">SAR4_2</tspan></text>
     <rect
        style="opacity:1;fill:none;fill-opacity:1;stroke:#6e006e;stroke-width:1.66644442;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect10-1-3"
@@ -422,15 +422,15 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:12.69999981px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="31.084103"
-       y="243.26875"
+       x="30.862537"
+       y="245.53252"
        id="text4586"
        transform="rotate(-90)"><tspan
          sodipodi:role="line"
          id="tspan4584"
-         x="496.66733"
-         y="-222.31445"
-         style="stroke-width:0.26458332px">SAR5</tspan></text>
+         x="245.31094"
+         y="31.084103"
+         style="font-size:11.28888893px;stroke-width:0.26458332px">SAR5</tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
        d="M 97.829388,70.012415 H 285.3056"
@@ -502,17 +502,17 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:12.69999981px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-278.05121"
-       y="90.434624"
+       x="-277.85559"
+       y="94.160149"
        id="text4570-4"
        transform="rotate(-90)"
        inkscape:transform-center-x="7.5595238"
        inkscape:transform-center-y="8.3154846"><tspan
          sodipodi:role="line"
          id="tspan4568-5"
-         x="91.281082"
-         y="-278.89767"
-         style="stroke-width:0.26458332px">SAR4_1</tspan></text>
+         x="94.355774"
+         y="-278.05121"
+         style="font-size:11.28888893px;stroke-width:0.26458332px">SAR4_1</tspan></text>
     <rect
        style="opacity:1;fill:none;fill-opacity:1;stroke:#00006e;stroke-width:1.66644442;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect10-67-6-9"
@@ -523,17 +523,17 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:12.69999981px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-278.06363"
-       y="166.18799"
+       x="-277.85559"
+       y="170.22116"
        id="text4582-2"
        transform="rotate(-90)"
        inkscape:transform-center-x="0.75595238"
        inkscape:transform-center-y="5.2916751"><tspan
          sodipodi:role="line"
          id="tspan4580-5"
-         x="167.03444"
-         y="-278.91006"
-         style="stroke-width:0.26458332px">SAR4_2</tspan></text>
+         x="170.4292"
+         y="-278.06363"
+         style="font-size:11.28888893px;stroke-width:0.26458332px">SAR4_2</tspan></text>
     <rect
        style="opacity:1;fill:none;fill-opacity:1;stroke:#6e006e;stroke-width:1.66644442;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect10-1-3-9"
@@ -544,15 +544,15 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:12.69999981px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-278.88525"
-       y="250.31599"
+       x="-279.10684"
+       y="252.57977"
        id="text4586-9"
        transform="rotate(-90)"><tspan
          sodipodi:role="line"
          id="tspan4584-0"
-         x="186.69795"
-         y="-215.26721"
-         style="stroke-width:0.26458332px">SAR5</tspan></text>
+         x="252.35818"
+         y="-278.88525"
+         style="font-size:11.28888893px;stroke-width:0.26458332px">SAR5</tspan></text>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#6e0000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker5471-9)"
        d="M 114.75686,260.32078 304.78551,209.00503"
@@ -592,51 +592,51 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:12.69999981px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-68.662163"
-       y="50.100468"
+       x="-71.160835"
+       y="50.464272"
        id="text8581"
        transform="rotate(-90)"><tspan
          sodipodi:role="line"
-         x="42.852898"
-         y="-61.414589"
-         style="font-size:16.93333244px;text-align:center;text-anchor:middle;stroke-width:0.26458332px"
-         id="tspan8583">BD_SAR</tspan></text>
+         x="47.965595"
+         y="-68.662163"
+         style="font-size:25.39999962px;text-align:center;text-anchor:middle;stroke-width:0.26458332px"
+         id="tspan8583">BD</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:12.69999981px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-68.662163"
-       y="330.36984"
+       x="-71.160843"
+       y="330.88248"
        id="text8581-0"
        transform="rotate(-90)"><tspan
          sodipodi:role="line"
-         x="322.82462"
-         y="-61.116936"
-         style="font-size:16.93333244px;text-align:center;text-anchor:middle;stroke-width:0.26458332px"
-         id="tspan8608">RB_SAR</tspan></text>
+         x="328.38379"
+         y="-68.662163"
+         style="font-size:25.39999962px;text-align:center;text-anchor:middle;stroke-width:0.26458332px"
+         id="tspan8608">RB</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:12.69999981px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-176.76334"
-       y="330.63028"
+       x="-179.24962"
+       y="331.02509"
        id="text8581-0-9"
        transform="rotate(-90)"><tspan
          sodipodi:role="line"
-         x="321.78281"
-         y="-167.91586"
-         style="font-size:16.93333244px;text-align:center;text-anchor:middle;stroke-width:0.26458332px"
-         id="tspan8633">IG_SAR</tspan></text>
+         x="328.53882"
+         y="-176.76334"
+         style="font-size:25.39999962px;text-align:center;text-anchor:middle;stroke-width:0.26458332px"
+         id="tspan8633">IG</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:12.69999981px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;writing-mode:tb-rl;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-176.76334"
-       y="50.360916"
+       x="-179.26202"
+       y="50.613098"
        id="text8581-0-6"
        transform="rotate(-90)"><tspan
          sodipodi:role="line"
-         x="43.134014"
-         y="-169.53644"
-         style="font-size:16.93333244px;text-align:center;text-anchor:middle;stroke-width:0.26458332px"
-         id="tspan8658">IB_SAR</tspan></text>
+         x="48.114418"
+         y="-176.76334"
+         style="font-size:25.39999962px;text-align:center;text-anchor:middle;stroke-width:0.26458332px"
+         id="tspan8658">IB</tspan></text>
     <rect
        style="opacity:1;fill:#000046;fill-opacity:1;stroke:#460000;stroke-width:1.11029029;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect8660"
