@@ -19,8 +19,8 @@ table_formatter <- function(brms_object) {
   colnames(pop_ps) <- c("shelf_fixef", "int_fixef","treatment_fixef", "geno_var", "gxe_var", "res")
   
   #calculating heritabilities
-  pop_ps$geno_h2 <- with(pop_ps, geno_var / (geno_var + gxe_var + res))
-  pop_ps$gxe_h2 <- with(pop_ps, gxe_var / (geno_var + gxe_var + res))
+  pop_ps$geno_h2 <- with(pop_ps, (geno_var / (geno_var + gxe_var + res)) * 100)
+  pop_ps$gxe_h2 <- with(pop_ps, (gxe_var / (geno_var + gxe_var + res)) * 100)
   
   return(pop_ps)
 }
@@ -28,11 +28,11 @@ table_formatter <- function(brms_object) {
 post_mean_and_ci <- function(post_vector) {
   #mean of posterior
   post_mean <- mean(post_vector)
-  post_mean <- round(post_mean, digits = 4)
+  post_mean <- round(post_mean, digits = 2)
   
   #credible interval of posteriors
   post_ci <- quantile(post_vector, probs = c(0.025, 0.975))
-  post_ci <- round(post_ci, digits = 4)
+  post_ci <- round(post_ci, digits = 2)
   post_ci_string <- paste(post_ci[1], post_ci[2], sep = " to ")
   
   return(data.frame(c(post_mean, post_ci_string)))

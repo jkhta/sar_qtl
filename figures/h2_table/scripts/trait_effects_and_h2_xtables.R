@@ -77,6 +77,19 @@ h2_table_new_with_ci$Trait <- revalue(h2_table_new_with_ci$Trait, c("bd" = "BD",
 
 print(xtable(h2_table_new_with_ci, label = ("Table 1"), caption = "Posterior means of the intercept and treatment fixed effects, and the coefficient of variation for plasticity (CV) averaged over all populations for each trait. Values in parentheses next to each posterior mean is the 95\\% credible interval for the mean. BD, bolting days; IG, inflorescence growth over 2 weeks; RB, dry rosette biomass; IB, dry inflorescence biomass.", digits = 2), include.rownames=FALSE)
 
+#printing out the credible intervals for various measures
+h2_table_ci <- fread("trait_effects_and_h2_ci.csv",
+                     sep = ",",
+                     header = TRUE,
+                     stringsAsFactors = FALSE)
+h2_table_ci$trait <- gsub("_ci", "", h2_table_ci$trait)
+h2_table_ci$trait <- gsub("_", "", h2_table_ci$trait)
+h2_table_ci <- subset(h2_table_ci, select = c(trait, shelf_fixef, geno_h2, gxe_h2))
+colnames(h2_table_ci) <- c("Trait", "Shelf", "G-PVE", "GxE-PVE")
+h2_table_ci$Trait <- revalue(h2_table_ci$Trait, c("bd" = "BD", "h3h1" = "IG", "idry" = "IB", "rdry" = "RB"))
+
+print(xtable(h2_table_ci, label = ("Table S3")), include.rownames=FALSE)
+
 #reading in qtl found for genotype random effects and GxE random effects
 setwd("/Users/James/Documents/GitHub/sar_qtl/figures/qtl_table/data/")
 qtl_table_geno <- lapply(list.files(pattern = "geno"), function(x) fread(x, sep = ",", header = TRUE, stringsAsFactors = FALSE))
