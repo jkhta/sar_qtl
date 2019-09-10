@@ -28,7 +28,8 @@ bd_geno_fixef_ggplot_m_4_407208 <- ggplot(subset(bd_geno_fixef, qtl == "BD4_1"),
     facet_grid(~ qtl, scale = "free") +
     xlab("Population") +
     ylab("QTL effect") +
-    theme(text = element_text(size = 25),
+    theme(plot.background = element_rect(fill = 'transparent', colour = NA),
+          text = element_text(size = 25),
           plot.title = element_text(hjust = 0.5),
           legend.position = "none")
 
@@ -38,7 +39,8 @@ bd_geno_fixef_ggplot_m_5_3799350 <- ggplot(subset(bd_geno_fixef, qtl == "BD5_2")
     facet_grid(~ qtl, scale = "free") +
     xlab("Population") +
     ylab("QTL effects") +
-    theme(text = element_text(size = 25),
+    theme(plot.background = element_rect(fill = 'transparent', colour = NA),
+          text = element_text(size = 25),
           plot.title = element_text(hjust = 0.5),
           legend.position = "none",
           axis.title.y = element_blank())
@@ -50,4 +52,4 @@ ggarrange(bd_geno_fixef_ggplot_m_4_407208,
           font.label = list(size = 25))
 
 setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/nam_allelic_series/img/")
-ggsave("bd_geno_allelic_series.png", device = "png", width = 14, height = 8)
+ggsave("bd_geno_allelic_series.png", device = "png", width = 14, height = 8, bg = "transparent")
