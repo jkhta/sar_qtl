@@ -16,17 +16,16 @@ setnames(bur_data, c("r_dry", "h3_h1", "i_dry"), c("rdry", "h3h1", "idry"))
 bur_data$treatment <- factor(bur_data$treatment, levels = c("Sun", "Shade"))
 head(bur_data)
 
-bur_data[, c("A4", "A42", "A5", "AA", "AB", "BA", "BB")] <- NULL
+bur_data[, c("A4", "A42", "A5", "A52", "AA", "AB", "BA", "BB")] <- NULL
 
 m_best <- "
-bd ~ c(a, A) * B42 + c(b, B) * B5
-rdry ~ c(c, C) * bd + c(d, D) * B5
-h3h1 ~ c(e, E) * rdry + c(f, F) * B5
-idry ~ c(g, G) * rdry + c(h, H) * h3h1
+bd ~ c(a, A) * B42 + c(b, B) * B5 + c(c, C) * B52
+rdry ~ c(d, D) * bd + c(e, E) * B5
+h3h1 ~ c(f, F) * rdry + c(g, G) * B5
+idry ~ c(h, H) * rdry + c(i, I) * h3h1
 
 #B4
 
-#bd
 B4_bd_dir_sun := 0
 B4_bd_dir_shade := 0
 B4_bd_dir_diff := 0
@@ -78,27 +77,28 @@ B42_rdry_dir_sun := 0
 B42_rdry_dir_shade := 0
 B42_rdry_dir_diff := 0
 
-B42_rdry_ind_sun := a * c
-B42_rdry_ind_shade := A * C
-B42_rdry_ind_diff := (A * C) - (a * c)
+B42_rdry_ind_sun := a * d
+B42_rdry_ind_shade := A * D
+B42_rdry_ind_diff := (A * D) - (a * d)
 
 #h3h1
 B42_h3h1_dir_sun := 0
 B42_h3h1_dir_shade := 0
 B42_h3h1_dir_diff := 0
 
-B42_h3h1_ind_sun := a * c * e
-B42_h3h1_ind_shade := A * C * E
-B42_h3h1_ind_diff := (A * C * E) - (a * c * e)
+B42_h3h1_ind_sun := a * d * f
+B42_h3h1_ind_shade := A * D * F
+B42_h3h1_ind_diff := (A * D * F) - (a * d * f)
 
 #idry
 B42_idry_dir_sun := 0
 B42_idry_dir_shade := 0
 B42_idry_dir_diff := 0
 
-B42_idry_ind_sun := (a * c * g) + (a * c * e * h)
-B42_idry_ind_shade := (A * C * G) + (A * C * E * H)
-B42_idry_ind_diff := ((A * C * G) + (A * C * E * H)) - ((a * c * g) + (a * c * e * h))
+B42_idry_ind_sun := (a * d * h) + (a * d * f * i)
+B42_idry_ind_shade := (A * D * H) + (A * D * F * I)
+B42_idry_ind_diff := ((A * D * H) + (A * D * F * I)) - ((a * d * h) + (a * d * f * i))
+
 
 #B5
 
@@ -112,31 +112,69 @@ B5_bd_ind_shade := 0
 B5_bd_ind_diff := 0
 
 #rdry
-B5_rdry_dir_sun := d
-B5_rdry_dir_shade := D
-B5_rdry_dir_diff := D - d
+B5_rdry_dir_sun := e
+B5_rdry_dir_shade := E
+B5_rdry_dir_diff := E - e
 
-B5_rdry_ind_sun := b * c
-B5_rdry_ind_shade := B * C
-B5_rdry_ind_diff := (B * C) - (b * c)
+B5_rdry_ind_sun := b * d
+B5_rdry_ind_shade := B * D
+B5_rdry_ind_diff := (B * D) - (b * d)
 
 #h3h1
-B5_h3h1_dir_sun := f
-B5_h3h1_dir_shade := F
-B5_h3h1_dir_diff := F - f
+B5_h3h1_dir_sun := g
+B5_h3h1_dir_shade := G
+B5_h3h1_dir_diff := G - g
 
-B5_h3h1_ind_sun := (b * c * e) + (d * e)
-B5_h3h1_ind_shade := (B * C * E) + (D * E)
-B5_h3h1_ind_diff := ((B * C * E) + (D * E)) - ((b * c * e) + (d * e))
+B5_h3h1_ind_sun := (b * d * f) + (e * f)
+B5_h3h1_ind_shade := (B * D * F) + (E * F)
+B5_h3h1_ind_diff := ((B * D * F) + (E * F)) - ((b * d * f) + (e * f))
 
 #idry
 B5_idry_dir_sun := 0
 B5_idry_dir_shade := 0
 B5_idry_dir_diff := 0
 
-B5_idry_ind_sun := (b * c * g) + (b * c * e * h) + (d * g) + (d * e * h) + (f * h)
-B5_idry_ind_shade := (B * C * G) + (B * C * E * H) + (D * G) + (D * E * H) + (F * H)
-B5_idry_ind_diff := ((B * C * G) + (B * C * E * H) + (D * G) + (D * E * H) + (F * H)) - ((b * c * g) + (b * c * e * h) + (d * g) + (d * e * h) + (f * h))
+B5_idry_ind_sun := (b * d * h) + (b * d * f * i) + (e * h) + (e * f * i) + (g * i)
+B5_idry_ind_shade := (B * D * H) + (B * D * F * I) + (E * H) + (E * F * I) + (G * I)
+B5_idry_ind_diff := ((B * D * H) + (B * D * F * I) + (E * H) + (E * F * I) + (G * I)) - ((b * d * h) + (b * d * f * i) + (e * h) + (e * f * i) + (g * i))
+
+#B52
+
+#bd
+B52_bd_dir_sun := c
+B52_bd_dir_shade := C
+B52_bd_dir_diff := C - c
+
+B52_bd_ind_sun := 0
+B52_bd_ind_shade := 0
+B52_bd_ind_diff := 0
+
+#rdry
+B52_rdry_dir_sun := 0
+B52_rdry_dir_shade := 0
+B52_rdry_dir_diff := 0
+
+B52_rdry_ind_sun := c * d
+B52_rdry_ind_shade := C * D
+B52_rdry_ind_diff := (C * D) - (c * d)
+
+#h3h1
+B52_h3h1_dir_sun := 0
+B52_h3h1_dir_shade := 0
+B52_h3h1_dir_diff := 0
+
+B52_h3h1_ind_sun := c * d * f
+B52_h3h1_ind_shade := C * D * F
+B52_h3h1_ind_diff := (C * D * F) - (c * d * f)
+
+#idry
+B52_idry_dir_sun := 0
+B52_idry_dir_shade := 0
+B52_idry_dir_diff := 0
+
+B52_idry_ind_sun := (c * d * h) + (c * d * f * i)
+B52_idry_ind_shade := (C * D * H) + (C * D * F * I)
+B52_idry_ind_diff := ((C * D * H) + (C * D * F * I)) - ((c * d * h) + (c * d * f * i))
 "
 
 fit_best <- sem(m_best, data = bur_data, group = "treatment", missing = "ML")
@@ -158,10 +196,10 @@ semPaths(fit_best,
 
 path_parameters <- parameterestimates(fit_best, standardized = TRUE)
 
-path_parameters_qtl <- subset(path_parameters, lhs %in% c("bd", "rdry", "h3h1", "idry") & rhs %in% c("B4", "B42", "B5") & !grepl("~~", op), select = c(lhs, op, rhs, group, est, label))
+path_parameters_qtl <- subset(path_parameters, lhs %in% c("bd", "rdry", "h3h1", "idry") & rhs %in% c("B4", "B42", "B5", "B52") & !grepl("~~", op), select = c(lhs, op, rhs, group, est, label))
 path_parameters_qtl$formula <- with(path_parameters_qtl, paste(lhs, op, rhs, sep = " "))
 path_parameters_qtl_sun <- path_parameters_qtl[str_is(path_parameters_qtl$label, str_lower_case), ]
-required_formula <- c("bd ~ B4", "bd ~ B42", "bd ~ B5", "rdry ~ B4", "rdry ~ B42", "rdry ~ B5", "h3h1 ~ B4", "h3h1 ~ B42", "h3h1 ~ B5", "idry ~ B4", "idry ~ B42", "idry ~ B5") 
+required_formula <- c("bd ~ B4", "bd ~ B42", "bd ~ B5", "bd ~ B52", "rdry ~ B4", "rdry ~ B42", "rdry ~ B5", "rdry ~ B52", "h3h1 ~ B4", "h3h1 ~ B42", "h3h1 ~ B5", "h3h1 ~ B52", "idry ~ B4", "idry ~ B42", "idry ~ B5", "idry ~ B52") 
 path_parameters_qtl_effects_sun <- data.frame(matrix(ncol = length(required_formula)))
 
 for (i in 1:length(required_formula)) {
