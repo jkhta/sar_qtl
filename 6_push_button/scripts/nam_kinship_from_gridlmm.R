@@ -132,7 +132,7 @@ ind_pop_scans <- lapply(all_pop_data, function(x) GridLMM_scan(pheno = x$pop_phe
                                                                geno = x$pop_geno, 
                                                                map = marker_map, 
                                                                proximal = x$marker_cors,
-                                                               model_formula = "r_dry_gxe ~ bd_gxe + (1|geno)"))
+                                                               model_formula = "r_dry_gxe ~ bd_geno + bd_gxe + (1|geno)"))
 
 kinship_list <- lapply(ind_pop_scans, function(x) x$setup$V_setup$RE_setup$geno$K)
 

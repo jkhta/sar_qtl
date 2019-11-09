@@ -5,7 +5,7 @@ library(plyr)
 
 rm(list = ls())
 #reading in the genotype data
-setwd("/Users/James/Documents/GitHub/sar_qtl/6_push_button/data")
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/6_push_button/")
 
 geno_data <- readRDS("nam_rqtl_geno_prob_array_comp_11_all_rils_NEW.RDS")
 
@@ -34,7 +34,7 @@ geno_data_qtl_combos <- with(geno_data_markers_both_df, data.frame(geno = rownam
                                                                    AA = m_4_41028.A * m_5_3799350.A, 
                                                                    AB = m_4_41028.A * m_5_3799350.B,
                                                                    BA = m_4_41028.B * m_5_3799350.A,
-                                                                   BB = m_4_407208.B * m_5_3799350.B))
+                                                                   BB = m_4_41028.B * m_5_3799350.B))
 
 
 #reading in phenotype data (plant data)
