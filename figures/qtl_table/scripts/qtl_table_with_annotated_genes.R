@@ -51,8 +51,11 @@ for (i in unique(sar_gxe_qtl_dt_with_anno_subset$Trait)) {
   #for each chromosome with QTL, subset the data by chromosome and create new QTL names
   for (j in unique(sar_gxe_qtl_dt_with_anno_trait_subset$Chromosome)) {
     sar_gxe_qtl_dt_with_anno_trait_chr_subset <- subset(sar_gxe_qtl_dt_with_anno_trait_subset, Chromosome == j)
+    sar_gxe_qtl_dt_with_anno_trait_chr_subset$Base <- as.numeric(sapply(strsplit(sar_gxe_qtl_dt_with_anno_trait_chr_subset$`QTL Marker`, split = "_"), function(x) x[3]))
+    sar_gxe_qtl_dt_with_anno_trait_chr_subset <- sar_gxe_qtl_dt_with_anno_trait_chr_subset[order(sar_gxe_qtl_dt_with_anno_trait_chr_subset$Base)]
     sar_gxe_qtl_dt_with_anno_trait_chr_subset$QTL_no <- 1:nrow(sar_gxe_qtl_dt_with_anno_trait_chr_subset)
     sar_gxe_qtl_dt_with_anno_trait_chr_subset$QTL <- paste(paste(sar_gxe_qtl_dt_with_anno_trait_chr_subset$Trait, sar_gxe_qtl_dt_with_anno_trait_chr_subset$Chromosome, sep = ""), sar_gxe_qtl_dt_with_anno_trait_chr_subset$QTL_no, sep = "_")
+    sar_gxe_qtl_dt_with_anno_trait_chr_subset$Base <- NULL
     sar_gxe_qtl_dt_with_anno_complete <- rbindlist(list(sar_gxe_qtl_dt_with_anno_complete, sar_gxe_qtl_dt_with_anno_trait_chr_subset))
   }
 }
