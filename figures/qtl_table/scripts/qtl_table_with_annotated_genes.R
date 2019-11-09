@@ -5,7 +5,7 @@ library(xtable)
 
 rm(list = ls())
 
-setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/gene_annotation/data/")
+setwd("/Users/James/Documents/GitHub/sar_qtl/figures/gene_annotation/data/")
 
 sar_gene_counts <- fread("sar_gxe_gene_counts.csv", 
                          sep = ",", 
@@ -14,7 +14,7 @@ sar_gene_counts <- fread("sar_gxe_gene_counts.csv",
 
 colnames(sar_gene_counts) <- c("trait", "qtl", "num_genes")
 
-setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/qtl_table/data/")
+setwd("/Users/James/Documents/GitHub/sar_qtl/figures/qtl_table/data/")
 sar_gxe_qtl_list <- lapply(list.files(pattern = "gxe_qtl_ci.csv"), function(x) fread(x, sep = ",", header = TRUE, stringsAsFactors = FALSE))
 sar_gxe_qtl_pheno <- sapply(strsplit(list.files(pattern = "gxe_qtl_ci.csv"), split = "_qtl_ci"), function(x) x[1])
 

@@ -5,11 +5,11 @@ library(xtable)
 
 rm(list = ls())
 
-setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/gene_annotation/data")
+setwd("/Users/James/Documents/GitHub/sar_qtl/figures/gene_annotation/data")
 
 #reading all of the annotated ci tables
-annotated_ci_phenotypes <- sapply(strsplit(list.files(pattern = "gxe_annotated_qtl_ci"), split = "_qtl_ci"), function(x) x[1])
-annotated_ci_tables <- lapply(list.files(pattern = "gxe_qtl_ci"), function(x) fread(x, sep = ",", header = TRUE, stringsAsFactors = FALSE))
+annotated_ci_phenotypes <- sapply(strsplit(list.files(pattern = "gxe_annotated_qtl_ci"), split = "_annotated_qtl_ci"), function(x) x[1])
+annotated_ci_tables <- lapply(list.files(pattern = "gxe_annotated_qtl_ci"), function(x) fread(x, sep = ",", header = TRUE, stringsAsFactors = FALSE))
 
 #putting a trait column for each ci table for each trait
 for (i in 1:length(annotated_ci_tables)) {

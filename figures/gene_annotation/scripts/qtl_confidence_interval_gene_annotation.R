@@ -4,7 +4,7 @@ library(data.table)
 rm(list = ls())
 
 #reading in the merged gene list from kazu's 2015 paper; merged with script
-setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/gene_annotation/data/")
+setwd("/Users/James/Documents/GitHub/sar_qtl/figures/gene_annotation/data/")
 kazu_shade_genes <- fread("kazu_romano_tair_merge.csv",
                           sep = ",",
                           header = TRUE,
@@ -15,7 +15,7 @@ for (j in list.files(pattern = "qtl_ci.csv")) {
   pheno_name <- sapply(strsplit(j, split = "_qtl_ci"), function(x) x[1])
   
   #need to put this here again because at the end of the for loop i change the directory
-  setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/qtl_table/data/")
+  setwd("/Users/James/Documents/GitHub/sar_qtl/figures/qtl_table/data/")
   #reading in an example data frame for confidence intervals
   qtl_confidence_intervals <- fread(j, 
                                     sep = ",", 
@@ -61,7 +61,7 @@ for (j in list.files(pattern = "qtl_ci.csv")) {
     file_name <- paste(pheno_name, "annotated_qtl_ci.csv", sep = "_")
     
     #writing a file for the qtl confidence intervals 
-    setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/gene_annotation/data/")
+    setwd("/Users/James/Documents/GitHub/sar_qtl/figures/gene_annotation/data/")
     fwrite(trait_qtl_annotation_df, 
            file = file_name, 
            sep = ",", 
