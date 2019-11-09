@@ -1,5 +1,5 @@
 #path analysis
-#need to grab the snps m_4_407208 and m_5_3799350
+#need to grab the snps m_4_41028, m_5_3799350, 4_8938713, and 5_25961748
 library(data.table)
 library(plyr)
 
@@ -10,7 +10,8 @@ setwd("/Users/James/Documents/GitHub/sar_qtl/6_push_button/data")
 geno_data <- readRDS("nam_rqtl_geno_prob_array_comp_11_all_rils_NEW.RDS")
 
 #grabbing the qtl markers
-geno_data_markers <- geno_data[c("4_407208", "5_3799350", "4_9222034")]
+#i chose the markers that were significant, and are more in the middle of the QTL regions 
+geno_data_markers <- geno_data[c("4_41028", "5_3799350", "4_8938713", "5_25961748")]
 
 #now need to 
 geno_data_markers_col <- lapply(geno_data_markers, function(x) subset(x, select = 1))
@@ -22,15 +23,17 @@ geno_data_markers_both_df <- do.call(cbind, geno_data_markers_both)
 colnames(geno_data_markers_both_df) <- paste("m", colnames(geno_data_markers_both_df), sep = "_")
 
 geno_data_qtl_combos <- with(geno_data_markers_both_df, data.frame(geno = rownames(geno_data_markers_col[[1]]),
-                                                                   A4 = m_4_407208.A,
-                                                                   B4 = m_4_407208.B,
+                                                                   A4 = m_4_41028.A,
+                                                                   B4 = m_4_41028.B,
                                                                    A5 = m_5_3799350.A,
                                                                    B5 = m_5_3799350.B,
-                                                                   A42 = m_4_9222034.A,
-                                                                   B42 = m_4_9222034.B,
-                                                                   AA = m_4_407208.A * m_5_3799350.A, 
-                                                                   AB = m_4_407208.A * m_5_3799350.B,
-                                                                   BA = m_4_407208.B * m_5_3799350.A,
+                                                                   A42 = m_4_8938713.A,
+                                                                   B42 = m_4_8938713.B,
+                                                                   A52 = m_5_25961748.A,
+                                                                   B52 = m_5_25961748.B,
+                                                                   AA = m_4_41028.A * m_5_3799350.A, 
+                                                                   AB = m_4_41028.A * m_5_3799350.B,
+                                                                   BA = m_4_41028.B * m_5_3799350.A,
                                                                    BB = m_4_407208.B * m_5_3799350.B))
 
 
