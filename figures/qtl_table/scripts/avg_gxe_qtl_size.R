@@ -4,7 +4,7 @@ library(data.table)
 
 rm(list = ls())
 
-setwd("/Users/James/Documents/GitHub/sar_qtl/figures/qtl_table/data/")
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/qtl_table/data/")
 
 sar_qtl <- fread("sar_gxe_qtl_info_with_anno.csv",
                  sep = ",",
