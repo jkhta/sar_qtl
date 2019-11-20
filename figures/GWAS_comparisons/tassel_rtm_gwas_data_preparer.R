@@ -27,7 +27,11 @@ setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/GWAS_comparisons/")
 
 #saving file for tassel
 colnames(nam_bd_geno_subset) <- c("<Trait>", "bd")
-fwrite(nam_bd_geno_subset, "bd_geno_tassel_with_family.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+fwrite(nam_bd_geno_subset, "bd_geno_tassel.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
+
+nam_bd_gxe_subset <- subset(nam_blups, select = c(geno, bd_gxe))
+colnames(nam_bd_gxe_subset) <- c("<Trait>", "bd")
+fwrite(nam_bd_gxe_subset, "bd_gxe_tassel.txt", sep = "\t", row.names = FALSE, col.names = TRUE)
 
 nam_bd_gxe_subset <- subset(nam_blups, select = c(geno, bd_gxe, family))
 #nam_bd_gxe_subset <- subset(nam_blups, select = c(geno, bd_gxe))
