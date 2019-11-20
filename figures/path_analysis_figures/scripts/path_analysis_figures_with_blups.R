@@ -6,7 +6,7 @@ library(plyr)
 
 rm(list = ls())
 
-setwd("/Users/James/Documents/GitHub/sar_qtl/7_path_analysis/data/")
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/7_path_analysis/data/")
 
 #looking at fri and flc individually
 path_data_FRI_FLC_ind <- rbindlist(lapply(list.files(pattern = "path_eff_blups.csv"), 
@@ -84,7 +84,7 @@ path_data_diff_B5_ggplot <- ggplot(data = path_data_diff_B5, aes(x = est, y = po
           plot.title = element_text(hjust = 0.5, size = 20),
           strip.text.x = element_text(size = 20)) + 
     scale_x_continuous(breaks = round(seq(min(path_data_diff_B5$est, na.rm = TRUE), max(path_data_diff_B5$est, na.rm = TRUE), by = 0.3), 1)) +
-    ggtitle("SAR5")
+    ggtitle("SAR5_1")
 
 ggarrange(path_data_diff_B4_ggplot, path_data_diff_B5_ggplot,
           vjust = 1.1,
@@ -163,5 +163,5 @@ ggarrange(path_data_diff_B4_ggplot,
           labels = c("A", "B", "C", "D"),
           font.label = list(size = 30))
 
-setwd("/Users/James/Documents/GitHub/sar_qtl/figures/path_analysis_figures/img/")
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/path_analysis_figures/img/")
 ggsave("SAR4_SAR42_SAR5_SAR52_effect_blups_comparison.png", device = "png", width = 18, height = 12)

@@ -7,14 +7,14 @@ library(plyr)
 rm(list = ls())
 
 #reading in the allelic series data
-setwd("/Users/James/Documents/GitHub/sar_qtl/figures/nam_allelic_series/data/")
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/nam_allelic_series/data/")
 nam_trait_lme4qtl_fixef <- fread("trait_lme4qtl_fixef_no_cov.csv",
                                  sep = ",",
                                  header = TRUE, 
                                  stringsAsFactors = FALSE)
 
 #reading in the file to change qtl names
-setwd("/Users/James/Documents/GitHub/sar_qtl/figures/qtl_table/data/")
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/qtl_table/data/")
 trait_qtl_name_match <- fread("sar_gxe_matched_qtl_name.csv",
                               sep = ",", 
                               header = TRUE,
@@ -131,5 +131,5 @@ ggarrange(BD_SAR_fixef_ggplot_BD_SAR1_1,
           ncol = 3, 
           labels = c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"),
           font.label = list(size = 25))
-
-ggsave("gxe_allelic_series_normalized_subset_supplemental.png", device = "png", width = 20, height = 10)
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/nam_allelic_series/img/")
+ggsave("gxe_allelic_series_normalized_subset_supplemental.png", device = "png", width = 20, height = 20)

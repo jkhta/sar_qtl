@@ -6,7 +6,7 @@ library(plyr)
 
 rm(list = ls())
 
-setwd("/Users/James/Documents/GitHub/sar_qtl/7_path_analysis/data/")
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/7_path_analysis/data/")
 
 sun_trait_eff <- rbindlist(lapply(list.files(pattern = "trait_eff_blups_sun.csv"), function(x) fread(x, sep = ",", header = TRUE, stringsAsFactors = FALSE)))
 
@@ -18,8 +18,18 @@ shade_trait_eff_reorder <- subset(shade_trait_eff, select = c(pop, grep("~", col
 colnames(sun_trait_eff_reorder)[1] <- "Population"
 colnames(shade_trait_eff_reorder)[1] <- "Population"
 
-sun_trait_eff_reorder$pop <- revalue(sun_trait_eff_reorder$pop, c("blh" = "Blh-1", "bur" = "Bur-0", "cvi" = "Cvi-0", "ita" = "Ita-0", "jea" = "Jea", "oy" = "Oy-0", "sha" = "Sha"))
-shade_trait_eff_reorder$pop <- revalue(shade_trait_eff_reorder$pop, c("blh" = "Blh-1", "bur" = "Bur-0", "cvi" = "Cvi-0", "ita" = "Ita-0", "jea" = "Jea", "oy" = "Oy-0", "sha" = "Sha"))
+sun_trait_eff_reorder$Population <- revalue(sun_trait_eff_reorder$Population, c("blh" = "Blh-1", "bur" = "Bur-0", "cvi" = "Cvi-0", "ita" = "Ita-0", "jea" = "Jea", "oy" = "Oy-0", "sha" = "Sha"))
+shade_trait_eff_reorder$Population <- revalue(shade_trait_eff_reorder$Population, c("blh" = "Blh-1", "bur" = "Bur-0", "cvi" = "Cvi-0", "ita" = "Ita-0", "jea" = "Jea", "oy" = "Oy-0", "sha" = "Sha"))
+
+colnames(sun_trait_eff_reorder) <- gsub("rdry", "RB", colnames(sun_trait_eff_reorder))
+colnames(sun_trait_eff_reorder) <- gsub("bd", "BD", colnames(sun_trait_eff_reorder))
+colnames(sun_trait_eff_reorder) <- gsub("h3h1", "IG", colnames(sun_trait_eff_reorder))
+colnames(sun_trait_eff_reorder) <- gsub("idry", "IB", colnames(sun_trait_eff_reorder))
+
+colnames(shade_trait_eff_reorder) <- gsub("rdry", "RB", colnames(shade_trait_eff_reorder))
+colnames(shade_trait_eff_reorder) <- gsub("bd", "BD", colnames(shade_trait_eff_reorder))
+colnames(shade_trait_eff_reorder) <- gsub("h3h1", "IG", colnames(shade_trait_eff_reorder))
+colnames(shade_trait_eff_reorder) <- gsub("idry", "IB", colnames(shade_trait_eff_reorder))
 
 print(xtable(sun_trait_eff_reorder), include.rownames = FALSE, NA.string = "NA")
 print(xtable(shade_trait_eff_reorder), include.rownames = FALSE, NA.string = "NA")
