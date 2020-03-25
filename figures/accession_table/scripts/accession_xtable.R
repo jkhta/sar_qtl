@@ -4,7 +4,7 @@ library(xtable)
 
 rm(list = ls())
 
-setwd("/Users/James/Documents/GitHub/sar_qtl/2_lmm_models/input/")
+setwd("/Users/James/Documents/GitHub/sar_qtl/1_phenotype_standardization/output/")
 
 nam_data <- fread("nam_cam_data_combined_tformed_std.csv",
                   sep = ",",
@@ -21,4 +21,6 @@ nam_acc <- data.frame(Accession = levels(nam_data_acc$geno2)[1:27],
                       Accession = levels(nam_data_acc$geno2)[55:81],
                       Accession = c(levels(nam_data_acc$geno2)[82:107], "NA"))
 
+setwd("/Users/James/Documents/GitHub/sar_qtl/figures/accession_table/figure/")
+fwrite(nam_acc, "table_s1_accessions.csv", sep = ",", row.names = FALSE)
 print(xtable(nam_acc), include.rownames = FALSE, NA.string = "")
