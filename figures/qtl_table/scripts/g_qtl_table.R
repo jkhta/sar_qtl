@@ -34,6 +34,8 @@ for (i in unique(g_qtl_comb_reordered$Trait)) {
   #for each chromosome with QTL, subset the data by chromosome and create new QTL names
   for (j in unique(g_qtl_comb_reordered_subset$Chromosome)) {
     g_qtl_comb_reordered_chr_subset <- subset(g_qtl_comb_reordered_subset, Chromosome == j)
+    g_qtl_comb_reordered_chr_subset$Base <- as.numeric(sapply(strsplit(g_qtl_comb_reordered_chr_subset$`QTL Marker`, split = "_"), function(x) x[3]))
+    g_qtl_comb_reordered_chr_subset <- g_qtl_comb_reordered_chr_subset[order(g_qtl_comb_reordered_chr_subset$Base)]
     g_qtl_comb_reordered_chr_subset$QTL_no <- 1:nrow(g_qtl_comb_reordered_chr_subset)
     g_qtl_comb_reordered_chr_subset$QTL <- paste(paste(g_qtl_comb_reordered_chr_subset$Trait, g_qtl_comb_reordered_chr_subset$Chromosome, sep = ""), g_qtl_comb_reordered_chr_subset$QTL_no, sep = "_")
     g_qtl_comb_reordered_complete <- rbindlist(list(g_qtl_comb_reordered_complete, g_qtl_comb_reordered_chr_subset))
