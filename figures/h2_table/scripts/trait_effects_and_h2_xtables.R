@@ -45,6 +45,7 @@ h2_table_merge$Trait <- revalue(h2_table_merge$Trait, c("bd" = "BD", "h3h1" = "I
 h2_table_merge$Intercept <- NULL
 h2_table_merge$Treatment <- NULL
 
+fwrite(h2_table_merge, "table_s3_brms_summary_stats.csv", sep = ",", row.names = FALSE)
 #generating xtable
 print(xtable(h2_table_merge, label = ("S2_Table"), digits = 2), include.rownames=FALSE)
 
@@ -88,6 +89,7 @@ h2_table_ci <- subset(h2_table_ci, select = c(trait, shelf_fixef, geno_h2, gxe_h
 colnames(h2_table_ci) <- c("Trait", "Shelf", "G-PVE", "GxE-PVE")
 h2_table_ci$Trait <- revalue(h2_table_ci$Trait, c("bd" = "BD", "h3h1" = "IG", "idry" = "IB", "rdry" = "RB"))
 
+fwrite(h2_table_ci, "table_s2_effect_cis.csv", sep = ",", row.names = FALSE)
 print(xtable(h2_table_ci, label = ("Table S3")), include.rownames=FALSE)
 
 #reading in qtl found for genotype random effects and GxE random effects
