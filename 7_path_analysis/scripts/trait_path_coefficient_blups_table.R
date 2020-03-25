@@ -31,5 +31,9 @@ colnames(shade_trait_eff_reorder) <- gsub("bd", "BD", colnames(shade_trait_eff_r
 colnames(shade_trait_eff_reorder) <- gsub("h3h1", "IG", colnames(shade_trait_eff_reorder))
 colnames(shade_trait_eff_reorder) <- gsub("idry", "IB", colnames(shade_trait_eff_reorder))
 
+setwd("../figure/")
+fwrite(sun_trait_eff_reorder, "table_s7_sun_trait_effects.csv", sep = ",", row.names = FALSE)
+fwrite(shade_trait_eff_reorder, "table_s8_shade_trait_effects.csv", sep = ",", row.names = FALSE)
+
 print(xtable(sun_trait_eff_reorder), include.rownames = FALSE, NA.string = "NA")
 print(xtable(shade_trait_eff_reorder), include.rownames = FALSE, NA.string = "NA")
