@@ -49,4 +49,6 @@ g_qtl_comb_reordered_complete$`-log10p` <- NULL
 #reordering variables again
 g_qtl_comb_reordered_complete <- subset(g_qtl_comb_reordered_complete, select = c(Trait, QTL, `SNP PVE`, `QTL Marker`, Chromosome, `Left Bound`, `Right Bound`))
 
+setwd("../figure/")
+fwrite(g_qtl_comb_reordered_complete, "table_s4_geno_ranef_qtl.csv", sep = ",", row.names = FALSE)
 print(xtable(g_qtl_comb_reordered_complete), include.rownames = FALSE)

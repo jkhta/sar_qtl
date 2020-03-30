@@ -132,4 +132,4 @@ ggarrange(BD_SAR_fixef_ggplot_BD_SAR1_1,
           labels = c("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"),
           font.label = list(size = 25))
 setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/nam_allelic_series/img/")
-ggsave("gxe_allelic_series_normalized_subset_supplemental.png", device = "png", width = 20, height = 20)
+ggsave("gxe_allelic_series_normalized_subset_supplemental_larger.png", device = "png", width = 20, height = 20)
