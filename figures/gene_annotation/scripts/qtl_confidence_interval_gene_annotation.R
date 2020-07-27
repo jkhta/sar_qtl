@@ -4,18 +4,19 @@ library(data.table)
 rm(list = ls())
 
 #reading in the merged gene list from kazu's 2015 paper; merged with script
-setwd("/Users/James/Documents/GitHub/sar_qtl/figures/gene_annotation/data/")
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/gene_annotation/data/")
 kazu_shade_genes <- fread("kazu_romano_tair_merge.csv",
                           sep = ",",
                           header = TRUE,
                           stringsAsFactors = FALSE)
-
-for (j in list.files(pattern = "qtl_ci.csv")) {
+qtl_ci_files <- list.files(pattern = "qtl_ci.csv")
+qtl_ci_files <- qtl_ci_files[grepl("geno_qtl|gxe_qtl", qtl_ci_files)]
+for (j in qtl_ci_files) {
   #grabbing the phenotype name
   pheno_name <- sapply(strsplit(j, split = "_qtl_ci"), function(x) x[1])
   
   #need to put this here again because at the end of the for loop i change the directory
-  setwd("/Users/James/Documents/GitHub/sar_qtl/figures/qtl_table/data/")
+  setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/qtl_table/data/")
   #reading in an example data frame for confidence intervals
   qtl_confidence_intervals <- fread(j, 
                                     sep = ",", 
@@ -39,7 +40,8 @@ for (j in list.files(pattern = "qtl_ci.csv")) {
     kazu_chr_subset <- subset(kazu_shade_genes, chr_num == qtl_chr$chr)
     
     #now need to see what genes are within the bounds
-    kazu_chr_subset_wi_bounds <- subset(kazu_chr_subset, start > qtl_chr$left_pos & start < qtl_chr$right_pos)
+    #kazu_chr_subset_wi_bounds <- subset(kazu_chr_subset, start > qtl_chr$left_pos & start < qtl_chr$right_pos)
+    kazu_chr_subset_wi_bounds <- subset(kazu_chr_subset, (start > qtl_chr$left_pos & start < qtl_chr$right_pos) | (end > qtl_chr$left_pos & end < qtl_chr$right_pos))
     
     if (nrow(kazu_chr_subset_wi_bounds) == 0) {
       #filling the list with qtl
@@ -58,10 +60,10 @@ for (j in list.files(pattern = "qtl_ci.csv")) {
     trait_qtl_annotation_df <- rbindlist(trait_qtl_annotation, fill = TRUE)
     
     #generating the file name for the confidence intervals
-    file_name <- paste(pheno_name, "annotated_qtl_ci.csv", sep = "_")
+    file_name <- paste(pheno_name, "revised_annotated_qtl_ci.csv", sep = "_")
     
     #writing a file for the qtl confidence intervals 
-    setwd("/Users/James/Documents/GitHub/sar_qtl/figures/gene_annotation/data/")
+    setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/gene_annotation/data/")
     fwrite(trait_qtl_annotation_df, 
            file = file_name, 
            sep = ",", 

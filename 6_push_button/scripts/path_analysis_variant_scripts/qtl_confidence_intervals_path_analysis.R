@@ -105,7 +105,7 @@ marker_shift <- function(marker, marker_chr_subset, shift_direction = "left", st
   #if the shifted marker is the same as the marker, return nothing and stop the
   #pipeline later
   if (marker_shift == marker) {
-    return(NULL)
+    return(marker)
   } else {
     return(marker_shift)
   }
@@ -188,11 +188,11 @@ for (i in 1:length(test_model_qtl)) {
   
   #formula for the first scan
   if (ind_pheno == "r_dry_gxe") {
-    first_scan_formula <- as.formula(paste("r_dry_gxe", "~ bd_gxe + (1|geno)", sep = ""))
+    first_scan_formula <- as.formula(paste("r_dry_gxe", "~ bd_geno + bd_gxe + (1|geno)", sep = ""))
   } else if (ind_pheno == "h3_h1_gxe") {
-    first_scan_formula <- as.formula(paste("h3_h1_gxe", "~ bd_gxe + r_dry_gxe + (1|geno)", sep = ""))
+    first_scan_formula <- as.formula(paste("h3_h1_gxe", "~ bd_geno + bd_gxe + r_dry_geno + r_dry_gxe + (1|geno)", sep = ""))
   } else if (ind_pheno == "i_dry_gxe") {
-    first_scan_formula <- as.formula(paste("i_dry_gxe", "~ bd_gxe + r_dry_gxe + h3_h1_gxe + (1|geno)", sep = ""))
+    first_scan_formula <- as.formula(paste("i_dry_gxe", "~ bd_geno + bd_gxe + r_dry_geno + r_dry_gxe + h3_h1_geno + h3_h1_gxe + (1|geno)", sep = ""))
   } else {
     first_scan_formula <- as.formula(paste(ind_pheno, " ~ (1|geno)", sep = ""))
   }
@@ -226,62 +226,67 @@ for (i in 1:length(test_model_qtl)) {
     #finding markers just to the right or left of a marker
     shifted_marker <- marker_shift(test_marker, test_marker_same_chr, "left", steps = step_size)
     
-    #generating a vector of markers for the full and reduced models; the formulas
-    #aren't generated until the markers are assigned the the global environment
-    full_qtl_vector <- c(test_model_qtl, shifted_marker)
-    
-    #generating a vector of markers for the reduced model
-    reduced_qtl_vector <- test_model_qtl
-    reduced_qtl_vector[[which(test_model_qtl == test_marker)]] <- shifted_marker
-    
-    #generating information for all populations
-    all_pop_pheno_with_geno <- mclapply(all_pop_data, function(x) full_marker_data_subsetter(full_marker_vector = reduced_qtl_vector,
-                                                                                             marker_array = complete_markers,
-                                                                                             pheno_data = x$pop_pheno))
-    
-    #generating a formula for the reduced qtl list
-    reduced_qtl_formula <- paste(reduced_qtl_vector, collapse = " + ")
-    
-    if (ind_pheno == "r_dry_gxe") {
-      reduced_model_formula <- as.formula(paste("r_dry_gxe", "~", "bd_gxe", " + ", reduced_qtl_formula, " + (1|geno)", sep = ""))
-    } else if (ind_pheno == "h3_h1_gxe") {
-      reduced_model_formula <- as.formula(paste("h3_h1_gxe", "~", "bd_gxe + r_dry_gxe", " + ", reduced_qtl_formula, " + (1|geno)", sep = ""))
-    } else if (ind_pheno == "i_dry_gxe") {
-      reduced_model_formula <- as.formula(paste("i_dry_gxe", "~", "bd_gxe + r_dry_gxe + h3_h1_gxe ", " + ", reduced_qtl_formula, " + (1|geno)", sep = ""))
-    } else {
-      reduced_model_formula <- as.formula(paste(ind_pheno, " ~ ", reduced_qtl_formula, " + (1|geno)", sep = ""))
-    }
-    
-    #printing out the marker name; this is both to see the progress of the confidence intervals
-    #and also to see if there is an error with the script or Dan's package
-    print(paste("=============", paste("The current marker is ", shifted_marker, sep = " "), "=============", sep = ""))
-    
-    #reduced model fit testing all markers; the X is the test marker; that's why we don't need to run the full model scan 
-    all_pop_reduced_tests <- lapply(1:length(all_pop_pheno_with_geno), function(x) GridLMM_GWAS(reduced_model_formula, ~1, ~0,
-                                                                                                data = all_pop_pheno_with_geno[[x]],
-                                                                                                X = all_pop_test_marker[[x]],
-                                                                                                X_ID = 'geno',
-                                                                                                h2_step = 0.01,
-                                                                                                max_steps = 100,
-                                                                                                mc.cores = 1,
-                                                                                                centerX = FALSE,
-                                                                                                scaleX = FALSE,
-                                                                                                V_setup = first_marker_scan[[x]]$setup$V_setup,
-                                                                                                proximal_markers = all_pop_data[[x]]$cM_proximal_list[test_marker_pos],
-                                                                                                proximal_Xs = list(all_pop_data[[x]]$pop_geno),
-                                                                                                method = "ML"))
-    
-    #grabbing the results for all markers
-    pop_reduced_tests_dt <- rbindlist(lapply(all_pop_reduced_tests, function(x) subset(x$results)))
-    test_marker_sig <- with(pop_reduced_tests_dt, pchisq(2 * (sum(ML_logLik) - sum(ML_Reduced_logLik)), df = length(all_pop_data), lower.tail = FALSE))
-    
-    #if the test is significant for the testing marker, or if the shifted marker is the same as
-    #the testing marker, then stop the while loop
-    if (test_marker_sig < 0.05 | shifted_marker == test_marker_same_chr$marker[1]) {
+    if (shifted_marker == test_marker_same_chr$marker[1]) {
       left_side <- TRUE
       left_bound <- shifted_marker
     } else {
-      step_size <- step_size + 1
+      #generating a vector of markers for the full and reduced models; the formulas
+      #aren't generated until the markers are assigned the the global environment
+      full_qtl_vector <- c(test_model_qtl, shifted_marker)
+      
+      #generating a vector of markers for the reduced model
+      reduced_qtl_vector <- test_model_qtl
+      reduced_qtl_vector[[which(test_model_qtl == test_marker)]] <- shifted_marker
+      
+      #generating information for all populations
+      all_pop_pheno_with_geno <- mclapply(all_pop_data, function(x) full_marker_data_subsetter(full_marker_vector = reduced_qtl_vector,
+                                                                                               marker_array = complete_markers,
+                                                                                               pheno_data = x$pop_pheno))
+      
+      #generating a formula for the reduced qtl list
+      reduced_qtl_formula <- paste(reduced_qtl_vector, collapse = " + ")
+      
+      if (ind_pheno == "r_dry_gxe") {
+        reduced_model_formula <- as.formula(paste("r_dry_gxe", "~", "bd_geno + bd_gxe", " + ", reduced_qtl_formula, " + (1|geno)", sep = ""))
+      } else if (ind_pheno == "h3_h1_gxe") {
+        reduced_model_formula <- as.formula(paste("h3_h1_gxe", "~", "bd_geno + bd_gxe + r_dry_geno + r_dry_gxe", " + ", reduced_qtl_formula, " + (1|geno)", sep = ""))
+      } else if (ind_pheno == "i_dry_gxe") {
+        reduced_model_formula <- as.formula(paste("i_dry_gxe", "~", "bd_geno + bd_gxe + r_dry_geno + r_dry_gxe + h3_h1_geno + h3_h1_gxe ", " + ", reduced_qtl_formula, " + (1|geno)", sep = ""))
+      } else {
+        reduced_model_formula <- as.formula(paste(ind_pheno, " ~ ", reduced_qtl_formula, " + (1|geno)", sep = ""))
+      }
+      
+      #printing out the marker name; this is both to see the progress of the confidence intervals
+      #and also to see if there is an error with the script or Dan's package
+      print(paste("=============", paste("The current marker is ", shifted_marker, sep = " "), "=============", sep = ""))
+      
+      #reduced model fit testing all markers; the X is the test marker; that's why we don't need to run the full model scan 
+      all_pop_reduced_tests <- lapply(1:length(all_pop_pheno_with_geno), function(x) GridLMM_GWAS(reduced_model_formula, ~1, ~0,
+                                                                                                  data = all_pop_pheno_with_geno[[x]],
+                                                                                                  X = all_pop_test_marker[[x]],
+                                                                                                  X_ID = 'geno',
+                                                                                                  h2_step = 0.01,
+                                                                                                  max_steps = 100,
+                                                                                                  mc.cores = 1,
+                                                                                                  centerX = FALSE,
+                                                                                                  scaleX = FALSE,
+                                                                                                  V_setup = first_marker_scan[[x]]$setup$V_setup,
+                                                                                                  proximal_markers = all_pop_data[[x]]$cM_proximal_list[test_marker_pos],
+                                                                                                  proximal_Xs = list(all_pop_data[[x]]$pop_geno),
+                                                                                                  method = "ML"))
+      
+      #grabbing the results for all markers
+      pop_reduced_tests_dt <- rbindlist(lapply(all_pop_reduced_tests, function(x) subset(x$results)))
+      test_marker_sig <- with(pop_reduced_tests_dt, pchisq(2 * (sum(ML_logLik) - sum(ML_Reduced_logLik)), df = length(all_pop_data), lower.tail = FALSE))
+      
+      #if the test is significant for the testing marker, or if the shifted marker is the same as
+      #the testing marker, then stop the while loop
+      if (test_marker_sig < 0.05) {
+        left_side <- TRUE
+        left_bound <- shifted_marker
+      } else {
+        step_size <- step_size + 1
+      }
     }
   }
   
@@ -322,59 +327,64 @@ for (i in 1:length(test_model_qtl)) {
     #finding markers just to the right or left of a marker
     shifted_marker <- marker_shift(test_marker, test_marker_same_chr, "right", steps = step_size)
     
-    #generating a vector of markers for the full and reduced models; the formulas
-    #aren't generated until the markers are assigned the the global environment
-    full_qtl_vector <- c(test_model_qtl, shifted_marker)
-    
-    #generating a vector of markers for the reduced model
-    reduced_qtl_vector <- test_model_qtl
-    reduced_qtl_vector[[which(test_model_qtl == test_marker)]] <- shifted_marker
-    
-    #generating information for all populations
-    all_pop_pheno_with_geno <- mclapply(all_pop_data, function(x) full_marker_data_subsetter(full_marker_vector = reduced_qtl_vector,
-                                                                                             marker_array = complete_markers,
-                                                                                             pheno_data = x$pop_pheno))
-    
-    #generating a formula for the reduced qtl list
-    reduced_qtl_formula <- paste(reduced_qtl_vector, collapse = " + ")
-
-    if (ind_pheno == "r_dry_gxe") {
-      reduced_model_formula <- as.formula(paste("r_dry_gxe", "~", "bd_gxe", " + ", reduced_qtl_formula, " + (1|geno)", sep = ""))
-    } else if (ind_pheno == "h3_h1_gxe") {
-      reduced_model_formula <- as.formula(paste("h3_h1_gxe", "~", "bd_gxe + r_dry_gxe", " + ", reduced_qtl_formula, " + (1|geno)", sep = ""))
-    } else if (ind_pheno == "i_dry_gxe") {
-      reduced_model_formula <- as.formula(paste("i_dry_gxe", "~", "bd_gxe + r_dry_gxe + h3_h1_gxe ", " + ", reduced_qtl_formula, " + (1|geno)", sep = ""))
-    } else {
-      reduced_model_formula <- as.formula(paste(ind_pheno, " ~ ", reduced_qtl_formula, " + (1|geno)", sep = ""))
-    }
-    
-    print(paste("=============", paste("The current marker is ", shifted_marker, sep = " "), "=============", sep = ""))
-    
-    #reduced model fit testing all markers; i don't know how to test only 1 marker 
-    all_pop_reduced_tests <- lapply(1:length(all_pop_pheno_with_geno), function(x) GridLMM_GWAS(reduced_model_formula, ~1, ~0,
-                                                                                                data = all_pop_pheno_with_geno[[x]],
-                                                                                                X = all_pop_test_marker[[x]],
-                                                                                                X_ID = 'geno',
-                                                                                                h2_step = 0.01,
-                                                                                                max_steps = 100,
-                                                                                                mc.cores = 1,
-                                                                                                centerX = FALSE,
-                                                                                                scaleX = FALSE,                                                                                                V_setup = first_marker_scan[[x]]$setup$V_setup,
-                                                                                                proximal_markers = all_pop_data[[x]]$cM_proximal_list[test_marker_pos],
-                                                                                                proximal_Xs = list(all_pop_data[[x]]$pop_geno),
-                                                                                                method = "ML"))
-    
-    #grabbing the results for all markers
-    pop_reduced_tests_dt <- rbindlist(lapply(all_pop_reduced_tests, function(x) subset(x$results)))
-    test_marker_sig <- with(pop_reduced_tests_dt, pchisq(2 * (sum(ML_logLik) - sum(ML_Reduced_logLik)), df = length(all_pop_data), lower.tail = FALSE))
-    
-    #if the test is significant for the testing marker, or if the shifted marker is the same as
-    #the testing marker, then stop the while loop
-    if (test_marker_sig < 0.05 | shifted_marker == test_marker_same_chr$marker[nrow(test_marker_same_chr)]) {
+    if (shifted_marker == test_marker_same_chr$marker[nrow(test_marker_same_chr)]) {
       right_side <- TRUE
       right_bound <- shifted_marker
     } else {
-      step_size <- step_size + 1
+      #generating a vector of markers for the full and reduced models; the formulas
+      #aren't generated until the markers are assigned the the global environment
+      full_qtl_vector <- c(test_model_qtl, shifted_marker)
+      
+      #generating a vector of markers for the reduced model
+      reduced_qtl_vector <- test_model_qtl
+      reduced_qtl_vector[[which(test_model_qtl == test_marker)]] <- shifted_marker
+      
+      #generating information for all populations
+      all_pop_pheno_with_geno <- mclapply(all_pop_data, function(x) full_marker_data_subsetter(full_marker_vector = reduced_qtl_vector,
+                                                                                               marker_array = complete_markers,
+                                                                                               pheno_data = x$pop_pheno))
+      
+      #generating a formula for the reduced qtl list
+      reduced_qtl_formula <- paste(reduced_qtl_vector, collapse = " + ")
+      
+      if (ind_pheno == "r_dry_gxe") {
+        reduced_model_formula <- as.formula(paste("r_dry_gxe", "~", "bd_geno + bd_gxe", " + ", reduced_qtl_formula, " + (1|geno)", sep = ""))
+      } else if (ind_pheno == "h3_h1_gxe") {
+        reduced_model_formula <- as.formula(paste("h3_h1_gxe", "~", "bd_geno + bd_gxe + r_dry_geno + r_dry_gxe", " + ", reduced_qtl_formula, " + (1|geno)", sep = ""))
+      } else if (ind_pheno == "i_dry_gxe") {
+        reduced_model_formula <- as.formula(paste("i_dry_gxe", "~", "bd_geno + bd_gxe + r_dry_geno + r_dry_gxe + h3_h1_geno + h3_h1_gxe", " + ", reduced_qtl_formula, " + (1|geno)", sep = ""))
+      } else {
+        reduced_model_formula <- as.formula(paste(ind_pheno, " ~ ", reduced_qtl_formula, " + (1|geno)", sep = ""))
+      }
+      
+      print(paste("=============", paste("The current marker is ", shifted_marker, sep = " "), "=============", sep = ""))
+      
+      #reduced model fit testing all markers; i don't know how to test only 1 marker 
+      all_pop_reduced_tests <- lapply(1:length(all_pop_pheno_with_geno), function(x) GridLMM_GWAS(reduced_model_formula, ~1, ~0,
+                                                                                                  data = all_pop_pheno_with_geno[[x]],
+                                                                                                  X = all_pop_test_marker[[x]],
+                                                                                                  X_ID = 'geno',
+                                                                                                  h2_step = 0.01,
+                                                                                                  max_steps = 100,
+                                                                                                  mc.cores = 1,
+                                                                                                  centerX = FALSE,
+                                                                                                  scaleX = FALSE,                                                                                                V_setup = first_marker_scan[[x]]$setup$V_setup,
+                                                                                                  proximal_markers = all_pop_data[[x]]$cM_proximal_list[test_marker_pos],
+                                                                                                  proximal_Xs = list(all_pop_data[[x]]$pop_geno),
+                                                                                                  method = "ML"))
+      
+      #grabbing the results for all markers
+      pop_reduced_tests_dt <- rbindlist(lapply(all_pop_reduced_tests, function(x) subset(x$results)))
+      test_marker_sig <- with(pop_reduced_tests_dt, pchisq(2 * (sum(ML_logLik) - sum(ML_Reduced_logLik)), df = length(all_pop_data), lower.tail = FALSE))
+      
+      #if the test is significant for the testing marker, or if the shifted marker is the same as
+      #the testing marker, then stop the while loop
+      if (test_marker_sig < 0.05) {
+        right_side <- TRUE
+        right_bound <- shifted_marker
+      } else {
+        step_size <- step_size + 1
+      }
     }
   }
   #creating a data frame with the qtl and its bounds, and then adding it to the 
