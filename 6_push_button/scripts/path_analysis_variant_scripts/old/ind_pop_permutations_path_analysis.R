@@ -56,7 +56,6 @@ pop_pheno <- pop_data$pop_pheno
 pop_pheno_only <- subset(pop_pheno, select = grepl("_geno|_gxe", colnames(pop_pheno)))
 pop_pheno_info <- subset(pop_pheno, select = geno)
 
-print(paste("In directory", getwd(), sep = " "))
 try(dir.create(pop_name))
 setwd(pop_name)
 
@@ -110,15 +109,7 @@ for (j in 1:ncol(pop_pheno_only)) {
   pop_perms <- foreach(i = 1:perm_no) %dopar% {
     print(paste("Perm no", i, sep = " "))
 
-    if (pheno_name == "r_dry_gxe") {
-      model_formula <- as.formula(paste("r_dry_gxe", "~ bd_geno + bd_gxe + (1|geno)", sep = ""))
-    } else if (pheno_name == "h3_h1_gxe") {
-      model_formula <- as.formula(paste("h3_h1_gxe", "~ bd_geno + bd_gxe + r_dry_geno + r_dry_gxe + (1|geno)", sep = ""))
-    } else if (pheno_name == "i_dry_gxe") {
-      model_formula <- as.formula(paste("i_dry_gxe", "~ bd_geno + bd_gxe + r_dry_geno + r_dry_gxe + h3_h1_geno + h3_h1_gxe + (1|geno)", sep = ""))
-    } else {
-      model_formula <- as.formula(paste(pheno_name, " ~ (1|geno)", sep = ""))
-    }
+    model_formula <- as.formula(paste(pheno_name, " ~ (1|geno)", sep = ""))
     
     #changing the permutation type - phenotype or genotype
     if (perm_type == "pheno") {
