@@ -105,6 +105,11 @@ ggarrange(BD_SAR_fixef_ggplot_BD_SAR4_1,
 setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/nam_allelic_series/img/")
 ggsave("gxe_allelic_series_normalized_subset.png", device = "png", width = 20, height = 10)
 
+sar_allelic <- image_read("gxe_allelic_series_normalized_subset.png")
+
+sar_allelic_smaller <- image_resize(sar_allelic, "2352x")
+image_write(sar_allelic_smaller, path = "gxe_allelic_series_normalized_subset_G3_jpeg_resize.jpg", format = "jpeg")
+
 #plotting other SAR QTL allelic series
 
 BD_SAR_fixef_ggplot_BD_SAR1_2 <- BD_SAR_fixef_ggplot_BD_SAR1_2 + theme(axis.title.y = element_blank())

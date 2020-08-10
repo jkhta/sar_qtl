@@ -3,6 +3,7 @@ library(data.table)
 library(ggplot2)
 library(ggpubr)
 library(plyr)
+library(magick)
 
 rm(list = ls())
 
@@ -165,3 +166,20 @@ ggarrange(path_data_diff_B4_ggplot,
 
 setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/path_analysis_figures/img/")
 ggsave("SAR4_SAR42_SAR5_SAR52_effect_blups_comparison.png", device = "png", width = 18, height = 12)
+
+ggarrange(path_data_diff_B4_ggplot, 
+          path_data_diff_B42_ggplot, 
+          path_data_diff_B5_ggplot, 
+          path_data_diff_B52_ggplot,
+          vjust = 1.1,
+          #hjust = c(-4.5, , -4),
+          labels = c("A", "B", "C", "D"),
+          font.label = list(size = 30))
+setwd("/Users/jkhta/Documents/GitHub/sar_qtl/figures/path_analysis_figures/img/")
+ggsave("SAR4_SAR42_SAR5_SAR52_effect_blups_comparison_G3_jpeg.jpg", device = "jpeg", width = 18, height = 12)
+ggsave("SAR4_SAR42_SAR5_SAR52_effect_blups_comparison_G3_jpeg.jpg", device = "jpeg", width = 18, height = 12, units = "cm")
+
+sar_path <- image_read("SAR4_SAR42_SAR5_SAR52_effect_blups_comparison_G3_jpeg.jpg")
+
+sar_path_smaller <- image_resize(sar_path, "2117x")
+image_write(sar_path_smaller, path = "SAR4_SAR42_SAR5_SAR52_effect_blups_comparison_G3_jpeg_resize.jpg", format = "jpeg")
